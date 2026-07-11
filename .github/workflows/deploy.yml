@@ -1,0 +1,34 @@
+name: Pro Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main # Jab main branch par push hoga, yeh chalega
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Code Download
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Node.js Setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Apni Next.js version ke mutabiq change kar lena
+
+      - name: 📦 Packages Install
+        run: npm install
+
+      - name: 🔨 Website Build
+        run: npm run build
+
+      - name: 🚀 Rsync se Fast Upload
+        uses: up9cloud/action-rsync@master
+        env:
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+          USER: ${{ secrets.USERNAME }}
+          PASS: ${{ secrets.PASSWORD }}
+          SOURCE: "out/" # Next.js ki tayar files
+          TARGET: "	/home/u483648284/domains/aurabusinesssolution.com/public_html/pk"
