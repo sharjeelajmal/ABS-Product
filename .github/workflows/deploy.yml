@@ -29,6 +29,6 @@ jobs:
           HOST: ${{ secrets.HOST }}
           PORT: ${{ secrets.PORT }}
           USER: ${{ secrets.USERNAME }}
-          PASS: ${{ secrets.PASSWORD }}
+          PASSWORD: ${{ secrets.PASSWORD }}
           SOURCE: "out/" # Next.js ki tayar files
           TARGET: "	/home/u483648284/domains/aurabusinesssolution.com/public_html/pk"
