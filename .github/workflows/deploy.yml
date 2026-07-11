@@ -15,7 +15,7 @@ jobs:
       - name: ⚙️ Node.js Setup
         uses: actions/setup-node@v3
         with:
-          node-version: "20" # Apni Next.js version ke mutabiq change kar lena
+          node-version: "20" # Next.js ke liye required naya engine
 
       - name: 📦 Packages Install
         run: npm install
@@ -23,12 +23,13 @@ jobs:
       - name: 🔨 Website Build
         run: npm run build
 
-      - name: 🚀 Rsync se Fast Upload
-        uses: up9cloud/action-rsync@master
-        env:
-          HOST: ${{ secrets.HOST }}
-          PORT: ${{ secrets.PORT }}
-          USER: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          SOURCE: "out/" # Next.js ki tayar files
-          TARGET: "	/home/u483648284/domains/aurabusinesssolution.com/public_html/pk"
+      - name: 🚀 SSH se Pakka Upload
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "out/" # Sirf tayar shuda files
+          target: "/home/u483648284/domains/aurabusinesssolution.com/public_html/pk" # Exact rasta, bina kisi extra space ke
+          strip_components: 1 # Yeh out folder ko nahi, balki uske andar ke saman ko bhejega
