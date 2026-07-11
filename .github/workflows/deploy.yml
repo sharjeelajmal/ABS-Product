@@ -15,7 +15,7 @@ jobs:
       - name: ⚙️ Node.js Setup
         uses: actions/setup-node@v3
         with:
-          node-version: "18" # Apni Next.js version ke mutabiq change kar lena
+          node-version: "20" # Apni Next.js version ke mutabiq change kar lena
 
       - name: 📦 Packages Install
         run: npm install
