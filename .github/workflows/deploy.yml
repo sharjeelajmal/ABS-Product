@@ -15,7 +15,7 @@ jobs:
       - name: ⚙️ Node.js Setup
         uses: actions/setup-node@v3
         with:
-          node-version: "20" # Next.js ke liye required naya engine
+          node-version: "20"
 
       - name: 📦 Packages Install
         run: npm install
