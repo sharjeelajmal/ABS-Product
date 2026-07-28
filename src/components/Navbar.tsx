@@ -1,151 +1,360 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { NAV_LINKS, MOBILE_NAV, scrollToHash } from "@/lib/navigation";
-import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { useCallback, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowRight, Phone } from "lucide-react";
+import { SiteButton } from "./SiteButton";
 
-const linkBase =
-  "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300";
-const linkActive = "text-black bg-[var(--primary)] font-semibold shadow-[0_0_16px_rgba(197,255,0,0.35)]";
-const linkInactive = "text-gray-400 hover:text-[var(--foreground)] hover:bg-white/[0.06]";
+const LIME = "#C5FF00";
+const F = "'Geist', system-ui, -apple-system, sans-serif";
 
-function NavLink({
-  href,
-  label,
-  active,
-  onNavigate,
-}: {
-  href: string;
-  label: string;
-  active: boolean;
-  onNavigate?: () => void;
-}) {
-  return (
-    <a
-      href={href}
-      onClick={(e) => {
-        e.preventDefault();
-        scrollToHash(href);
-        onNavigate?.();
-      }}
-      className={`${linkBase} ${active ? linkActive : linkInactive}`}
-      aria-current={active ? "page" : undefined}
-    >
-      {label}
-    </a>
-  );
+const NAV_LINKS = [
+  { label: "Home", href: "#hero" },
+  { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
+  { label: "Products", href: "#products" },
+] as const;
+
+function scrollToHash(hash: string) {
+  const id = hash.replace("#", "");
+  const el = document.getElementById(id);
+  if (!el) return;
+  const offset = 88;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: "smooth" });
+  window.history.replaceState(null, "", hash);
 }
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const activeSection = useScrollSpy();
-
-  const closeMenu = useCallback(() => setIsOpen(false), []);
-  const isActive = (id: string) => activeSection === id;
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("#hero");
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+
+      const sections = ["hero", "services", "process", "products"];
+      const y = window.scrollY + 120;
+      let current = "#hero";
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) current = `#${id}`;
+      }
+      setActive(current);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpen]);
+  }, [open]);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeMenu();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [closeMenu]);
+  const navigate = useCallback((href: string) => {
+    scrollToHash(href);
+    setOpen(false);
+  }, []);
 
   return (
     <>
-      <nav className="fixed top-0 inset-x-0 z-50 md:px-6 pt-[env(safe-area-inset-top)]">
+      <motion.header
+        initial={{ y: -28, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          padding:
+            "max(12px, env(safe-area-inset-top)) 16px 0",
+        }}
+      >
         <div
-          className={`mx-auto flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${
-            scrolled
-              ? "md:mt-4 h-14 md:h-16 md:max-w-6xl md:rounded-2xl md:border md:border-[var(--glass-border)] md:bg-[var(--glass-bg)]/85 md:backdrop-blur-2xl md:shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
-              : "h-14 md:h-20 md:max-w-6xl md:rounded-2xl md:bg-transparent"
-          } mobile-nav-bar md:mt-4`}
+          className="site-header-inner"
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "16px",
+            padding: scrolled ? "10px 18px" : "14px 22px",
+            borderRadius: "100px",
+            border: scrolled
+              ? "1px solid rgba(255,255,255,0.1)"
+              : "1px solid rgba(255,255,255,0.06)",
+            background: scrolled
+              ? "rgba(8,8,8,0.82)"
+              : "rgba(255,255,255,0.03)",
+            backdropFilter: "blur(22px)",
+            WebkitBackdropFilter: "blur(22px)",
+            boxShadow: scrolled
+              ? "0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05)"
+              : "inset 0 1px 0 rgba(255,255,255,0.04)",
+            transition:
+              "padding 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+          }}
         >
+          {/* Brand */}
           <a
-            href="#top"
+            href="#hero"
             onClick={(e) => {
               e.preventDefault();
-              scrollToHash("#top");
-              closeMenu();
+              navigate("#hero");
             }}
-            className="text-base md:text-xl font-bold tracking-tight flex items-center gap-2.5 md:gap-3 group min-w-0"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              textDecoration: "none",
+              minWidth: 0,
+              flexShrink: 0,
+            }}
           >
-            <span className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-[var(--primary)] to-[#90c200] flex items-center justify-center text-black font-bold shrink-0 shadow-[0_0_15px_rgba(197,255,0,0.3)] group-active:scale-95 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>
-            </span>
-            <span className="truncate text-sm md:text-base bg-clip-text text-transparent bg-gradient-to-r from-[var(--foreground)] to-gray-400">
+            <motion.span
+              whileHover={{ rotate: 8, scale: 1.05 }}
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 12,
+                background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#050505",
+                fontFamily: F,
+                fontWeight: 800,
+                fontSize: 14,
+                boxShadow: "0 0 20px rgba(197,255,0,0.35)",
+                flexShrink: 0,
+              }}
+            >
+              A
+            </motion.span>
+            <span
+              className="site-header-brand"
+              style={{
+                fontFamily: F,
+                fontWeight: 700,
+                fontSize: 14,
+                color: "#fff",
+                letterSpacing: "-0.02em",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               Aura Business Solution
             </span>
           </a>
 
-          <div className="hidden md:flex items-center gap-1 bg-[var(--glass-bg)]/40 border border-[var(--glass-border)] rounded-full px-2 py-1.5 backdrop-blur-md">
-            {NAV_LINKS.map((item) => (
-              <NavLink
-                key={item.id}
-                href={item.href}
-                label={item.label}
-                active={isActive(item.id)}
-              />
-            ))}
+          {/* Desktop nav */}
+          <nav
+            className="site-header-desktop-nav"
+            style={{
+              display: "none",
+              alignItems: "center",
+              gap: 4,
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 100,
+              padding: 4,
+            }}
+          >
+            {NAV_LINKS.map((link) => {
+              const isActive = active === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(link.href);
+                  }}
+                  style={{
+                    position: "relative",
+                    padding: "8px 16px",
+                    borderRadius: 100,
+                    fontFamily: F,
+                    fontSize: 13,
+                    fontWeight: isActive ? 700 : 500,
+                    color: isActive ? "#050505" : "rgba(255,255,255,0.55)",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                    zIndex: 1,
+                  }}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 100,
+                        background: LIME,
+                        zIndex: -1,
+                        boxShadow: "0 0 18px rgba(197,255,0,0.35)",
+                      }}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Desktop CTAs */}
+          <div
+            className="site-header-desktop-cta"
+            style={{ display: "none", alignItems: "center", gap: 10 }}
+          >
+            <SiteButton
+              href="tel:+923706277633"
+              variant="secondary"
+              className="!flex-none !px-3.5 !py-2 !text-[12px] !rounded-full"
+            >
+              <Phone size={13} />
+              Call
+            </SiteButton>
+            <SiteButton
+              href="#products"
+              variant="primary"
+              className="!flex-none !px-4 !py-2 !text-[12px] !rounded-full"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("#products");
+              }}
+            >
+              Get a Quote
+              <ArrowRight size={14} strokeWidth={2.5} />
+            </SiteButton>
           </div>
 
+          {/* Mobile toggle */}
           <button
             type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-[var(--foreground)] p-2.5 rounded-xl bg-white/[0.04] border border-[var(--glass-border)] active:scale-95 transition-transform"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
+            className="site-header-burger"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 40,
+              height: 40,
+              borderRadius: 12,
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.04)",
+              color: "#fff",
+              cursor: "pointer",
+            }}
           >
-            {isOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-            )}
+            {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
-      </nav>
+      </motion.header>
 
-      <div className={`md:hidden fixed inset-0 z-40 transition-opacity duration-300 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeMenu} aria-hidden />
-        <div className={`absolute bottom-[calc(5.5rem+env(safe-area-inset-bottom))] inset-x-3 transition-all duration-300 ${isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}>
-          <div className="rounded-2xl border border-[var(--glass-border)] bg-[#0c0c0e]/95 backdrop-blur-3xl p-3 flex flex-col gap-1 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-            {MOBILE_NAV.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToHash(item.href);
-                  closeMenu();
-                }}
-                className={`font-medium p-3.5 rounded-xl transition-all duration-200 flex items-center justify-between active:scale-[0.98] ${
-                  isActive(item.id)
-                    ? "text-black bg-[var(--primary)] font-semibold"
-                    : "text-gray-300 hover:text-[var(--primary)] hover:bg-white/[0.04]"
-                }`}
-                aria-current={isActive(item.id) ? "page" : undefined}
-              >
-                {item.label}
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              style={{
+                position: "fixed",
+                inset: 0,
+                zIndex: 90,
+                background: "rgba(0,0,0,0.55)",
+                backdropFilter: "blur(6px)",
+              }}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: "fixed",
+                top: "calc(72px + env(safe-area-inset-top))",
+                left: 16,
+                right: 16,
+                zIndex: 95,
+                borderRadius: 24,
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(10,10,10,0.94)",
+                backdropFilter: "blur(28px)",
+                WebkitBackdropFilter: "blur(28px)",
+                padding: 12,
+                boxShadow: "0 24px 60px rgba(0,0,0,0.55)",
+              }}
+            >
+              {NAV_LINKS.map((link, i) => {
+                const isActive = active === link.href;
+                return (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 * i }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(link.href);
+                    }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "14px 16px",
+                      borderRadius: 14,
+                      marginBottom: 4,
+                      fontFamily: F,
+                      fontSize: 15,
+                      fontWeight: isActive ? 700 : 500,
+                      color: isActive ? "#050505" : "rgba(255,255,255,0.8)",
+                      background: isActive ? LIME : "transparent",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {link.label}
+                    <ArrowRight size={15} />
+                  </motion.a>
+                );
+              })}
+              <div className="cta-row" style={{ marginTop: 8, padding: 4, gap: 8 }}>
+                <SiteButton href="tel:+923706277633" variant="secondary">
+                  <Phone size={14} />
+                  Call
+                </SiteButton>
+                <SiteButton
+                  href="#products"
+                  variant="primary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("#products");
+                  }}
+                >
+                  Get a Quote
+                  <ArrowRight size={14} strokeWidth={2.5} />
+                </SiteButton>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

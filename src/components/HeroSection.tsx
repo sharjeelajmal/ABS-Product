@@ -1,149 +1,377 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { ScrollReveal } from "@/components/ScrollReveal";
-import { scrollToHash } from "@/lib/navigation";
+import { PhoneIcon, ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { DashboardIllustration } from "./DashboardIllustration";
+import { SiteButton } from "./SiteButton";
+
+const LIME = "#C5FF00";
+const F = "'Geist', system-ui, -apple-system, sans-serif";
+
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 28 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: "easeOut" as const },
+});
+
+const products = [
+  { code: "POS", name: "All Business Types" },
+  { code: "TMS", name: "Transport Management" },
+  { code: "SMS", name: "School Management" },
+  { code: "RMS", name: "Restaurant System" },
+  { code: "BMS", name: "Recurring Billing System" },
+];
 
 export function HeroSection() {
   return (
     <section
-      id="top"
-      className="relative flex items-center overflow-hidden pb-0 pt-4 md:pt-12 px-4 md:px-12 min-h-[calc(100dvh-5rem)] md:min-h-[90vh]"
+      id="hero"
+      className="figma-hero"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        padding: "56px 72px",
+        maxWidth: "1440px",
+        margin: "0 auto",
+        width: "100%",
+        boxSizing: "border-box",
+      }}
     >
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="md:hidden mobile-card p-5 mb-4">
-          <ScrollReveal direction="scale" delay={0}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-[var(--glass-border)] type-eyebrow text-gray-400 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse" />
-              Let&apos;s Grow Together
+      <div
+        className="figma-hero-row"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0",
+          width: "100%",
+        }}
+      >
+        {/* ── Left Column ──────────────────────────────────────────── */}
+        <div className="figma-hero-copy" style={{ flex: "0 0 52%", paddingRight: "64px" }}>
+          {/* Eyebrow badge */}
+          <motion.div {...fadeUp(0)} style={{ display: "inline-flex" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "9px",
+                background: "rgba(197,255,0,0.07)",
+                border: "1px solid rgba(197,255,0,0.22)",
+                borderRadius: "100px",
+                padding: "7px 18px",
+                marginBottom: "34px",
+              }}
+            >
+              <div
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: LIME,
+                  boxShadow: `0 0 10px ${LIME}`,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "13px",
+                  fontFamily: F,
+                  fontWeight: 500,
+                  color: LIME,
+                  letterSpacing: "0.02em",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Software for Every Kind of Business
+              </span>
             </div>
-            <h1 className="type-h1 mb-3">
-              Custom Software for{" "}
-              <span className="text-[var(--primary)] italic">Modern Business</span>
-            </h1>
-            <p className="type-body-muted">
-              Precision-engineered POS, CRM &amp; ERP systems. Built for scale, crafted for elegance.
-            </p>
-          </ScrollReveal>
-        </div>
+          </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
-          <ScrollReveal direction="up" delay={0} className="hidden md:block space-y-8 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] type-eyebrow text-gray-400">
-              <span className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse" />
-              Let&apos;s Grow Together
-            </div>
-            <h1 className="type-h1">
-              Custom Software Solutions for{" "}
-              <span className="italic text-[var(--primary)]">Modern Business</span>
-            </h1>
-            <p className="type-body-muted max-w-xl">
-              Empower your enterprise with precision-engineered POS, CRM, and ERP systems. Designed for scale, crafted for elegance.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <HeroButton primary onClick={() => scrollToHash("#solutions")}>View Live Demo</HeroButton>
-              <HeroButton onClick={() => scrollToHash("#contact")}>Get a Free Consultation</HeroButton>
-            </div>
-          </ScrollReveal>
+          {/* Headline */}
+          <motion.h1
+            {...fadeUp(0.1)}
+            style={{
+              fontSize: "clamp(38px, 4.2vw, 60px)",
+              fontFamily: F,
+              fontWeight: 800,
+              color: "#FFFFFF",
+              lineHeight: 1.06,
+              letterSpacing: "-0.03em",
+              marginBottom: "22px",
+              margin: "0 0 22px 0",
+            }}
+          >
+            One Team.{" "}
+            <span
+              style={{
+                background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Five Smart
+            </span>{" "}
+            <br />
+            Software Solutions.
+          </motion.h1>
 
-          <ScrollReveal direction="up" delay={120}>
-            <div className="mobile-card md:bg-transparent md:border-0 md:p-0 md:rounded-none p-4 md:p-0">
-              <div className="relative w-full aspect-[4/3] md:aspect-[4/3] lg:aspect-square flex items-center justify-center">
-                <div className="relative w-full max-w-lg md:transform md:hover:scale-105 transition-transform duration-700">
-                  <img
-                    alt="Aura Business Solution Dashboard Interface"
-                    className="w-full h-auto rounded-2xl shadow-2xl border border-white/15"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIiupbReqH4wSHOy9o15h0-tQ5Gi1UrSSwp5ObmxhLoI0PFUi2SOmgjRpH1M4_-idkGDiDAb6lZN8PC9pkUlsH5MmdJg5TdqoiV_g9f5T3w2CgeXGHeFcXh7XK0PoBagIOONGL0aeVECLebWheivnA-FzrY_9dzhn0xiBqH8H4hh7FoJxe-En73V6Or96NFN_2f9z731UEXCKA2JxG9EpSVyE9AHxLFhBm4N168k8_UB3429MlPDs4bs9QFqXVhqy2Hriul0PJtLM"
-                  />
-                  <div className="absolute -left-1 sm:-left-8 top-1/4 bg-[var(--glass-bg)] backdrop-blur-2xl p-2.5 sm:p-4 rounded-xl border border-[var(--glass-border)] animate-float delay-100">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <span className="bg-[var(--primary)]/10 text-[var(--primary)] p-1.5 sm:p-2 rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-                      </span>
-                      <div>
-                        <p className="type-caption font-semibold text-[var(--foreground)]">+45% Revenue</p>
-                        <p className="type-eyebrow text-gray-400">This Quarter</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="absolute -right-1 sm:-right-12 bottom-1/4 bg-[var(--glass-bg)] backdrop-blur-2xl p-2.5 sm:p-4 rounded-xl border border-[var(--glass-border)] animate-float delay-300">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="flex -space-x-2">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--primary)] flex items-center justify-center border-2 border-[var(--background)] text-black">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        </div>
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-500 flex items-center justify-center border-2 border-[var(--background)] text-white">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="type-caption font-semibold text-[var(--foreground)]">120+ Clients</p>
-                        <p className="type-eyebrow text-gray-400">Active Global</p>
-                      </div>
-                    </div>
-                  </div>
+          {/* Subheading */}
+          <motion.p
+            {...fadeUp(0.18)}
+            style={{
+              fontSize: "16px",
+              fontFamily: F,
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.52)",
+              lineHeight: 1.78,
+              marginBottom: "36px",
+              maxWidth: "460px",
+              margin: "0 0 36px 0",
+            }}
+          >
+            From retail counters to restaurants, transport, schools, and
+            subscriptions — we build the software that runs your operations,
+            every single day.
+          </motion.p>
+
+          {/* Product chips */}
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.07, delayChildren: 0.28 } },
+            }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "8px",
+              marginBottom: "30px",
+            }}
+          >
+            {products.map((p) => (
+              <motion.div
+                key={p.code}
+                variants={{
+                  hidden: { opacity: 0, y: 12, scale: 0.94 },
+                  show: { opacity: 1, y: 0, scale: 1 },
+                }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -2, borderColor: "rgba(197,255,0,0.35)" }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "7px",
+                  background: "rgba(255,255,255,0.04)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255,255,255,0.09)",
+                  borderRadius: "100px",
+                  padding: "7px 15px",
+                  cursor: "default",
+                }}
+              >
+                <div
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: LIME,
+                    opacity: 0.85,
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: "12px",
+                    fontFamily: F,
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.65)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <span style={{ color: "rgba(255,255,255,0.88)", fontWeight: 600 }}>
+                    {p.code}
+                  </span>
+                  {" — "}
+                  {p.name}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Tier card */}
+          <motion.div
+            {...fadeUp(0.34)}
+            style={{
+              position: "relative",
+              background: "rgba(197,255,0,0.045)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(197,255,0,0.22)",
+              borderRadius: "20px",
+              padding: "20px 22px",
+              marginBottom: "34px",
+              overflow: "hidden",
+            }}
+          >
+            {/* Glow inside card */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-40px",
+                right: "-40px",
+                width: "130px",
+                height: "130px",
+                background:
+                  "radial-gradient(circle, rgba(197,255,0,0.18) 0%, transparent 70%)",
+                filter: "blur(16px)",
+                pointerEvents: "none",
+              }}
+            />
+            <div style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
+              {/* Icon box */}
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "10px",
+                  background: "rgba(197,255,0,0.14)",
+                  border: "1px solid rgba(197,255,0,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
+              >
+                <Sparkles size={16} color={LIME} />
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    fontFamily: F,
+                    fontWeight: 700,
+                    color: LIME,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    marginBottom: "6px",
+                  }}
+                >
+                  Flexible Tiers
                 </div>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: F,
+                    fontWeight: 400,
+                    color: "rgba(255,255,255,0.62)",
+                    lineHeight: 1.65,
+                    margin: 0,
+                  }}
+                >
+                  Every product comes in two versions:{" "}
+                  <span style={{ color: "#FFFFFF", fontWeight: 500 }}>Basic</span>{" "}
+                  for getting started, and{" "}
+                  <span style={{ color: LIME, fontWeight: 600 }}>Pro</span> for
+                  full-scale operations.
+                </p>
               </div>
             </div>
-          </ScrollReveal>
+          </motion.div>
 
-          <ScrollReveal direction="up" delay={200} className="md:hidden flex flex-col gap-3 pt-2">
-            <HeroButton primary fullWidth onClick={() => scrollToHash("#solutions")}>View Live Demo</HeroButton>
-            <HeroButton fullWidth onClick={() => scrollToHash("#contact")}>Get a Free Consultation</HeroButton>
-          </ScrollReveal>
+          {/* CTA Buttons */}
+          <motion.div
+            {...fadeUp(0.42)}
+            className="cta-row cta-row-left"
+          >
+            <SiteButton href="#products" variant="primary">
+              Explore Our Software
+              <ArrowRight size={15} strokeWidth={2.5} />
+            </SiteButton>
+            <SiteButton href="tel:+923706277633" variant="secondary">
+              <PhoneIcon size={14} strokeWidth={2} />
+              +92 370 6277633
+            </SiteButton>
+          </motion.div>
+
+          {/* Trust indicators */}
+          <motion.div
+            {...fadeUp(0.5)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              marginTop: "32px",
+            }}
+          >
+            {[
+              { v: "500+", l: "Businesses Served" },
+              { v: "5", l: "Integrated Products" },
+              { v: "99.9%", l: "Uptime SLA" },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 + i * 0.1, duration: 0.5 }}
+                style={{ display: "flex", alignItems: "center", gap: "12px" }}
+              >
+                {i > 0 && (
+                  <div
+                    style={{
+                      width: "1px",
+                      height: "28px",
+                      background: "rgba(255,255,255,0.1)",
+                    }}
+                  />
+                )}
+                <div>
+                  <div
+                    style={{
+                      fontSize: "18px",
+                      fontFamily: F,
+                      fontWeight: 700,
+                      color: LIME,
+                      lineHeight: 1,
+                    }}
+                  >
+                    {stat.v}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      fontFamily: F,
+                      color: "rgba(255,255,255,0.38)",
+                      marginTop: "3px",
+                    }}
+                  >
+                    {stat.l}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
+
+        {/* ── Right Column ─────────────────────────────────────────── */}
+        <motion.div
+          className="figma-hero-visual"
+          initial={{ opacity: 0, x: 36, scale: 0.96 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            flex: "0 0 48%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <DashboardIllustration />
+        </motion.div>
       </div>
     </section>
-  );
-}
-
-function HeroButton({
-  children,
-  primary,
-  fullWidth,
-  onClick,
-}: {
-  children: ReactNode;
-  primary?: boolean;
-  fullWidth?: boolean;
-  onClick?: () => void;
-}) {
-  if (primary) {
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        className={`relative group overflow-hidden bg-[var(--primary)] text-black px-6 py-4 rounded-2xl md:rounded-full type-btn transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(197,255,0,0.3)] border border-[var(--primary)] ${fullWidth ? "w-full" : "w-full sm:w-auto"}`}
-      >
-        <div className="absolute inset-0 w-0 bg-[#111] transition-all duration-[400ms] ease-out group-hover:w-full z-0" />
-        <span className="relative z-10 flex items-center gap-2 group-hover:text-[var(--primary)] transition-colors duration-300">
-          {children}
-          <ArrowIcon />
-        </span>
-      </button>
-    );
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`relative group overflow-hidden bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] text-[var(--foreground)] px-6 py-4 rounded-2xl md:rounded-full type-btn transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 ${fullWidth ? "w-full" : "w-full sm:w-auto"}`}
-    >
-      <div className="absolute inset-0 w-0 bg-[var(--primary)] transition-all duration-[400ms] ease-out group-hover:w-full z-0" />
-      <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-300">
-        {children}
-        <ArrowIcon />
-      </span>
-    </button>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform duration-300">
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
   );
 }

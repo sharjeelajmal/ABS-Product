@@ -14,7 +14,7 @@
 }
 
 :root {
-  --background: #09090b;
+  --background: #050505;
   --foreground: #fafafa;
   --primary: #C5FF00;
   --primary-accent: #C5FF00;
@@ -258,4 +258,350 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
+}
+
+/* Figma Make — responsive + site chrome */
+@media (min-width: 900px) {
+  .site-header-desktop-nav,
+  .site-header-desktop-cta {
+    display: flex !important;
+  }
+
+  .site-header-burger {
+    display: none !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .site-header-brand {
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .figma-hero,
+  .figma-section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+
+  .figma-hairline-pad {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .figma-hero-row {
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+
+  .figma-hero-copy {
+    flex: 1 1 auto !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+  }
+
+  .figma-hero-visual {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    overflow: hidden;
+    transform: scale(0.78);
+    transform-origin: top center;
+    max-height: 420px;
+  }
+
+  .figma-services-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .figma-services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .figma-hero {
+    min-height: auto !important;
+    padding-top: 32px !important;
+  }
+
+  .figma-hero-visual {
+    transform: scale(0.62) !important;
+    max-height: 320px !important;
+  }
+}
+
+/* Subtle ambient motion for background particles */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); opacity: inherit; }
+  50% { transform: translateY(-8px); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.bg-particle {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+/* ── Uiverse-style buttons (lime theme) — full-cover hover ── */
+.btn-uiverse {
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: 34px;
+  background-color: transparent;
+  transition: color 1s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 1s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 1s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+  flex: 1 1 0;
+  min-width: 0;
+  z-index: 0;
+  font-family: var(--font-sans);
+}
+
+.btn-uiverse-label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-uiverse::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 1.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-uiverse:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-uiverse:hover {
+  transform: scale(1.04);
+}
+
+.btn-uiverse:active {
+  transform: scale(0.98);
+}
+
+.btn-uiverse-primary {
+  color: #050505;
+  border: 1.5px solid #c5ff00;
+  background-color: #c5ff00;
+  box-shadow: 0 0 18px rgba(197, 255, 0, 0.25);
+}
+
+.btn-uiverse-primary::before {
+  background-color: #111111;
+}
+
+.btn-uiverse-primary:hover {
+  color: #c5ff00;
+  box-shadow: 0 0 20px rgba(197, 255, 0, 0.45);
+}
+
+.btn-uiverse-secondary {
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background-color: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+}
+
+.btn-uiverse-secondary::before {
+  background-color: #c5ff00;
+}
+
+.btn-uiverse-secondary:hover {
+  color: #050505;
+  border-color: #c5ff00;
+  box-shadow: 0 0 18px rgba(197, 255, 0, 0.3);
+}
+
+.cta-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.cta-row-left {
+  justify-content: flex-start !important;
+  width: fit-content !important;
+  max-width: 100%;
+  margin-right: auto;
+}
+
+.cta-row-left .btn-uiverse {
+  flex: 0 0 auto !important;
+  width: auto !important;
+}
+
+.btn-uiverse svg {
+  width: 0.85em;
+  height: 0.85em;
+  flex-shrink: 0;
+}
+
+/* Tablet buttons — compact */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .btn-uiverse {
+    flex: 1 1 0;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.72rem;
+    border-radius: 16px;
+  }
+}
+
+/* Desktop buttons */
+@media (min-width: 1024px) {
+  .btn-uiverse {
+    flex: 0 0 auto;
+    padding: 0.8rem 1.6rem;
+    font-size: 0.875rem;
+    border-width: 2px;
+  }
+
+  .btn-uiverse:hover {
+    transform: scale(1.06);
+  }
+}
+
+/* Phone buttons — extra small */
+@media (max-width: 639px) {
+  .btn-uiverse {
+    padding: 0.5rem 0.55rem;
+    font-size: 0.65rem;
+    border-radius: 12px;
+    border-width: 1.5px;
+    gap: 0.3rem;
+  }
+
+  .btn-uiverse-label {
+    gap: 0.3rem;
+  }
+
+  .btn-uiverse:hover {
+    transform: scale(1.02);
+  }
+
+  .cta-row {
+    gap: 0.65rem !important;
+  }
+}
+
+/* Section spacing — tighter (desktop) */
+@media (min-width: 1024px) {
+  .figma-section {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .figma-hero {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+}
+
+/* Mobile app feel */
+@media (max-width: 1023px) {
+  .product-tabs-desktop {
+    display: none !important;
+  }
+
+  .product-tabs-mobile {
+    display: grid !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-tabs-mobile {
+    display: none !important;
+  }
+
+  .product-tabs-desktop {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .app-shell {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .figma-hero,
+  .figma-section {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .figma-hairline-pad {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .btn-uiverse {
+    padding: 0.5rem 0.55rem;
+    font-size: 0.65rem;
+    border-width: 1.5px;
+    border-radius: 12px;
+  }
+
+  .btn-uiverse:hover {
+    transform: scale(1.02);
+  }
+
+  .cta-row {
+    gap: 0.65rem !important;
+  }
+
+  .cta-row-left {
+    width: 100% !important;
+  }
+
+  .cta-row-left .btn-uiverse {
+    flex: 1 1 0 !important;
+  }
+
+  .figma-services-grid > div {
+    padding: 18px !important;
+    border-radius: 16px !important;
+    gap: 14px !important;
+  }
+
+  .site-header-inner {
+    border-radius: 18px !important;
+    padding: 8px 12px !important;
+  }
 }

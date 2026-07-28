@@ -1,36 +1,32 @@
+import { BackgroundDecor } from "@/components/BackgroundDecor";
 import { Navbar } from "@/components/Navbar";
-import { AnimatedShapes } from "@/components/AnimatedShapes";
-import { ServiceCategories } from "@/components/ServiceCategories";
-import { SoftwareSolutions } from "@/components/SoftwareSolutions";
-import { ProductsPricing } from "@/components/ProductsPricing";
-import { ClientTestimonials } from "@/components/ClientTestimonials";
-import { TeamSection } from "@/components/TeamSection";
-import { ContactSection } from "@/components/ContactSection";
 import { HeroSection } from "@/components/HeroSection";
-import { PageFooter } from "@/components/PageFooter";
-import { MobileBottomNav } from "@/components/MobileBottomNav";
+import { ServicesSection } from "@/components/ServicesSection";
+import { ProcessSection } from "@/components/ProcessSection";
+import { ComparisonSection } from "@/components/ComparisonSection";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
+import { Hairline } from "@/components/Hairline";
 
 export default function Home() {
   return (
-    <div className="app-shell min-h-screen relative overflow-x-hidden text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-black font-sans bg-[var(--background)]">
-
-      <AnimatedShapes />
+    <div
+      className="app-shell min-h-screen relative overflow-x-hidden text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-black font-sans"
+      style={{
+        background: "linear-gradient(150deg, #050505 0%, #070707 50%, #0B0B0B 100%)",
+      }}
+    >
+      <BackgroundDecor />
       <Navbar />
-      <MobileBottomNav />
       <WhatsAppFloatingButton />
 
-      <main className="pt-[calc(4.5rem+env(safe-area-inset-top))] md:pt-20 relative z-10 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
-
+      <main className="relative z-[1] pt-[64px] md:pt-[72px]">
         <HeroSection />
-        <ServiceCategories />
-        <SoftwareSolutions />
-        <ProductsPricing />
-        <ClientTestimonials />
-        <TeamSection />
-        <ContactSection />
-        <PageFooter />
-
+        <Hairline />
+        <ServicesSection />
+        <Hairline />
+        <ProcessSection />
+        <Hairline />
+        <ComparisonSection />
       </main>
     </div>
   );

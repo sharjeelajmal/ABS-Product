@@ -4,7 +4,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const WHATSAPP_NUMBER = "923706277633";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to know more about your software solutions.")}`;
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  "Hi! I'd like to know more about your software solutions."
+)}`;
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -25,23 +27,20 @@ export function WhatsAppFloatingButton() {
 
   return (
     <div
-      className="fixed z-50 right-4 md:right-6 bottom-[calc(5.75rem+env(safe-area-inset-bottom))] md:bottom-6"
+      className="fixed z-[80] right-3 sm:right-5 bottom-[max(1rem,env(safe-area-inset-bottom))]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0, x: 12, scale: 0.95 }}
+            initial={{ opacity: 0, x: 10, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 12, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="hidden md:block absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2 whitespace-nowrap"
+            exit={{ opacity: 0, x: 10, scale: 0.95 }}
+            className="hidden md:block absolute right-[calc(100%+10px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-xl border border-[var(--glass-border)] bg-[#111114]/95 px-3.5 py-2 backdrop-blur-xl shadow-xl"
           >
-            <div className="px-4 py-2.5 rounded-xl bg-[#111114]/95 border border-[var(--glass-border)] backdrop-blur-xl shadow-xl">
-              <p className="type-caption font-semibold text-[var(--foreground)]">Chat on WhatsApp</p>
-              <p className="type-eyebrow text-[#25D366] mt-0.5">0370 6277633</p>
-            </div>
+            <p className="text-sm font-semibold text-white">Chat on WhatsApp</p>
+            <p className="text-[11px] text-[#25D366] mt-0.5">0370 6277633</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -51,14 +50,12 @@ export function WhatsAppFloatingButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp — 0370 6277633"
-        className="relative flex items-center justify-center w-14 h-14 md:w-[3.75rem] md:h-[3.75rem] rounded-full bg-[#25D366] text-white shadow-[0_4px_24px_rgba(37,211,102,0.45)] hover:shadow-[0_6px_32px_rgba(37,211,102,0.6)] transition-shadow duration-300"
+        className="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_24px_rgba(37,211,102,0.45)]"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
       >
         <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 pointer-events-none" />
-        <span className="absolute inset-[-3px] rounded-full border border-[#25D366]/40 pointer-events-none" />
-
-        <WhatsAppIcon className="w-7 h-7 md:w-8 md:h-8 relative z-10" />
+        <WhatsAppIcon className="relative z-10 h-6 w-6 sm:h-7 sm:w-7" />
       </motion.a>
     </div>
   );
