@@ -13,6 +13,8 @@ const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Products", href: "#products" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
 ] as const;
 
 function scrollToHash(hash: string) {
@@ -34,7 +36,18 @@ export function Navbar() {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
 
-      const sections = ["hero", "services", "process", "products"];
+      const sections = [
+        "hero",
+        "services",
+        "process",
+        "products",
+        "portfolio",
+        "videos",
+        "why-aura",
+        "testimonials",
+        "engagement",
+        "contact",
+      ];
       const y = window.scrollY + 120;
       let current = "#hero";
       for (const id of sections) {

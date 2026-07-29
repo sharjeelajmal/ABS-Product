@@ -445,6 +445,18 @@ body {
   box-shadow: 0 0 18px rgba(197, 255, 0, 0.3);
 }
 
+.btn-uiverse-block {
+  width: 100% !important;
+  justify-content: center;
+  flex: 0 0 auto !important; /* sm: no flex-1 */
+}
+
+@media (min-width: 768px) {
+  .btn-uiverse-block {
+    flex: 1 1 0 !important; /* md:flex-1 */
+  }
+}
+
 .cta-row {
   display: flex !important;
   flex-wrap: nowrap !important;
@@ -603,5 +615,353 @@ body {
   .site-header-inner {
     border-radius: 18px !important;
     padding: 8px 12px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Product Demo ↓ — responsive layout utilities (tablet/phone)
+   Inline grids use !important overrides so they adapt cleanly.
+   ═══════════════════════════════════════════════════════════ */
+
+.rs-cols-2,
+.rs-cols-3,
+.rs-cols-4,
+.rs-cmp-cards,
+.rs-eng-grid {
+  width: 100%;
+}
+
+.rs-caption-row,
+.rs-banner-row {
+  width: 100%;
+}
+
+.rs-contact-row > * {
+  min-width: 0;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .rs-cols-3 {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .rs-eng-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .rs-eng-card {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .rs-stack-tablet {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .rs-featured-card {
+    padding: 28px 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .rs-cta-shell {
+    padding: 36px 28px !important;
+    border-radius: 24px !important;
+  }
+
+  .rs-banner-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
+    padding: 22px 20px !important;
+    border-radius: 20px !important;
+  }
+
+  .rs-banner-row .cta-row {
+    width: 100% !important;
+  }
+
+  .rs-caption-row {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
+  }
+
+  .rs-caption-tags {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+
+  .rs-contact-row {
+    flex-direction: column !important;
+  }
+
+  .rs-contact-row > * {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+  }
+
+  .rs-section-gap {
+    margin-bottom: 40px !important;
+  }
+
+  .rs-metrics-cell {
+    padding: 16px 12px !important;
+  }
+
+  .product-tabs-mobile {
+    gap: 4px !important;
+    padding: 4px !important;
+    border-radius: 14px !important;
+  }
+
+  .product-tabs-mobile button {
+    min-height: 52px !important;
+    border-radius: 12px !important;
+    padding: 6px 2px !important;
+  }
+
+  /* Selected Work — tablet */
+  .rs-portfolio-head {
+    margin-bottom: 36px !important;
+  }
+
+  .rs-portfolio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .rs-portfolio-col-offset {
+    margin-top: 0 !important;
+  }
+
+  .rs-portfolio-col {
+    gap: 14px !important;
+  }
+
+  .rs-project-card {
+    border-radius: 16px !important;
+    max-width: 100%;
+  }
+
+  .rs-project-mock {
+    height: 180px !important;
+  }
+
+  .rs-project-mock-inner {
+    transform: scale(0.82);
+    transform-origin: top left;
+    width: 122%;
+    height: 122%;
+    pointer-events: none;
+  }
+
+  .rs-project-body {
+    padding: 16px !important;
+  }
+}
+
+/* Phone + small tablet portrait */
+@media (max-width: 767px) {
+  .rs-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .rs-cols-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .rs-cmp-cards {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .rs-banner-row {
+    padding: 16px 14px !important;
+    border-radius: 16px !important;
+    gap: 14px !important;
+  }
+
+  .rs-caption-row {
+    padding: 12px 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .rs-caption-row p {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+
+  .rs-metrics-cell {
+    padding: 12px 8px !important;
+  }
+
+  .rs-section-gap {
+    margin-bottom: 28px !important;
+  }
+
+  .rs-compact-pad {
+    padding: 14px !important;
+    border-radius: 14px !important;
+    gap: 12px !important;
+  }
+
+  .rs-featured-card {
+    padding: 18px 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .rs-project-card {
+    border-radius: 14px !important;
+  }
+
+  .rs-project-mock {
+    height: 168px !important;
+  }
+
+  .rs-project-body {
+    padding: 14px !important;
+  }
+
+  .rs-hide-mobile {
+    display: none !important;
+  }
+
+  /* Selected Work / Portfolio — mobile app feel */
+  .rs-portfolio-head {
+    margin-bottom: 28px !important;
+  }
+
+  .rs-portfolio-head h2 {
+    font-size: clamp(22px, 7vw, 28px) !important;
+    margin-bottom: 10px !important;
+  }
+
+  .rs-portfolio-head p {
+    font-size: 13px !important;
+  }
+
+  .rs-portfolio-stack {
+    gap: 10px !important;
+    margin-bottom: 28px !important;
+  }
+
+  .rs-project-mock {
+    height: 148px !important;
+  }
+
+  .rs-project-mock-inner {
+    transform: scale(0.72);
+    transform-origin: top left;
+    width: 138.9%; /* 100 / 0.72 */
+    height: 138.9%;
+    pointer-events: none;
+  }
+
+  .rs-project-body h3,
+  .rs-project-title {
+    font-size: 15px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .rs-project-desc {
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+  }
+
+  #portfolio.figma-section {
+    overflow: hidden;
+  }
+
+  /* Compact “app” type scale inside Product Demo+ */
+  .figma-section h2 {
+    letter-spacing: -0.03em !important;
+  }
+
+  .figma-section p {
+    line-height: 1.55 !important;
+  }
+
+  /* Engagement card inner padding */
+  .rs-eng-card > div:last-child,
+  .rs-eng-inner {
+    padding: 18px 16px !important;
+    border-radius: 16px !important;
+  }
+
+  /* Why Aura illustration: keep in viewport */
+  .rs-illust {
+    max-width: 100% !important;
+    overflow: hidden;
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+
+  /* CTA contact glass shell */
+  #contact.figma-section {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-top: 36px !important;
+    padding-bottom: 28px !important;
+  }
+
+  #contact .cta-shell,
+  .rs-cta-shell {
+    border-radius: 18px !important;
+    padding: 20px 14px !important;
+  }
+
+  /* Footer tighter with app gutters */
+  .ft-wrap {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .ft-contact-card {
+    padding: 12px !important;
+    border-radius: 14px !important;
+    gap: 6px !important;
+  }
+
+  .ft-social {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+  }
+
+  .ft-mark {
+    font-size: 72px !important;
+    opacity: 0.7;
+  }
+
+  .product-tabs-mobile button span:last-child {
+    font-size: 8px !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 379px) {
+  .rs-cols-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .product-tabs-mobile {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+
+  .cta-row {
+    gap: 0.45rem !important;
+  }
+
+  .btn-uiverse {
+    padding: 0.45rem 0.4rem !important;
+    font-size: 0.6rem !important;
   }
 }

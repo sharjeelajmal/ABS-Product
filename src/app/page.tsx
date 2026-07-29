@@ -4,6 +4,13 @@ import { HeroSection } from "@/components/HeroSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ProcessSection } from "@/components/ProcessSection";
 import { ComparisonSection } from "@/components/ComparisonSection";
+import { PortfolioSection } from "@/components/PortfolioSection";
+import { VideoSection } from "@/components/VideoSection";
+import { WhyAuraSection } from "@/components/WhyAuraSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { EngagementSection } from "@/components/EngagementSection";
+import { CTASection } from "@/components/CTASection";
+import { Footer } from "@/components/Footer";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 import { Hairline } from "@/components/Hairline";
 
@@ -27,7 +34,21 @@ export default function Home() {
         <ProcessSection />
         <Hairline />
         <ComparisonSection />
+        <Hairline />
+        <PortfolioSection />
+        <Hairline />
+        <VideoSection />
+        <Hairline />
+        <WhyAuraSection />
+        <Hairline />
+        <TestimonialsSection />
+        <Hairline />
+        <EngagementSection />
+        <Hairline />
+        <CTASection />
       </main>
+
+      <Footer />
     </div>
   );
 }

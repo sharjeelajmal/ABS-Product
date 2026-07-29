@@ -398,6 +398,7 @@ function ComparisonTable({ features }: { features: Feature[] }) {
 function ComparisonCards({ features }: { features: Feature[] }) {
   return (
     <div
+      className="rs-cmp-cards"
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
