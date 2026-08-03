@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Code Download
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⚙️ Node.js Setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
 
@@ -29,6 +29,8 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
           local-dir: ./out/
           server-dir: /domains/aurabusinesssolution.com/public_html/pk/
           dangerous-clean-slate: true # Yeh purani files ko clear kar ke nayi files rakhega
