@@ -182,32 +182,37 @@ interface Testimonial {
 
 const FEATURED: Testimonial = {
   quote:
-    "Aura set up our POS across all branches in under two months. Every outlet finally shows the same numbers at the same time. Inventory is accurate, billing is fast, and our managers actually trust the reports now.",
-  name: "Ahmed Raza",
-  role: "Operations Director",
-  company: "Retail Chain",
-  avatar:
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    "Yar inka Garments POS system sach mein bohot zabardast hai. Pehle manual inventory mein bohot masle hotay thay, ab sab kuch ek click pe hai. Billing itni fast ho gayi hai ke rush hours mein bhi koi tension nahi hoti. Highly recommended!",
+  name: "Rashid Ali",
+  role: "Owner",
+  company: "Mr Denum",
+  avatar: "/avatar_rashid.png",
 };
 
 const SECONDARIES: Testimonial[] = [
   {
     quote:
-      "The TMS platform gave us live visibility of our whole fleet for the first time. Route planning is so much easier now.",
-    name: "Sana Malik",
-    role: "Founder",
-    company: "Logistics Company",
-    avatar:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+      "Transport business mein tracking sab se bara headache hota hai, lekin inka TMS lagwane ke baad life kafi aasan ho gayi hai. Ab mujhe live pata hota hai ke meri gaariyan kahan hain. Paisa wasool system hai.",
+    name: "Abbas Shah",
+    role: "Director",
+    company: "Tiger Transport",
+    avatar: "/avatar_abbas.png",
   },
   {
     quote:
-      "Our school's fee collection and attendance used to take days. With the SMS system, it's done in minutes.",
-    name: "Bilal Qureshi",
+      "Maine bohot se software try kiye hain lekin inke Mart POS ki baat hi alag hai. Speed itni achi hai ke lambi lines minton mein clear ho jati hain, aur sham ko closing mein bhi koi khuwari nahi hoti.",
+    name: "Muhammad Ali",
+    role: "Manager",
+    company: "Home Mart",
+    avatar: "/avatar_muhammad.png",
+  },
+  {
+    quote:
+      "Pehle har bachay ki fees aur record maintain karna azaab lagta tha. Inka SMS use karna shuru kiya hai aur ab literally saray kaam automated hain. Staff ka bohot sara time bach jata hai.",
+    name: "Muhmmad Ahsan",
     role: "Administrator",
     company: "School Network",
-    avatar:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    avatar: "/avatar_ahsan.png",
   },
 ];
 
@@ -892,16 +897,17 @@ export function TestimonialsSection() {
 
           {/* ── Secondary testimonials ──────────────────────────────── */}
           <div
-            className="rs-cols-2 rs-section-gap"
+            className="rs-cols-3 rs-section-gap"
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
               marginBottom: "72px",
             }}
           >
             <SecondaryCard t={SECONDARIES[0]} delay={0.28} product="TMS System" />
-            <SecondaryCard t={SECONDARIES[1]} delay={0.36} product="SMS System" />
+            <SecondaryCard t={SECONDARIES[1]} delay={0.36} product="Mart POS" />
+            <SecondaryCard t={SECONDARIES[2]} delay={0.44} product="SMS System" />
           </div>
 
           {/* ── Divider ─────────────────────────────────────────────── */}

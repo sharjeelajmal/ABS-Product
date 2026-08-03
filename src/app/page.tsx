@@ -8,6 +8,7 @@ import { PortfolioSection } from "@/components/PortfolioSection";
 import { VideoSection } from "@/components/VideoSection";
 import { WhyAuraSection } from "@/components/WhyAuraSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { TeamSection } from "@/components/TeamSection";
 import { EngagementSection } from "@/components/EngagementSection";
 import { CTASection } from "@/components/CTASection";
 import { Footer } from "@/components/Footer";
@@ -40,6 +41,8 @@ export default function Home() {
         <VideoSection />
         <Hairline />
         <WhyAuraSection />
+        <Hairline />
+        <TeamSection />
         <Hairline />
         <TestimonialsSection />
         <Hairline />
