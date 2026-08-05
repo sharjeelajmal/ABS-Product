@@ -443,7 +443,7 @@ function EngagementCard({
         <SiteButton
           href="#contact"
           variant={featured ? "primary" : "secondary"}
-          className="btn-uiverse-block flex-none md:flex-1"
+          className="btn-uiverse-block flex-none"
         >
           {model.cta}
           <ArrowRight size={14} strokeWidth={2.5} />

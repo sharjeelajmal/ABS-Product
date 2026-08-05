@@ -55,6 +55,12 @@ const CSS = `
     0%, 100% { opacity: 0.5; transform: scale(1); }
     50%  { opacity: 1; transform: scale(1.4); }
   }
+  @media (max-width: 640px) {
+    .cta-mobile-col {
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+  }
 `;
 
 // ─── Copy button utility ──────────────────────────────────────────────────────
@@ -563,10 +569,10 @@ export function CTASection() {
                 </motion.p>
 
                 {/* CTA buttons */}
-                <motion.div {...fadeUp(0.2)} className="cta-row" style={{ marginBottom: "48px" }}>
-                  <SiteButton href="mailto:hello@aurabusinesssolution.com" variant="primary">
+                <motion.div {...fadeUp(0.2)} className="cta-row cta-mobile-col" style={{ marginBottom: "48px" }}>
+                  <SiteButton href="mailto:info@aurabusinesssolution.com" variant="primary">
                     <Mail size={15} strokeWidth={2.5} />
-                    hello@aurabusinesssolution.com
+                    info@aurabusinesssolution.com
                   </SiteButton>
                   <SiteButton href="tel:+923706277633" variant="secondary">
                     <Phone size={15} strokeWidth={2} />
@@ -642,8 +648,8 @@ export function CTASection() {
                   <ContactCard
                     Icon={Mail}
                     label="Email"
-                    value="Contact@aurabusinesssolution.com"
-                    href="mailto:Contact@aurabusinesssolution.com"
+                    value="info@aurabusinesssolution.com"
+                    href="mailto:info@aurabusinesssolution.com"
                     delay={0.46}
                   />
                 </motion.div>

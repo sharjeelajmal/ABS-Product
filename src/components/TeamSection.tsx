@@ -216,7 +216,7 @@ export function TeamSection() {
     <section
       id="team"
       style={{
-        padding: "120px 24px",
+        padding: "clamp(60px, 10vw, 120px) clamp(16px, 5vw, 24px)",
         maxWidth: "1440px",
         margin: "0 auto",
         width: "100%",
@@ -327,8 +327,8 @@ export function TeamSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "40px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+            gap: "clamp(24px, 4vw, 40px)",
             maxWidth: "1200px",
             margin: "0 auto",
           }}

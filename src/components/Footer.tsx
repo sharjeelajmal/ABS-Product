@@ -638,13 +638,39 @@ export function Footer() {
                 <span>Accepting new projects</span>
               </div>
 
-              <a href="#hero" className="ft-logo">
-                <div className="ft-logo-mark">
-                  <span>A</span>
-                </div>
-                <div className="ft-logo-text">
-                  <strong>Aura</strong>
-                  <em>Business Solutions</em>
+              <a href="#hero" className="ft-logo" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', textDecoration: 'none' }}>
+                <img
+                  src="/Logo.png"
+                  alt="Aura Business Solutions Logo"
+                  style={{ height: "48px", width: "auto", objectFit: "contain" }}
+                />
+                <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+                  <span
+                    style={{
+                      fontFamily: F,
+                      fontWeight: 800,
+                      fontSize: 20,
+                      color: "#FFFFFF",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    Aura
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: F,
+                      fontWeight: 500,
+                      fontSize: 13,
+                      background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                      letterSpacing: "0.02em",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Business Solution
+                  </span>
                 </div>
               </a>
 
@@ -703,13 +729,13 @@ export function Footer() {
                   </div>
                 </div>
 
-                <a href="mailto:Contact@aurabusinesssolution.com" className="ft-contact-row">
+                <a href="mailto:info@aurabusinesssolution.com" className="ft-contact-row">
                   <div className="ft-contact-icon">
                     <Mail size={14} strokeWidth={1.9} />
                   </div>
                   <div className="ft-contact-meta">
                     <span className="ft-contact-label">Email</span>
-                    <span className="ft-contact-value">Contact@aurabusinesssolution.com</span>
+                    <span className="ft-contact-value">info@aurabusinesssolution.com</span>
                   </div>
                 </a>
 

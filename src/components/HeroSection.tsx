@@ -111,10 +111,10 @@ export function HeroSection() {
                 backgroundClip: "text",
               }}
             >
-              Five Smart
+              (Five Smart
             </span>{" "}
             <br />
-            Software Solutions.
+            Software Solutions).
           </motion.h1>
 
           {/* Subheading */}

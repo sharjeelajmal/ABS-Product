@@ -451,12 +451,6 @@ body {
   flex: 0 0 auto !important; /* sm: no flex-1 */
 }
 
-@media (min-width: 768px) {
-  .btn-uiverse-block {
-    flex: 1 1 0 !important; /* md:flex-1 */
-  }
-}
-
 .cta-row {
   display: flex !important;
   flex-wrap: nowrap !important;

@@ -132,41 +132,43 @@ export function Navbar() {
               flexShrink: 0,
             }}
           >
-            <motion.span
-              whileHover={{ rotate: 8, scale: 1.05 }}
+            <img
+              src="/Logo.png"
+              alt="Aura Business Solution Logo"
               style={{
-                width: 36,
-                height: 36,
-                borderRadius: 12,
-                background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#050505",
-                fontFamily: F,
-                fontWeight: 800,
-                fontSize: 14,
-                boxShadow: "0 0 20px rgba(197,255,0,0.35)",
-                flexShrink: 0,
+                height: "36px",
+                width: "auto",
+                objectFit: "contain",
               }}
-            >
-              A
-            </motion.span>
-            <span
-              className="site-header-brand"
-              style={{
-                fontFamily: F,
-                fontWeight: 700,
-                fontSize: 14,
-                color: "#fff",
-                letterSpacing: "-0.02em",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              Aura Business Solution
-            </span>
+            />
+            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+              <span
+                style={{
+                  fontFamily: F,
+                  fontWeight: 800,
+                  fontSize: 16,
+                  color: "#FFFFFF",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Aura
+              </span>
+              <span
+                style={{
+                  fontFamily: F,
+                  fontWeight: 500,
+                  fontSize: 11,
+                  background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  letterSpacing: "0.02em",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Business Solution
+              </span>
+            </div>
           </a>
 
           {/* Desktop nav */}

@@ -194,7 +194,7 @@ const SECONDARIES: Testimonial[] = [
     quote:
       "Transport business mein tracking sab se bara headache hota hai, lekin inka TMS lagwane ke baad life kafi aasan ho gayi hai. Ab mujhe live pata hota hai ke meri gaariyan kahan hain. Paisa wasool system hai.",
     name: "Abbas Shah",
-    role: "Director",
+    role: "Owner",
     company: "Tiger Transport",
     avatar: "/avatar_abbas.png",
   },
@@ -202,7 +202,7 @@ const SECONDARIES: Testimonial[] = [
     quote:
       "Maine bohot se software try kiye hain lekin inke Mart POS ki baat hi alag hai. Speed itni achi hai ke lambi lines minton mein clear ho jati hain, aur sham ko closing mein bhi koi khuwari nahi hoti.",
     name: "Muhammad Ali",
-    role: "Manager",
+    role: "Owner",
     company: "Home Mart",
     avatar: "/avatar_muhammad.png",
   },
@@ -210,7 +210,7 @@ const SECONDARIES: Testimonial[] = [
     quote:
       "Pehle har bachay ki fees aur record maintain karna azaab lagta tha. Inka SMS use karna shuru kiya hai aur ab literally saray kaam automated hain. Staff ka bohot sara time bach jata hai.",
     name: "Muhmmad Ahsan",
-    role: "Administrator",
+    role: "Owner",
     company: "School Network",
     avatar: "/avatar_ahsan.png",
   },
