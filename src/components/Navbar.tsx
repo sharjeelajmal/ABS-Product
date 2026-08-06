@@ -8,7 +8,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 const NAV_LINKS = [
   { label: "Home", labelUr: "ہوم", href: "#hero" },
@@ -218,7 +218,7 @@ export function Navbar() {
                     padding: "8px 16px",
                     borderRadius: 100,
                     fontFamily: isUrdu ? UF : F,
-                    fontSize: isUrdu ? 16 : 13,
+                    fontSize: 13,
                     fontWeight: isActive ? 700 : 500,
                     color: isActive ? "#050505" : "rgba(255,255,255,0.55)",
                     textDecoration: "none",
@@ -394,7 +394,7 @@ export function Navbar() {
                       borderRadius: 14,
                       marginBottom: 4,
                       fontFamily: isUrdu ? UF : F,
-                      fontSize: isUrdu ? 18 : 15,
+                      fontSize: 15,
                       fontWeight: isActive ? 700 : 500,
                       color: isActive ? "#050505" : "rgba(255,255,255,0.8)",
                       background: isActive ? LIME : "transparent",

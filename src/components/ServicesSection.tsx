@@ -20,7 +20,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 const DIM = "rgba(255,255,255,0.42)";
 const BORDER = "rgba(255,255,255,0.08)";
 const BORDER_HOVER = "rgba(197,255,0,0.28)";
@@ -166,7 +166,7 @@ function ServiceCard({ service, index, isUrdu }: { service: Service; index: numb
       <div>
         <h3
           style={{
-            fontSize: isUrdu ? "20px" : "17px",
+            fontSize: "17px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 700,
             color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.92)",
@@ -183,7 +183,7 @@ function ServiceCard({ service, index, isUrdu }: { service: Service; index: numb
         {/* Description */}
         <p
           style={{
-            fontSize: isUrdu ? "16px" : "14px",
+            fontSize: "14px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 400,
             color: hovered ? "rgba(255,255,255,0.58)" : DIM,
@@ -210,7 +210,7 @@ function ServiceCard({ service, index, isUrdu }: { service: Service; index: numb
       >
         <span
           style={{
-            fontSize: isUrdu ? "14px" : "12px",
+            fontSize: "12px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 600,
             color: LIME,
@@ -294,7 +294,7 @@ export function ServicesSection() {
               />
               <span
                 style={{
-                  fontSize: isUrdu ? "15px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
@@ -310,7 +310,7 @@ export function ServicesSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: isUrdu ? "clamp(36px, 4vw, 58px)" : "clamp(32px, 3.6vw, 52px)",
+              fontSize: "clamp(32px, 3.6vw, 52px)",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
@@ -339,7 +339,7 @@ export function ServicesSection() {
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: isUrdu ? "18px" : "16px",
+              fontSize: "16px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
@@ -431,7 +431,7 @@ export function ServicesSection() {
               />
               <span
                 style={{
-                  fontSize: isUrdu ? "15px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   color: "rgba(255,255,255,0.38)",
                 }}

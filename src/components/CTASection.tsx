@@ -8,7 +8,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
@@ -183,7 +183,7 @@ function ContactCard({
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            fontSize: isUrdu ? "14px" : "11px",
+            fontSize: "11px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 600,
             color: "rgba(255,255,255,0.3)",
@@ -516,7 +516,7 @@ export function CTASection() {
                     />
                     <span
                       style={{
-                        fontSize: isUrdu ? "14px" : "12px",
+                        fontSize: "12px",
                         fontFamily: isUrdu ? UF : F,
                         fontWeight: 600,
                         color: LIME,
@@ -533,7 +533,7 @@ export function CTASection() {
                 <motion.h2
                   {...fadeUp(0.08)}
                   style={{
-                    fontSize: isUrdu ? "clamp(32px, 3.8vw, 52px)" : "clamp(26px, 3.2vw, 46px)",
+                    fontSize: "clamp(26px, 3.2vw, 46px)",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 800,
                     color: "#FFFFFF",
@@ -562,7 +562,7 @@ export function CTASection() {
                 <motion.p
                   {...fadeUp(0.14)}
                   style={{
-                    fontSize: isUrdu ? "18px" : "16px",
+                    fontSize: "16px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.46)",
@@ -612,7 +612,7 @@ export function CTASection() {
                   />
                   <span
                     style={{
-                      fontSize: isUrdu ? "14px" : "11px",
+                      fontSize: "11px",
                       fontFamily: isUrdu ? UF : F,
                       fontWeight: 500,
                       color: "rgba(255,255,255,0.25)",

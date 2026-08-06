@@ -959,3 +959,25 @@ body {
     font-size: 0.6rem !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Global RTL Fixes for Noto Nastaliq Urdu
+   Nastaliq fonts have extremely tall ascenders/descenders.
+   These rules enforce adequate line-height and size adjustments.
+   ═══════════════════════════════════════════════════════════ */
+
+[dir="rtl"], [dir="rtl"] * {
+  line-height: 2.2 !important;
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2 {
+  line-height: 1.8 !important; /* Headings need a bit less relative height */
+  font-weight: 500 !important; /* Noto Nastaliq is very thick at 700+ */
+}
+
+[dir="rtl"] .type-body, 
+[dir="rtl"] .type-body-muted, 
+[dir="rtl"] .type-body-subtle, 
+[dir="rtl"] p {
+  line-height: 2.4 !important;
+}

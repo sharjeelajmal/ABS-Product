@@ -18,7 +18,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 const DIM = "rgba(255,255,255,0.42)";
 const BORDER = "rgba(255,255,255,0.08)";
 
@@ -233,7 +233,7 @@ function ComparisonTable({ features, isUrdu }: { features: Feature[]; isUrdu: bo
             <Sparkles size={10} color={LIME} />
             <span
               style={{
-                fontSize: isUrdu ? "12px" : "11px",
+                fontSize: "11px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: LIME,
@@ -260,7 +260,7 @@ function ComparisonTable({ features, isUrdu }: { features: Feature[]; isUrdu: bo
         <div style={{ ...cellBase, paddingTop: "12px", paddingBottom: "16px" }}>
           <span
             style={{
-              fontSize: isUrdu ? "14px" : "12px",
+              fontSize: "12px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 600,
               color: "rgba(255,255,255,0.35)",
@@ -294,7 +294,7 @@ function ComparisonTable({ features, isUrdu }: { features: Feature[]; isUrdu: bo
           </span>
           <span
             style={{
-              fontSize: isUrdu ? "13px" : "11px",
+              fontSize: "11px",
               fontFamily: isUrdu ? UF : F,
               color: "rgba(255,255,255,0.35)",
             }}
@@ -329,7 +329,7 @@ function ComparisonTable({ features, isUrdu }: { features: Feature[]; isUrdu: bo
           </span>
           <span
             style={{
-              fontSize: isUrdu ? "13px" : "11px",
+              fontSize: "11px",
               fontFamily: isUrdu ? UF : F,
               color: "rgba(197,255,0,0.55)",
             }}
@@ -365,7 +365,7 @@ function ComparisonTable({ features, isUrdu }: { features: Feature[]; isUrdu: bo
             <div style={{ ...cellBase }}>
               <span
                 style={{
-                  fontSize: isUrdu ? "15.5px" : "14px",
+                  fontSize: "14px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 400,
                   color: isHovered
@@ -448,7 +448,7 @@ function ComparisonCards({ features, isUrdu }: { features: Feature[]; isUrdu: bo
           </div>
           <div
             style={{
-              fontSize: isUrdu ? "13px" : "11px",
+              fontSize: "11px",
               fontFamily: isUrdu ? UF : F,
               color: "rgba(255,255,255,0.35)",
             }}
@@ -479,7 +479,7 @@ function ComparisonCards({ features, isUrdu }: { features: Feature[]; isUrdu: bo
               )}
               <span
                 style={{
-                  fontSize: isUrdu ? "13.5px" : "12px",
+                  fontSize: "12px",
                   fontFamily: isUrdu ? UF : F,
                   color: f.basic
                     ? "rgba(255,255,255,0.72)"
@@ -528,7 +528,7 @@ function ComparisonCards({ features, isUrdu }: { features: Feature[]; isUrdu: bo
             </div>
             <div
               style={{
-                fontSize: isUrdu ? "10px" : "9px",
+                fontSize: "9px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: LIME,
@@ -545,7 +545,7 @@ function ComparisonCards({ features, isUrdu }: { features: Feature[]; isUrdu: bo
           </div>
           <div
             style={{
-              fontSize: isUrdu ? "13px" : "11px",
+              fontSize: "11px",
               fontFamily: isUrdu ? UF : F,
               color: "rgba(197,255,0,0.5)",
             }}
@@ -576,7 +576,7 @@ function ComparisonCards({ features, isUrdu }: { features: Feature[]; isUrdu: bo
               )}
               <span
                 style={{
-                  fontSize: isUrdu ? "13.5px" : "12px",
+                  fontSize: "12px",
                   fontFamily: isUrdu ? UF : F,
                   color: f.pro
                     ? "rgba(255,255,255,0.88)"
@@ -650,7 +650,7 @@ function TabBar({
               <span style={{ display: "flex", color: "inherit" }}>{product.icon}</span>
               <span
                 style={{
-                  fontSize: isUrdu ? 11 : 9,
+                  fontSize: 9,
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: isActive ? 700 : 500,
                   letterSpacing: "0.01em",
@@ -743,7 +743,7 @@ function TabBar({
               </span>
               <span
                 style={{
-                  fontSize: isUrdu ? "14px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: isActive ? 700 : 500,
                   whiteSpace: "nowrap",
@@ -881,7 +881,7 @@ export function ComparisonSection() {
               />
               <span
                 style={{
-                  fontSize: isUrdu ? "15px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
@@ -897,7 +897,7 @@ export function ComparisonSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: isUrdu ? "clamp(32px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+              fontSize: "clamp(28px, 3.2vw, 48px)",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
@@ -924,7 +924,7 @@ export function ComparisonSection() {
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: isUrdu ? "18px" : "16px",
+              fontSize: "16px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
@@ -954,7 +954,7 @@ export function ComparisonSection() {
         >
           <span
             style={{
-              fontSize: isUrdu ? "15px" : "13px",
+              fontSize: "13px",
               fontFamily: isUrdu ? UF : F,
               color: "rgba(255,255,255,0.35)",
             }}
@@ -1049,7 +1049,7 @@ export function ComparisonSection() {
               <Check size={12} color={LIME} strokeWidth={2.5} />
               <span
                 style={{
-                  fontSize: isUrdu ? "14px" : "12.5px",
+                  fontSize: "12.5px",
                   fontFamily: isUrdu ? UF : F,
                   color: "rgba(255,255,255,0.38)",
                 }}

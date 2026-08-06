@@ -18,7 +18,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
@@ -331,8 +331,8 @@ function IllustrationPanel({ isUrdu }: { isUrdu?: boolean }) {
             <span style={{ fontSize: "18px", fontFamily: F, fontWeight: 800, color: LIME, lineHeight: 1 }}>₨</span>
             <span style={{ fontSize: "10px", fontFamily: F, fontWeight: 700, color: LIME, letterSpacing: "0.04em" }}>PKR</span>
           </div>
-          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)" }}>{isUrdu ? "شفاف" : "Transparent"}</div>
-          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{isUrdu ? "قیمتیں" : "Pricing"}</div>
+          <div style={{ fontSize: "11px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)" }}>{isUrdu ? "شفاف" : "Transparent"}</div>
+          <div style={{ fontSize: "11px", fontFamily: isUrdu ? UF : F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{isUrdu ? "قیمتیں" : "Pricing"}</div>
         </div>
 
         {/* Top-right: Cloud card */}
@@ -353,8 +353,8 @@ function IllustrationPanel({ isUrdu }: { isUrdu?: boolean }) {
           }}
         >
           <Cloud size={20} color={LIME} strokeWidth={1.5} style={{ marginBottom: "6px" }} />
-          <div style={{ fontSize: isUrdu ? "13px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>{isUrdu ? "انفراسٹرکچر" : "Infrastructure"}</div>
-          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{isUrdu ? "لوکل ٹیسٹڈ" : "Local Tested"}</div>
+          <div style={{ fontSize: "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>{isUrdu ? "انفراسٹرکچر" : "Infrastructure"}</div>
+          <div style={{ fontSize: "11px", fontFamily: isUrdu ? UF : F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{isUrdu ? "لوکل ٹیسٹڈ" : "Local Tested"}</div>
           <div style={{ display: "flex", gap: "3px", marginTop: "8px" }}>
             {[100, 85, 92].map((h, i) => (
               <div key={i} style={{ flex: 1, height: `${h * 0.18}px`, background: i === 2 ? LIME : "rgba(255,255,255,0.1)", borderRadius: "2px" }} />
@@ -382,11 +382,11 @@ function IllustrationPanel({ isUrdu }: { isUrdu?: boolean }) {
         >
           <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px" }}>
             <div style={{ width: 5, height: 5, borderRadius: "50%", background: LIME, boxShadow: `0 0 6px ${LIME}` }} />
-            <span style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.06em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "ڈیش بورڈ" : "Dashboard"}</span>
-            <span style={{ marginLeft: "auto", fontSize: isUrdu ? "10px" : "9px", fontFamily: isUrdu ? UF : F, color: LIME, background: "rgba(197,255,0,0.1)", padding: isUrdu ? "0 6px" : "1px 6px", borderRadius: "8px" }}>{isUrdu ? "لائیو" : "LIVE"}</span>
+            <span style={{ fontSize: "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.06em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "ڈیش بورڈ" : "Dashboard"}</span>
+            <span style={{ marginLeft: "auto", fontSize: "9px", fontFamily: isUrdu ? UF : F, color: LIME, background: "rgba(197,255,0,0.1)", padding: isUrdu ? "0 6px" : "1px 6px", borderRadius: "8px" }}>{isUrdu ? "لائیو" : "LIVE"}</span>
           </div>
           <div style={{ fontSize: "19px", fontFamily: F, fontWeight: 800, color: "#fff", lineHeight: 1, marginBottom: "4px" }}>₨ 2.4M</div>
-          <div style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.35)", marginBottom: "10px" }}>{isUrdu ? "ماہانہ آمدنی ↑ 18%" : "Monthly Revenue ↑ 18%"}</div>
+          <div style={{ fontSize: "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.35)", marginBottom: "10px" }}>{isUrdu ? "ماہانہ آمدنی ↑ 18%" : "Monthly Revenue ↑ 18%"}</div>
           <div style={{ display: "flex", alignItems: "flex-end", gap: "3px", height: "28px" }}>
             {[40, 55, 38, 72, 50, 85, 100].map((h, i) => (
               <div key={i} style={{ flex: 1, height: `${h}%`, borderRadius: "2px 2px 0 0", background: i === 6 ? LIME : "rgba(255,255,255,0.07)" }} />
@@ -410,7 +410,7 @@ function IllustrationPanel({ isUrdu }: { isUrdu?: boolean }) {
             animation: "wa-float-d 5.5s ease-in-out infinite 0.8s",
           }}
         >
-          <div style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)", marginBottom: "8px", letterSpacing: isUrdu ? "0.02em" : "0.05em" }}>{isUrdu ? "ادائیگیاں" : "PAYMENTS"}</div>
+          <div style={{ fontSize: "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)", marginBottom: "8px", letterSpacing: isUrdu ? "0.02em" : "0.05em" }}>{isUrdu ? "ادائیگیاں" : "PAYMENTS"}</div>
           <div style={{ display: "flex", gap: "6px" }}>
             <div style={{ background: "rgba(255,106,0,0.15)", border: "1px solid rgba(255,106,0,0.3)", borderRadius: "8px", padding: "5px 8px" }}>
               <div style={{ fontSize: "9px", fontFamily: F, fontWeight: 700, color: "#FF6A00" }}>Jazz</div>
@@ -440,8 +440,8 @@ function IllustrationPanel({ isUrdu }: { isUrdu?: boolean }) {
           }}
         >
           <Shield size={18} color={LIME} strokeWidth={1.5} style={{ marginBottom: "6px" }} />
-          <div style={{ fontSize: isUrdu ? "13px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.38)", marginBottom: "2px" }}>{isUrdu ? "سورس کوڈ" : "Source Code"}</div>
-          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, fontWeight: 700, color: "#fff" }}>{isUrdu ? "آپ کی ملکیت" : "You Own It"}</div>
+          <div style={{ fontSize: "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.38)", marginBottom: "2px" }}>{isUrdu ? "سورس کوڈ" : "Source Code"}</div>
+          <div style={{ fontSize: "11px", fontFamily: isUrdu ? UF : F, fontWeight: 700, color: "#fff" }}>{isUrdu ? "آپ کی ملکیت" : "You Own It"}</div>
           <div style={{ width: "100%", height: "2px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", marginTop: "8px" }}>
             <div style={{ width: "100%", height: "100%", background: LIME, borderRadius: "1px" }} />
           </div>
@@ -608,7 +608,7 @@ function FeatureCard({
       <div style={{ flex: 1, minWidth: 0 }}>
         <h3
           style={{
-            fontSize: isUrdu ? "20px" : "17px",
+            fontSize: "17px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 700,
             color: hovered ? "#fff" : "rgba(255,255,255,0.88)",
@@ -622,7 +622,7 @@ function FeatureCard({
         </h3>
         <p
           style={{
-            fontSize: isUrdu ? "16px" : "14px",
+            fontSize: "14px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 400,
             color: "rgba(255,255,255,0.42)",
@@ -820,7 +820,7 @@ export function WhyAuraSection() {
                 />
                 <span
                   style={{
-                    fontSize: isUrdu ? "15px" : "13px",
+                    fontSize: "13px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
@@ -835,7 +835,7 @@ export function WhyAuraSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 50px)",
+                fontSize: "clamp(28px, 3.2vw, 50px)",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
@@ -866,7 +866,7 @@ export function WhyAuraSection() {
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: isUrdu ? "18px" : "16px",
+                fontSize: "16px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.47)",
@@ -960,7 +960,7 @@ export function WhyAuraSection() {
             <div style={{ position: "relative" }}>
               <div
                 style={{
-                  fontSize: isUrdu ? "clamp(22px, 2vw, 26px)" : "clamp(17px, 1.6vw, 22px)",
+                  fontSize: "clamp(17px, 1.6vw, 22px)",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 700,
                   color: "#FFFFFF",
@@ -972,7 +972,7 @@ export function WhyAuraSection() {
               </div>
               <div
                 style={{
-                  fontSize: isUrdu ? "16px" : "14px",
+                  fontSize: "14px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 400,
                   color: "rgba(255,255,255,0.42)",

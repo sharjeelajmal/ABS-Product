@@ -8,7 +8,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 // ─── Injected keyframes ───────────────────────────────────────────────────────
 
@@ -159,7 +159,7 @@ function VerifiedBadge({ isUrdu }: { isUrdu?: boolean }) {
       <BadgeCheck size={10} color={LIME} strokeWidth={2.5} />
       <span
         style={{
-          fontSize: isUrdu ? "11px" : "10px",
+          fontSize: "10px",
           fontFamily: isUrdu ? UF : F,
           fontWeight: 600,
           color: "rgba(197,255,0,0.85)",
@@ -334,7 +334,7 @@ function FeaturedCard({ t, isUrdu }: { t: Testimonial; isUrdu?: boolean }) {
       {/* Quote text */}
       <p
         style={{
-          fontSize: isUrdu ? "clamp(19px, 1.9vw, 24px)" : "clamp(17px, 1.7vw, 22px)",
+          fontSize: "clamp(17px, 1.7vw, 22px)",
           fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: hovered ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.78)",
@@ -370,7 +370,7 @@ function FeaturedCard({ t, isUrdu }: { t: Testimonial; isUrdu?: boolean }) {
           >
             <span
               style={{
-                fontSize: isUrdu ? "18px" : "16px",
+                fontSize: "16px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: "#FFFFFF",
@@ -383,7 +383,7 @@ function FeaturedCard({ t, isUrdu }: { t: Testimonial; isUrdu?: boolean }) {
           </div>
           <div
             style={{
-              fontSize: isUrdu ? "16px" : "14px",
+              fontSize: "14px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.42)",
@@ -526,7 +526,7 @@ function SecondaryCard({
       {/* Quote */}
       <p
         style={{
-          fontSize: isUrdu ? "18px" : "16px",
+          fontSize: "16px",
           fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: hovered ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.7)",
@@ -566,7 +566,7 @@ function SecondaryCard({
             >
               <span
                 style={{
-                  fontSize: isUrdu ? "16px" : "14px",
+                  fontSize: "14px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 700,
                   color: "#FFFFFF",
@@ -578,7 +578,7 @@ function SecondaryCard({
             </div>
             <div
               style={{
-                fontSize: isUrdu ? "14px" : "12px",
+                fontSize: "12px",
                 fontFamily: isUrdu ? UF : F,
                 color: "rgba(255,255,255,0.38)",
               }}
@@ -801,7 +801,7 @@ export function TestimonialsSection() {
                 />
                 <span
                   style={{
-                    fontSize: isUrdu ? "15px" : "13px",
+                    fontSize: "13px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
@@ -816,7 +816,7 @@ export function TestimonialsSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+                fontSize: "clamp(28px, 3.2vw, 48px)",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
@@ -841,7 +841,7 @@ export function TestimonialsSection() {
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: isUrdu ? "18px" : "16px",
+                fontSize: "16px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.47)",
@@ -906,7 +906,7 @@ export function TestimonialsSection() {
                 </div>
                 <div
                   style={{
-                    fontSize: isUrdu ? "14px" : "12px",
+                    fontSize: "12px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.36)",
@@ -959,7 +959,7 @@ export function TestimonialsSection() {
           >
             <div
               style={{
-                fontSize: isUrdu ? "16px" : "14px",
+                fontSize: "14px",
                 fontFamily: isUrdu ? UF : F,
                 color: "rgba(255,255,255,0.35)",
                 marginBottom: "24px",

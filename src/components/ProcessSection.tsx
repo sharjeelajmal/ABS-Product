@@ -19,7 +19,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 const DIM = "rgba(255,255,255,0.42)";
 const BORDER_DIM = "rgba(255,255,255,0.07)";
 
@@ -206,7 +206,7 @@ function StepCard({
       {/* Title */}
       <h3
         style={{
-          fontSize: isUrdu ? "18px" : "15px",
+          fontSize: "15px",
           fontFamily: isUrdu ? UF : F,
           fontWeight: 700,
           color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.9)",
@@ -222,7 +222,7 @@ function StepCard({
       {/* Description */}
       <p
         style={{
-          fontSize: isUrdu ? "14.5px" : "12.5px",
+          fontSize: "12.5px",
           fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: hovered ? "rgba(255,255,255,0.52)" : DIM,
@@ -529,7 +529,7 @@ export function ProcessSection() {
               />
               <span
                 style={{
-                  fontSize: isUrdu ? "15px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
@@ -545,7 +545,7 @@ export function ProcessSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(30px, 3.4vw, 50px)",
+              fontSize: "clamp(30px, 3.4vw, 50px)",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
@@ -572,7 +572,7 @@ export function ProcessSection() {
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: isUrdu ? "18px" : "16px",
+              fontSize: "16px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
@@ -652,7 +652,7 @@ export function ProcessSection() {
                 />
                 <span
                   style={{
-                    fontSize: isUrdu ? "14px" : "12px",
+                    fontSize: "12px",
                     fontFamily: isUrdu ? UF : F,
                     color: "rgba(255,255,255,0.35)",
                     whiteSpace: "nowrap",

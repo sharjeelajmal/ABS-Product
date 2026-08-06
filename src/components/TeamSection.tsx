@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 40 },
@@ -145,7 +145,7 @@ function TeamCard({ member, delay, isUrdu }: { member: any; delay: number; isUrd
         >
           <div
             style={{
-              fontSize: isUrdu ? "14px" : "12px",
+              fontSize: "12px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 700,
               color: LIME,
@@ -172,7 +172,7 @@ function TeamCard({ member, delay, isUrdu }: { member: any; delay: number; isUrd
           
           <h3
             style={{
-              fontSize: isUrdu ? "36px" : "32px",
+              fontSize: "32px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
@@ -187,7 +187,7 @@ function TeamCard({ member, delay, isUrdu }: { member: any; delay: number; isUrd
 
           <p
             style={{
-              fontSize: isUrdu ? "17px" : "15px",
+              fontSize: "15px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.7)",
@@ -285,7 +285,7 @@ export function TeamSection() {
               />
               <span
                 style={{
-                  fontSize: isUrdu ? "15px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
@@ -300,7 +300,7 @@ export function TeamSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+              fontSize: "clamp(28px, 3.2vw, 48px)",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
@@ -325,7 +325,7 @@ export function TeamSection() {
           <motion.p
             {...fadeUp(0.15)}
             style={{
-              fontSize: isUrdu ? "18px" : "16px",
+              fontSize: "16px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.47)",

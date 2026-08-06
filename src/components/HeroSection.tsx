@@ -8,7 +8,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 28 },
@@ -80,7 +80,7 @@ export function HeroSection() {
               />
               <span
                 style={{
-                  fontSize: isUrdu ? "16px" : "13px",
+                  fontSize: "13px",
                   fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
@@ -97,7 +97,7 @@ export function HeroSection() {
           <motion.h1
             {...fadeUp(0.1)}
             style={{
-              fontSize: isUrdu ? "clamp(42px, 5vw, 68px)" : "clamp(38px, 4.2vw, 60px)",
+              fontSize: "clamp(38px, 4.2vw, 60px)",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
@@ -126,7 +126,7 @@ export function HeroSection() {
           <motion.p
             {...fadeUp(0.18)}
             style={{
-              fontSize: isUrdu ? "18px" : "16px",
+              fontSize: "16px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.52)",
@@ -188,7 +188,7 @@ export function HeroSection() {
                 />
                 <span
                   style={{
-                    fontSize: isUrdu ? "14px" : "12px",
+                    fontSize: "12px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: "rgba(255,255,255,0.65)",
@@ -254,7 +254,7 @@ export function HeroSection() {
               <div>
                 <div
                   style={{
-                    fontSize: isUrdu ? "14px" : "11px",
+                    fontSize: "11px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 700,
                     color: LIME,
@@ -267,7 +267,7 @@ export function HeroSection() {
                 </div>
                 <p
                   style={{
-                    fontSize: isUrdu ? "16px" : "14px",
+                    fontSize: "14px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.62)",
@@ -353,7 +353,7 @@ export function HeroSection() {
                   </div>
                   <div
                     style={{
-                      fontSize: isUrdu ? "13px" : "11px",
+                      fontSize: "11px",
                       fontFamily: isUrdu ? UF : F,
                       color: "rgba(255,255,255,0.38)",
                       marginTop: "3px",

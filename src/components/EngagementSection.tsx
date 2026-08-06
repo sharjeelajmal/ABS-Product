@@ -17,7 +17,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
-const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
+const UF = "var(--font-noto-nastaliq), 'Noto Nastaliq Urdu', serif";
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
@@ -81,7 +81,7 @@ function CheckItem({ text, featured, isUrdu }: { text: string; featured?: boolea
       </div>
       <span
         style={{
-          fontSize: isUrdu ? "16px" : "14px",
+          fontSize: "14px",
           fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: featured ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.52)",
@@ -329,7 +329,7 @@ function EngagementCard({
             <Sparkles size={11} color={LIME} strokeWidth={2} />
             <span
               style={{
-                fontSize: isUrdu ? "14px" : "11px",
+                fontSize: "11px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: LIME,
@@ -377,7 +377,7 @@ function EngagementCard({
         >
           <span
             style={{
-              fontSize: isUrdu ? "13px" : "11px",
+              fontSize: "11px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 700,
               color: featured ? LIME : "rgba(255,255,255,0.35)",
@@ -391,7 +391,7 @@ function EngagementCard({
           </span>
           <span
             style={{
-              fontSize: isUrdu ? "15px" : "13px",
+              fontSize: "13px",
               fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.52)",
@@ -417,7 +417,7 @@ function EngagementCard({
         {/* Description */}
         <p
           style={{
-            fontSize: isUrdu ? "16px" : "14px",
+            fontSize: "14px",
             fontFamily: isUrdu ? UF : F,
             fontWeight: 400,
             color: "rgba(255,255,255,0.45)",
@@ -656,7 +656,7 @@ export function EngagementSection() {
                 />
                 <span
                   style={{
-                    fontSize: isUrdu ? "15px" : "13px",
+                    fontSize: "13px",
                     fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
@@ -671,7 +671,7 @@ export function EngagementSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 50px)",
+                fontSize: "clamp(28px, 3.2vw, 50px)",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
@@ -696,7 +696,7 @@ export function EngagementSection() {
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: isUrdu ? "18px" : "16px",
+                fontSize: "16px",
                 fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.47)",
@@ -783,7 +783,7 @@ export function EngagementSection() {
                   />
                   <span
                     style={{
-                      fontSize: isUrdu ? "15px" : "13px",
+                      fontSize: "13px",
                       fontFamily: isUrdu ? UF : F,
                       fontWeight: 400,
                       color: "rgba(255,255,255,0.38)",
