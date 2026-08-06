@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, type FC } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Phone, Globe, Mail, ArrowUpRight, Copy, Check } from "lucide-react";
 import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
@@ -109,12 +111,14 @@ function ContactCard({
   value,
   href,
   delay,
+  isUrdu,
 }: {
   Icon: FC<{ size: number; color: string; strokeWidth: number }>;
   label: string;
   value: string;
   href: string;
   delay: number;
+  isUrdu?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -179,12 +183,12 @@ function ContactCard({
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            fontSize: "11px",
-            fontFamily: F,
+            fontSize: isUrdu ? "14px" : "11px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 600,
             color: "rgba(255,255,255,0.3)",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
+            letterSpacing: isUrdu ? "0.02em" : "0.06em",
+            textTransform: isUrdu ? "none" : "uppercase",
             marginBottom: "3px",
           }}
         >
@@ -202,6 +206,7 @@ function ContactCard({
             textOverflow: "ellipsis",
             transition: "color 0.2s ease",
           }}
+          dir="ltr"
         >
           {value}
         </div>
@@ -246,12 +251,16 @@ const fadeUp = (delay: number) => ({
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function CTASection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
   return (
     <>
       <style>{CSS}</style>
       <section
         id="contact"
         className="figma-section"
+        dir={isUrdu ? "rtl" : "ltr"}
         style={{
           padding: "100px 48px 80px",
           position: "relative",
@@ -507,15 +516,15 @@ export function CTASection() {
                     />
                     <span
                       style={{
-                        fontSize: "12px",
-                        fontFamily: F,
+                        fontSize: isUrdu ? "14px" : "12px",
+                        fontFamily: isUrdu ? UF : F,
                         fontWeight: 600,
                         color: LIME,
                         letterSpacing: "0.04em",
-                        textTransform: "uppercase",
+                        textTransform: isUrdu ? "none" : "uppercase",
                       }}
                     >
-                      Get in Touch
+                      {isUrdu ? "رابطہ کریں" : "Get in Touch"}
                     </span>
                   </div>
                 </motion.div>
@@ -524,8 +533,8 @@ export function CTASection() {
                 <motion.h2
                   {...fadeUp(0.08)}
                   style={{
-                    fontSize: "clamp(26px, 3.2vw, 46px)",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "clamp(32px, 3.8vw, 52px)" : "clamp(26px, 3.2vw, 46px)",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 800,
                     color: "#FFFFFF",
                     lineHeight: 1.15,
@@ -536,7 +545,7 @@ export function CTASection() {
                     marginRight: "auto",
                   }}
                 >
-                  Tell Us What You're Building —{" "}
+                  {isUrdu ? "آئیے آپ کے " : "Tell Us What You're Building — "}
                   <span
                     style={{
                       background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -545,7 +554,7 @@ export function CTASection() {
                       backgroundClip: "text",
                     }}
                   >
-                    We'll Reply Within One Business Day.
+                    {isUrdu ? "کاروبار پر بات کریں" : "We'll Reply Within One Business Day."}
                   </span>
                 </motion.h2>
 
@@ -553,8 +562,8 @@ export function CTASection() {
                 <motion.p
                   {...fadeUp(0.14)}
                   style={{
-                    fontSize: "16px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "18px" : "16px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.46)",
                     lineHeight: 1.78,
@@ -564,19 +573,22 @@ export function CTASection() {
                     marginRight: "auto",
                   }}
                 >
-                  Whether it's POS, TMS, SMS, Restaurant, or Recurring Billing —
-                  our team is ready to help you get started.
+                  {isUrdu ? "چاہے آپ کو ڈیمو چاہیے ہو یا قیمتیں معلوم کرنی ہوں، ہماری ٹیم پاکستان کے مقامی وقت کے مطابق دستیاب ہے۔" : "Whether it's POS, TMS, SMS, Restaurant, or Recurring Billing — our team is ready to help you get started."}
                 </motion.p>
 
                 {/* CTA buttons */}
-                <motion.div {...fadeUp(0.2)} className="cta-row cta-mobile-col" style={{ marginBottom: "48px" }}>
+                <motion.div {...fadeUp(0.2)} className="cta-row cta-mobile-col" style={{ marginBottom: "48px", display: "flex", gap: "16px", justifyContent: "center" }}>
                   <SiteButton href="mailto:info@aurabusinesssolution.com" variant="primary">
-                    <Mail size={15} strokeWidth={2.5} />
-                    info@aurabusinesssolution.com
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <Mail size={15} strokeWidth={2.5} />
+                      <span style={{ fontFamily: F }} dir="ltr">info@aurabusinesssolution.com</span>
+                    </div>
                   </SiteButton>
                   <SiteButton href="tel:+923706277633" variant="secondary">
-                    <Phone size={15} strokeWidth={2} />
-                    +92 370 6277633
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <Phone size={15} strokeWidth={2} />
+                      <span style={{ fontFamily: F }} dir="ltr">+92 370 6277633</span>
+                    </div>
                   </SiteButton>
                 </motion.div>
 
@@ -600,16 +612,16 @@ export function CTASection() {
                   />
                   <span
                     style={{
-                      fontSize: "11px",
-                      fontFamily: F,
+                      fontSize: isUrdu ? "14px" : "11px",
+                      fontFamily: isUrdu ? UF : F,
                       fontWeight: 500,
                       color: "rgba(255,255,255,0.25)",
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
+                      letterSpacing: isUrdu ? "0.02em" : "0.06em",
+                      textTransform: isUrdu ? "none" : "uppercase",
                       flexShrink: 0,
                     }}
                   >
-                    or find us at
+                    {isUrdu ? "یا ہم سے رابطہ کریں" : "or find us at"}
                   </span>
                   <div
                     style={{
@@ -633,24 +645,27 @@ export function CTASection() {
                 >
                   <ContactCard
                     Icon={Phone}
-                    label="Phone"
+                    label={isUrdu ? "فون" : "Phone"}
                     value="+92 370 6277633"
                     href="tel:+923706277633"
                     delay={0.34}
+                    isUrdu={isUrdu ?? false}
                   />
                   <ContactCard
                     Icon={Globe}
-                    label="Website"
-                    value="www.aurabusinesssolution.com"
-                    href="https://www.aurabusinesssolution.com"
+                    label={isUrdu ? "ویب سائٹ" : "Website"}
+                    value="pk.aurabusinesssolution.com"
+                    href="https://pk.aurabusinesssolution.com/"
                     delay={0.4}
+                    isUrdu={isUrdu ?? false}
                   />
                   <ContactCard
                     Icon={Mail}
-                    label="Email"
+                    label={isUrdu ? "ای میل" : "Email"}
                     value="info@aurabusinesssolution.com"
                     href="mailto:info@aurabusinesssolution.com"
                     delay={0.46}
+                    isUrdu={isUrdu ?? false}
                   />
                 </motion.div>
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, type CSSProperties, type ReactElement } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingCart,
@@ -17,6 +18,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 const DIM = "rgba(255,255,255,0.42)";
 const BORDER = "rgba(255,255,255,0.08)";
 
@@ -24,6 +26,7 @@ const BORDER = "rgba(255,255,255,0.08)";
 
 interface Feature {
   name: string;
+  nameUr: string;
   basic: boolean;
   pro: boolean;
 }
@@ -31,7 +34,9 @@ interface Feature {
 interface Product {
   id: string;
   name: string;
+  nameUr: string;
   label: string;
+  labelUr: string;
   icon: ReactElement;
   features: Feature[];
 }
@@ -40,76 +45,86 @@ const products: Product[] = [
   {
     id: "pos",
     name: "POS",
+    nameUr: "پی او ایس",
     label: "Point of Sale",
+    labelUr: "پوائنٹ آف سیل",
     icon: <ShoppingCart size={15} strokeWidth={1.8} />,
     features: [
-      { name: "Single branch billing", basic: true, pro: true },
-      { name: "Inventory low-stock alerts", basic: true, pro: true },
-      { name: "Standard sales reports", basic: true, pro: true },
-      { name: "Multi-branch sync", basic: false, pro: true },
-      { name: "Advanced sales & profit reports", basic: false, pro: true },
-      { name: "JazzCash / Easypaisa integration", basic: false, pro: true },
-      { name: "Priority support", basic: false, pro: true },
+      { name: "Single branch billing", nameUr: "سنگل برانچ بلنگ", basic: true, pro: true },
+      { name: "Inventory low-stock alerts", nameUr: "انوینٹری الرٹس", basic: true, pro: true },
+      { name: "Standard sales reports", nameUr: "معیاری سیلز رپورٹس", basic: true, pro: true },
+      { name: "Multi-branch sync", nameUr: "ملٹی برانچ سنک", basic: false, pro: true },
+      { name: "Advanced sales & profit reports", nameUr: "ایڈوانسڈ سیلز اور پرافٹ رپورٹس", basic: false, pro: true },
+      { name: "JazzCash / Easypaisa integration", nameUr: "JazzCash / Easypaisa انٹیگریشن", basic: false, pro: true },
+      { name: "Priority support", nameUr: "ترجیحی سپورٹ", basic: false, pro: true },
     ],
   },
   {
     id: "tms",
     name: "TMS",
+    nameUr: "ٹی ایم ایس",
     label: "Transport Management",
+    labelUr: "ٹرانسپورٹ مینجمنٹ",
     icon: <Truck size={15} strokeWidth={1.8} />,
     features: [
-      { name: "Vehicle & route tracking", basic: true, pro: true },
-      { name: "Basic trip logs", basic: true, pro: true },
-      { name: "Up to 10 vehicles", basic: true, pro: false },
-      { name: "Unlimited vehicles", basic: false, pro: true },
-      { name: "Driver performance reports", basic: false, pro: true },
-      { name: "Route optimization", basic: false, pro: true },
-      { name: "Priority support", basic: false, pro: true },
+      { name: "Vehicle & route tracking", nameUr: "گاڑیوں اور روٹس کی ٹریکنگ", basic: true, pro: true },
+      { name: "Basic trip logs", nameUr: "بنیادی ٹرپ لاگز", basic: true, pro: true },
+      { name: "Up to 10 vehicles", nameUr: "10 گاڑیوں تک", basic: true, pro: false },
+      { name: "Unlimited vehicles", nameUr: "لامحدود گاڑیاں", basic: false, pro: true },
+      { name: "Driver performance reports", nameUr: "ڈرائیور کی کارکردگی کی رپورٹس", basic: false, pro: true },
+      { name: "Route optimization", nameUr: "روٹ آپٹیمائزیشن", basic: false, pro: true },
+      { name: "Priority support", nameUr: "ترجیحی سپورٹ", basic: false, pro: true },
     ],
   },
   {
     id: "sms",
     name: "SMS",
+    nameUr: "ایس ایم ایس",
     label: "School Management",
+    labelUr: "اسکول مینجمنٹ",
     icon: <BookOpen size={15} strokeWidth={1.8} />,
     features: [
-      { name: "Student & class records", basic: true, pro: true },
-      { name: "Attendance tracking", basic: true, pro: true },
-      { name: "Basic fee management", basic: true, pro: true },
-      { name: "Online fee collection", basic: false, pro: true },
-      { name: "Result & report card generation", basic: false, pro: true },
-      { name: "Parent SMS / WhatsApp alerts", basic: false, pro: true },
-      { name: "Priority support", basic: false, pro: true },
+      { name: "Student & class records", nameUr: "طلبہ اور کلاسز کا ریکارڈ", basic: true, pro: true },
+      { name: "Attendance tracking", nameUr: "حاضری ٹریکنگ", basic: true, pro: true },
+      { name: "Basic fee management", nameUr: "بنیادی فیس مینجمنٹ", basic: true, pro: true },
+      { name: "Online fee collection", nameUr: "آن لائن فیس وصولی", basic: false, pro: true },
+      { name: "Result & report card generation", nameUr: "نتائج اور رپورٹ کارڈز کی تیاری", basic: false, pro: true },
+      { name: "Parent SMS / WhatsApp alerts", nameUr: "والدین کے لیے SMS / WhatsApp الرٹس", basic: false, pro: true },
+      { name: "Priority support", nameUr: "ترجیحی سپورٹ", basic: false, pro: true },
     ],
   },
   {
     id: "restaurant",
     name: "Restaurant",
+    nameUr: "ریسٹورنٹ",
     label: "Restaurant System",
+    labelUr: "ریسٹورنٹ سسٹم",
     icon: <UtensilsCrossed size={15} strokeWidth={1.8} />,
     features: [
-      { name: "Table & order management", basic: true, pro: true },
-      { name: "Menu management", basic: true, pro: true },
-      { name: "Basic daily sales reports", basic: true, pro: true },
-      { name: "Kitchen display / order printing", basic: false, pro: true },
-      { name: "Delivery & takeaway management", basic: false, pro: true },
-      { name: "Detailed profit & item-wise reports", basic: false, pro: true },
-      { name: "Priority support", basic: false, pro: true },
+      { name: "Table & order management", nameUr: "ٹیبل اور آرڈر مینجمنٹ", basic: true, pro: true },
+      { name: "Menu management", nameUr: "مینو مینجمنٹ", basic: true, pro: true },
+      { name: "Basic daily sales reports", nameUr: "بنیادی روزمرہ سیلز رپورٹس", basic: true, pro: true },
+      { name: "Kitchen display / order printing", nameUr: "کچن ڈسپلے / آرڈر پرنٹنگ", basic: false, pro: true },
+      { name: "Delivery & takeaway management", nameUr: "ڈیلیوری اور ٹیک اوے مینجمنٹ", basic: false, pro: true },
+      { name: "Detailed profit & item-wise reports", nameUr: "تفصیلی منافع اور آئٹم وار رپورٹس", basic: false, pro: true },
+      { name: "Priority support", nameUr: "ترجیحی سپورٹ", basic: false, pro: true },
     ],
   },
   {
     id: "billing",
     name: "Billing",
+    nameUr: "بلنگ",
     label: "Recurring Billing",
+    labelUr: "ریکرنگ بلنگ",
     icon: <ReceiptText size={15} strokeWidth={1.8} />,
     features: [
-      { name: "Manual subscription tracking", basic: true, pro: true },
-      { name: "Basic invoice generation", basic: true, pro: true },
-      { name: "Single payment cycle", basic: true, pro: true },
-      { name: "Automated recurring invoices", basic: false, pro: true },
-      { name: "Multiple billing cycles", basic: false, pro: true },
-      { name: "Payment reminders & alerts", basic: false, pro: true },
-      { name: "Priority support", basic: false, pro: true },
+      { name: "Manual subscription tracking", nameUr: "دستی سبسکرپشن ٹریکنگ", basic: true, pro: true },
+      { name: "Basic invoice generation", nameUr: "بنیادی انوائسنگ", basic: true, pro: true },
+      { name: "Single payment cycle", nameUr: "سنگل پیمنٹ سائیکل", basic: true, pro: true },
+      { name: "Automated recurring invoices", nameUr: "خودکار ریکرنگ انوائسز", basic: false, pro: true },
+      { name: "Multiple billing cycles", nameUr: "متعدد بلنگ سائیکلز", basic: false, pro: true },
+      { name: "Payment reminders & alerts", nameUr: "پیمنٹ ریمائنڈرز اور الرٹس", basic: false, pro: true },
+      { name: "Priority support", nameUr: "ترجیحی سپورٹ", basic: false, pro: true },
     ],
   },
 ];
@@ -157,7 +172,7 @@ function DashIcon() {
 
 // ─── Desktop Comparison Table ─────────────────────────────────────────────────
 
-function ComparisonTable({ features }: { features: Feature[] }) {
+function ComparisonTable({ features, isUrdu }: { features: Feature[]; isUrdu: boolean }) {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const totalRows = features.length;
 
@@ -218,14 +233,16 @@ function ComparisonTable({ features }: { features: Feature[] }) {
             <Sparkles size={10} color={LIME} />
             <span
               style={{
-                fontSize: "11px",
-                fontFamily: F,
+                fontSize: isUrdu ? "12px" : "11px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: LIME,
-                letterSpacing: "0.05em",
+                letterSpacing: isUrdu ? "0.02em" : "0.05em",
+                lineHeight: 1,
+                paddingTop: isUrdu ? "2px" : "0px",
               }}
             >
-              MOST POPULAR
+              {isUrdu ? "زیادہ منتخب کردہ" : "MOST POPULAR"}
             </span>
           </div>
         </div>
@@ -243,15 +260,15 @@ function ComparisonTable({ features }: { features: Feature[] }) {
         <div style={{ ...cellBase, paddingTop: "12px", paddingBottom: "16px" }}>
           <span
             style={{
-              fontSize: "12px",
-              fontFamily: F,
+              fontSize: isUrdu ? "14px" : "12px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 600,
               color: "rgba(255,255,255,0.35)",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
+              letterSpacing: isUrdu ? "0.03em" : "0.08em",
+              textTransform: isUrdu ? "none" : "uppercase",
             }}
           >
-            Feature
+            {isUrdu ? "فیچر" : "Feature"}
           </span>
         </div>
         {/* Basic header */}
@@ -277,12 +294,12 @@ function ComparisonTable({ features }: { features: Feature[] }) {
           </span>
           <span
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               color: "rgba(255,255,255,0.35)",
             }}
           >
-            Get started
+            {isUrdu ? "شروعات کے لیے" : "Get started"}
           </span>
         </div>
         {/* Pro header */}
@@ -312,12 +329,12 @@ function ComparisonTable({ features }: { features: Feature[] }) {
           </span>
           <span
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               color: "rgba(197,255,0,0.55)",
             }}
           >
-            Full scale
+            {isUrdu ? "مکمل آپریشنز کے لیے" : "Full scale"}
           </span>
         </div>
       </div>
@@ -345,12 +362,11 @@ function ComparisonTable({ features }: { features: Feature[] }) {
               cursor: "default",
             }}
           >
-            {/* Feature name */}
             <div style={{ ...cellBase }}>
               <span
                 style={{
-                  fontSize: "14px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15.5px" : "14px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 400,
                   color: isHovered
                     ? "rgba(255,255,255,0.88)"
@@ -359,7 +375,7 @@ function ComparisonTable({ features }: { features: Feature[] }) {
                   transition: "color 0.2s ease",
                 }}
               >
-                {feature.name}
+                {isUrdu ? feature.nameUr : feature.name}
               </span>
             </div>
 
@@ -395,7 +411,7 @@ function ComparisonTable({ features }: { features: Feature[] }) {
 
 // ─── Mobile Comparison Cards ──────────────────────────────────────────────────
 
-function ComparisonCards({ features }: { features: Feature[] }) {
+function ComparisonCards({ features, isUrdu }: { features: Feature[]; isUrdu: boolean }) {
   return (
     <div
       className="rs-cmp-cards"
@@ -432,12 +448,12 @@ function ComparisonCards({ features }: { features: Feature[] }) {
           </div>
           <div
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               color: "rgba(255,255,255,0.35)",
             }}
           >
-            Get started
+            {isUrdu ? "شروعات کے لیے" : "Get started"}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -463,15 +479,15 @@ function ComparisonCards({ features }: { features: Feature[] }) {
               )}
               <span
                 style={{
-                  fontSize: "12px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "13.5px" : "12px",
+                  fontFamily: isUrdu ? UF : F,
                   color: f.basic
                     ? "rgba(255,255,255,0.72)"
                     : "rgba(255,255,255,0.28)",
                   lineHeight: 1.5,
                 }}
               >
-                {f.name}
+                {isUrdu ? f.nameUr : f.name}
               </span>
             </div>
           ))}
@@ -512,28 +528,29 @@ function ComparisonCards({ features }: { features: Feature[] }) {
             </div>
             <div
               style={{
-                fontSize: "9px",
-                fontFamily: F,
+                fontSize: isUrdu ? "10px" : "9px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: LIME,
                 background: "rgba(197,255,0,0.12)",
                 border: "1px solid rgba(197,255,0,0.3)",
-                padding: "1px 7px",
+                padding: isUrdu ? "2px 7px" : "1px 7px",
                 borderRadius: "20px",
-                letterSpacing: "0.05em",
+                letterSpacing: isUrdu ? "0.02em" : "0.05em",
+                lineHeight: 1,
               }}
             >
-              POPULAR
+              {isUrdu ? "مقبول" : "POPULAR"}
             </div>
           </div>
           <div
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               color: "rgba(197,255,0,0.5)",
             }}
           >
-            Full scale
+            {isUrdu ? "مکمل آپریشنز کے لیے" : "Full scale"}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -559,15 +576,15 @@ function ComparisonCards({ features }: { features: Feature[] }) {
               )}
               <span
                 style={{
-                  fontSize: "12px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "13.5px" : "12px",
+                  fontFamily: isUrdu ? UF : F,
                   color: f.pro
                     ? "rgba(255,255,255,0.88)"
                     : "rgba(255,255,255,0.28)",
                   lineHeight: 1.5,
                 }}
               >
-                {f.name}
+                {isUrdu ? f.nameUr : f.name}
               </span>
             </div>
           ))}
@@ -582,9 +599,11 @@ function ComparisonCards({ features }: { features: Feature[] }) {
 function TabBar({
   activeIndex,
   onSelect,
+  isUrdu,
 }: {
   activeIndex: number;
   onSelect: (i: number) => void;
+  isUrdu: boolean;
 }) {
   return (
     <div style={{ marginBottom: 28 }}>
@@ -631,15 +650,15 @@ function TabBar({
               <span style={{ display: "flex", color: "inherit" }}>{product.icon}</span>
               <span
                 style={{
-                  fontSize: 9,
-                  fontFamily: F,
+                  fontSize: isUrdu ? 11 : 9,
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: isActive ? 700 : 500,
                   letterSpacing: "0.01em",
                   lineHeight: 1.1,
                   textAlign: "center",
                 }}
               >
-                {product.name}
+                {isUrdu ? product.nameUr : product.name}
               </span>
             </button>
           );
@@ -724,15 +743,16 @@ function TabBar({
               </span>
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "14px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: isActive ? 700 : 500,
                   whiteSpace: "nowrap",
                   transition: "font-weight 0.15s ease, color 0.25s ease",
                   color: isActive ? "#050505" : "rgba(255,255,255,0.65)",
+                  paddingTop: isUrdu ? "2px" : "0px",
                 }}
               >
-                {product.name}
+                {isUrdu ? product.nameUr : product.name}
               </span>
             </button>
           );
@@ -756,6 +776,8 @@ const fadeUp = (delay: number) => ({
 export function ComparisonSection() {
   const [activeTab, setActiveTab] = useState(0);
   const [isDesktop, setIsDesktop] = useState(true);
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 768);
@@ -859,14 +881,14 @@ export function ComparisonSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
                   letterSpacing: "0.02em",
                 }}
               >
-                Our Products
+                {isUrdu ? "ہمارے پراڈکٹس" : "Our Products"}
               </span>
             </div>
           </motion.div>
@@ -875,8 +897,8 @@ export function ComparisonSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: "clamp(28px, 3.2vw, 48px)",
-              fontFamily: F,
+              fontSize: isUrdu ? "clamp(32px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.12,
@@ -884,7 +906,8 @@ export function ComparisonSection() {
               margin: "0 0 18px 0",
             }}
           >
-            Choose a Product to Compare{" "}
+            {isUrdu ? "موازنہ کرنے کے لیے پراڈکٹ منتخب کریں " : "Choose a Product to Compare "}
+            <br className="hidden md:block" />
             <span
               style={{
                 background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -893,7 +916,7 @@ export function ComparisonSection() {
                 backgroundClip: "text",
               }}
             >
-              Basic vs Pro
+              {isUrdu ? "Basic بمقابلہ Pro" : "Basic vs Pro"}
             </span>
           </motion.h2>
 
@@ -901,22 +924,21 @@ export function ComparisonSection() {
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: "16px",
-              fontFamily: F,
+              fontSize: isUrdu ? "18px" : "16px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
               lineHeight: 1.75,
               margin: 0,
             }}
           >
-            Click any product below to see exactly what's included in each
-            plan.
+            {isUrdu ? "نیچے کوئی بھی پراڈکٹ کلک کریں تاکہ دیکھ سکیں کہ ہر پلان میں کیا شامل ہے۔" : "Click any product below to see exactly what's included in each plan."}
           </motion.p>
         </div>
 
         {/* ── Tab Navigation ─────────────────────────────────────── */}
         <motion.div {...fadeUp(0.22)}>
-          <TabBar activeIndex={activeTab} onSelect={setActiveTab} />
+          <TabBar activeIndex={activeTab} onSelect={setActiveTab} isUrdu={isUrdu ?? false} />
         </motion.div>
 
         {/* ── Active product label ───────────────────────────────── */}
@@ -932,15 +954,23 @@ export function ComparisonSection() {
         >
           <span
             style={{
-              fontSize: "13px",
-              fontFamily: F,
+              fontSize: isUrdu ? "15px" : "13px",
+              fontFamily: isUrdu ? UF : F,
               color: "rgba(255,255,255,0.35)",
             }}
           >
-            Comparing plans for{" "}
-            <span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>
-              {active.label}
-            </span>
+            {isUrdu ? (
+              <>
+                "<span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500, fontFamily: F }}>{active.name}</span>" کے لیے پلانز دیکھے جا رہے ہیں
+              </>
+            ) : (
+              <>
+                Comparing plans for{" "}
+                <span style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>
+                  {active.label}
+                </span>
+              </>
+            )}
           </span>
         </motion.div>
 
@@ -954,9 +984,9 @@ export function ComparisonSection() {
             transition={{ duration: 0.28, ease: "easeOut" }}
           >
             {isDesktop ? (
-              <ComparisonTable features={active.features} />
+              <ComparisonTable features={active.features} isUrdu={isUrdu ?? false} />
             ) : (
-              <ComparisonCards features={active.features} />
+              <ComparisonCards features={active.features} isUrdu={isUrdu ?? false} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -975,12 +1005,12 @@ export function ComparisonSection() {
 
         {/* ── CTAs ───────────────────────────────────────────────── */}
         <motion.div {...fadeUp(0.34)} className="cta-row">
-          <SiteButton href="tel:+923706277633" variant="primary">
-            Get a Quote
+          <SiteButton href="tel:+923706277633" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "کوٹیشن حاصل کریں" : "Get a Quote"}
           </SiteButton>
-          <SiteButton href="tel:+923706277633" variant="secondary">
-            Talk to Sales
-            <ArrowRight size={14} strokeWidth={2} />
+          <SiteButton href="tel:+923706277633" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "سیلز ٹیم سے بات کریں" : "Talk to Sales"}
+            <ArrowRight size={14} strokeWidth={2} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
           </SiteButton>
         </motion.div>
 
@@ -996,11 +1026,18 @@ export function ComparisonSection() {
             flexWrap: "wrap",
           }}
         >
-          {[
-            "No hidden fees",
-            "Cancel anytime",
-            "Upgrade from Basic to Pro",
-          ].map((item, i) => (
+          {(isUrdu
+            ? [
+                "کوئی چھپی فیس نہیں",
+                "کسی بھی وقت منسوخ کریں",
+                "Basic سے Pro میں اپ گریڈ کریں",
+              ]
+            : [
+                "No hidden fees",
+                "Cancel anytime",
+                "Upgrade from Basic to Pro",
+              ]
+          ).map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 8 }}
@@ -1012,8 +1049,8 @@ export function ComparisonSection() {
               <Check size={12} color={LIME} strokeWidth={2.5} />
               <span
                 style={{
-                  fontSize: "12.5px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "14px" : "12.5px",
+                  fontFamily: isUrdu ? UF : F,
                   color: "rgba(255,255,255,0.38)",
                 }}
               >

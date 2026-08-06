@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 // ─── Injected keyframes ───────────────────────────────────────────────────────
 
@@ -141,7 +143,7 @@ function Avatar({
 
 // ─── Verified badge ───────────────────────────────────────────────────────────
 
-function VerifiedBadge() {
+function VerifiedBadge({ isUrdu }: { isUrdu?: boolean }) {
   return (
     <div
       style={{
@@ -157,14 +159,14 @@ function VerifiedBadge() {
       <BadgeCheck size={10} color={LIME} strokeWidth={2.5} />
       <span
         style={{
-          fontSize: "10px",
-          fontFamily: F,
+          fontSize: isUrdu ? "11px" : "10px",
+          fontFamily: isUrdu ? UF : F,
           fontWeight: 600,
           color: "rgba(197,255,0,0.85)",
-          letterSpacing: "0.03em",
+          letterSpacing: isUrdu ? "0.01em" : "0.03em",
         }}
       >
-        Verified Client
+        {isUrdu ? "تصدیق شدہ کلائنٹ" : "Verified Client"}
       </span>
     </div>
   );
@@ -174,8 +176,11 @@ function VerifiedBadge() {
 
 interface Testimonial {
   quote: string;
+  quoteUr: string;
   name: string;
+  nameUr: string;
   role: string;
+  roleUr: string;
   company: string;
   avatar: string;
 }
@@ -183,8 +188,11 @@ interface Testimonial {
 const FEATURED: Testimonial = {
   quote:
     "Yar inka Garments POS system sach mein bohot zabardast hai. Pehle manual inventory mein bohot masle hotay thay, ab sab kuch ek click pe hai. Billing itni fast ho gayi hai ke rush hours mein bhi koi tension nahi hoti. Highly recommended!",
+  quoteUr: "یار ان کا گارمنٹس پی او ایس سسٹم سچ میں بہت زبردست ہے۔ پہلے مینوئل انوینٹری میں بہت مسئلے ہوتے تھے، اب سب کچھ ایک کلک پر ہے۔ بلنگ اتنی تیز ہو گئی ہے کہ رش کے اوقات میں بھی کوئی ٹینشن نہیں ہوتی۔ بہت زیادہ تجویز کردہ!",
   name: "Rashid Ali",
+  nameUr: "راشد علی",
   role: "Owner",
+  roleUr: "مالک",
   company: "Mr Denum",
   avatar: "/avatar_rashid.png",
 };
@@ -193,24 +201,33 @@ const SECONDARIES: Testimonial[] = [
   {
     quote:
       "Transport business mein tracking sab se bara headache hota hai, lekin inka TMS lagwane ke baad life kafi aasan ho gayi hai. Ab mujhe live pata hota hai ke meri gaariyan kahan hain. Paisa wasool system hai.",
+    quoteUr: "ٹرانسپورٹ کے کاروبار میں ٹریکنگ سب سے بڑا دردِ سر ہوتا ہے، لیکن ان کا ٹی ایم ایس لگوانے کے بعد زندگی کافی آسان ہو گئی ہے۔ اب مجھے لائیو پتہ ہوتا ہے کہ میری گاڑیاں کہاں ہیں۔ پیسہ وصول سسٹم ہے۔",
     name: "Abbas Shah",
+    nameUr: "عباس شاہ",
     role: "Owner",
+    roleUr: "مالک",
     company: "Tiger Transport",
     avatar: "/avatar_abbas.png",
   },
   {
     quote:
       "Maine bohot se software try kiye hain lekin inke Mart POS ki baat hi alag hai. Speed itni achi hai ke lambi lines minton mein clear ho jati hain, aur sham ko closing mein bhi koi khuwari nahi hoti.",
+    quoteUr: "میں نے بہت سے سافٹ ویئر ٹرائی کیے ہیں لیکن ان کے مارٹ پی او ایس کی بات ہی الگ ہے۔ اسپیڈ اتنی اچھی ہے کہ لمبی لائنیں منٹوں میں کلیئر ہو جاتی ہیں، اور شام کو کلوزنگ میں بھی کوئی خواری نہیں ہوتی۔",
     name: "Muhammad Ali",
+    nameUr: "محمد علی",
     role: "Owner",
+    roleUr: "مالک",
     company: "Home Mart",
     avatar: "/avatar_muhammad.png",
   },
   {
     quote:
       "Pehle har bachay ki fees aur record maintain karna azaab lagta tha. Inka SMS use karna shuru kiya hai aur ab literally saray kaam automated hain. Staff ka bohot sara time bach jata hai.",
+    quoteUr: "پہلے ہر بچے کی فیس اور ریکارڈ مینٹین کرنا عذاب لگتا تھا۔ ان کا ایس ایم ایس استعمال کرنا شروع کیا ہے اور اب سچ میں سارے کام آٹومیٹڈ ہیں۔ اسٹاف کا بہت سارا وقت بچ جاتا ہے۔",
     name: "Muhmmad Ahsan",
+    nameUr: "محمد احسن",
     role: "Owner",
+    roleUr: "مالک",
     company: "School Network",
     avatar: "/avatar_ahsan.png",
   },
@@ -227,7 +244,7 @@ const METRICS = [
 
 // ─── Featured card ────────────────────────────────────────────────────────────
 
-function FeaturedCard({ t }: { t: Testimonial }) {
+function FeaturedCard({ t, isUrdu }: { t: Testimonial; isUrdu?: boolean }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -317,8 +334,8 @@ function FeaturedCard({ t }: { t: Testimonial }) {
       {/* Quote text */}
       <p
         style={{
-          fontSize: "clamp(17px, 1.7vw, 22px)",
-          fontFamily: F,
+          fontSize: isUrdu ? "clamp(19px, 1.9vw, 24px)" : "clamp(17px, 1.7vw, 22px)",
+          fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: hovered ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.78)",
           lineHeight: 1.72,
@@ -329,7 +346,7 @@ function FeaturedCard({ t }: { t: Testimonial }) {
           maxWidth: "760px",
         }}
       >
-        {t.quote}
+        {isUrdu ? t.quoteUr : t.quote}
       </p>
 
       {/* Bottom: avatar + info + badge */}
@@ -353,28 +370,28 @@ function FeaturedCard({ t }: { t: Testimonial }) {
           >
             <span
               style={{
-                fontSize: "16px",
-                fontFamily: F,
+                fontSize: isUrdu ? "18px" : "16px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: "#FFFFFF",
                 letterSpacing: "-0.01em",
               }}
             >
-              {t.name}
+              {isUrdu ? t.nameUr : t.name}
             </span>
-            <VerifiedBadge />
+            <VerifiedBadge isUrdu={isUrdu} />
           </div>
           <div
             style={{
-              fontSize: "14px",
-              fontFamily: F,
+              fontSize: isUrdu ? "16px" : "14px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.42)",
             }}
           >
-            {t.role}
+            {isUrdu ? t.roleUr : t.role}
             <span style={{ margin: "0 7px", opacity: 0.4 }}>·</span>
-            {t.company}
+            <span style={{ fontFamily: isUrdu ? F : undefined }}>{t.company}</span>
           </div>
         </div>
 
@@ -436,10 +453,12 @@ function SecondaryCard({
   t,
   delay,
   product,
+  isUrdu,
 }: {
   t: Testimonial;
   delay: number;
   product: string;
+  isUrdu?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -507,8 +526,8 @@ function SecondaryCard({
       {/* Quote */}
       <p
         style={{
-          fontSize: "16px",
-          fontFamily: F,
+          fontSize: isUrdu ? "18px" : "16px",
+          fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: hovered ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.7)",
           lineHeight: 1.75,
@@ -519,7 +538,7 @@ function SecondaryCard({
           transition: "color 0.2s ease",
         }}
       >
-        {t.quote}
+        {isUrdu ? t.quoteUr : t.quote}
       </p>
 
       {/* Bottom */}
@@ -547,26 +566,26 @@ function SecondaryCard({
             >
               <span
                 style={{
-                  fontSize: "14px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "16px" : "14px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 700,
                   color: "#FFFFFF",
                 }}
               >
-                {t.name}
+                {isUrdu ? t.nameUr : t.name}
               </span>
-              <VerifiedBadge />
+              <VerifiedBadge isUrdu={isUrdu} />
             </div>
             <div
               style={{
-                fontSize: "12px",
-                fontFamily: F,
+                fontSize: isUrdu ? "14px" : "12px",
+                fontFamily: isUrdu ? UF : F,
                 color: "rgba(255,255,255,0.38)",
               }}
             >
-              {t.role}
+              {isUrdu ? t.roleUr : t.role}
               <span style={{ margin: "0 6px", opacity: 0.4 }}>·</span>
-              {t.company}
+              <span style={{ fontFamily: isUrdu ? F : undefined }}>{t.company}</span>
             </div>
           </div>
         </div>
@@ -605,6 +624,16 @@ const fadeUp = (delay: number) => ({
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function TestimonialsSection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
+  const displayMetrics = isUrdu ? [
+    { icon: "⭐", value: "100+", label: "کاروباروں کو سروس دی" },
+    { icon: "🚀", value: "50+", label: "کامیاب تنصیبات" },
+    { icon: "💬", value: "98%", label: "کلائنٹ کا اطمینان" },
+    { icon: "🤝", value: "طویل المدت", label: "سپورٹ شامل ہے" },
+  ] : METRICS;
+
   return (
     <>
       <style>{CSS}</style>
@@ -772,14 +801,14 @@ export function TestimonialsSection() {
                 />
                 <span
                   style={{
-                    fontSize: "13px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "15px" : "13px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
                     letterSpacing: "0.02em",
                   }}
                 >
-                  Client Feedback
+                  {isUrdu ? "کلائنٹ فیڈ بیک" : "Client Feedback"}
                 </span>
               </div>
             </motion.div>
@@ -787,8 +816,8 @@ export function TestimonialsSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: "clamp(28px, 3.2vw, 48px)",
-                fontFamily: F,
+                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
                 lineHeight: 1.1,
@@ -796,7 +825,7 @@ export function TestimonialsSection() {
                 margin: "0 0 18px 0",
               }}
             >
-              What Clients Say After{" "}
+              {isUrdu ? "مقامی کاروباروں کا " : "What Clients Say After "}
               <span
                 style={{
                   background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -805,23 +834,22 @@ export function TestimonialsSection() {
                   backgroundClip: "text",
                 }}
               >
-                Working With Us
+                {isUrdu ? "ہم پر اعتماد" : "Working With Us"}
               </span>
             </motion.h2>
 
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: "16px",
-                fontFamily: F,
+                fontSize: isUrdu ? "18px" : "16px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.47)",
                 lineHeight: 1.78,
                 margin: 0,
               }}
             >
-              Real feedback from businesses using our POS, TMS, SMS, Restaurant,
-              and Recurring Billing systems.
+              {isUrdu ? "دیکھیں کہ کیسے ہمارے سسٹمز پورے پاکستان میں کمپنیوں کو ان کے کاموں کو ہموار کرنے اور تیزی سے ترقی کرنے میں مدد کر رہے ہیں۔" : "Real feedback from businesses using our POS, TMS, SMS, Restaurant, and Recurring Billing systems."}
             </motion.p>
           </div>
 
@@ -840,7 +868,7 @@ export function TestimonialsSection() {
               marginBottom: "32px",
             }}
           >
-            {METRICS.map((m, i) => (
+            {displayMetrics.map((m, i) => (
               <motion.div
                 key={i}
                 className="rs-metrics-cell"
@@ -865,8 +893,8 @@ export function TestimonialsSection() {
                 </div>
                 <div
                   style={{
-                    fontSize: "clamp(17px, 1.5vw, 22px)",
-                    fontFamily: F,
+                    fontSize: isUrdu && i === 3 ? "clamp(15px, 1.3vw, 20px)" : "clamp(17px, 1.5vw, 22px)",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 800,
                     color: i === 2 ? LIME : "#FFFFFF",
                     letterSpacing: "-0.02em",
@@ -878,8 +906,8 @@ export function TestimonialsSection() {
                 </div>
                 <div
                   style={{
-                    fontSize: "12px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "14px" : "12px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.36)",
                   }}
@@ -892,7 +920,7 @@ export function TestimonialsSection() {
 
           {/* ── Featured testimonial ────────────────────────────────── */}
           <div style={{ marginBottom: "20px" }}>
-            <FeaturedCard t={FEATURED} />
+            <FeaturedCard t={FEATURED} isUrdu={isUrdu ?? false} />
           </div>
 
           {/* ── Secondary testimonials ──────────────────────────────── */}
@@ -905,9 +933,9 @@ export function TestimonialsSection() {
               marginBottom: "72px",
             }}
           >
-            <SecondaryCard t={SECONDARIES[0]} delay={0.28} product="TMS System" />
-            <SecondaryCard t={SECONDARIES[1]} delay={0.36} product="Mart POS" />
-            <SecondaryCard t={SECONDARIES[2]} delay={0.44} product="SMS System" />
+            <SecondaryCard t={SECONDARIES[0]} delay={0.28} product={isUrdu ? "ٹی ایم ایس سسٹم" : "TMS System"} isUrdu={isUrdu ?? false} />
+            <SecondaryCard t={SECONDARIES[1]} delay={0.36} product={isUrdu ? "مارٹ پی او ایس" : "Mart POS"} isUrdu={isUrdu ?? false} />
+            <SecondaryCard t={SECONDARIES[2]} delay={0.44} product={isUrdu ? "ایس ایم ایس سسٹم" : "SMS System"} isUrdu={isUrdu ?? false} />
           </div>
 
           {/* ── Divider ─────────────────────────────────────────────── */}
@@ -931,18 +959,18 @@ export function TestimonialsSection() {
           >
             <div
               style={{
-                fontSize: "14px",
-                fontFamily: F,
+                fontSize: isUrdu ? "16px" : "14px",
+                fontFamily: isUrdu ? UF : F,
                 color: "rgba(255,255,255,0.35)",
                 marginBottom: "24px",
                 letterSpacing: "0.01em",
               }}
             >
-              Join 100+ businesses already running on Aura
+              {isUrdu ? "100 سے زیادہ کاروباروں میں شامل ہوں جو پہلے ہی ہمارے سسٹمز پر چل رہے ہیں" : "Join 100+ businesses already running on Aura"}
             </div>
-            <SiteButton href="#testimonials" variant="primary">
-              Read More Reviews
-              <ArrowRight size={15} strokeWidth={2.5} />
+            <SiteButton href="#testimonials" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+              {isUrdu ? "مزید جائزے پڑھیں" : "Read More Reviews"}
+              <ArrowRight size={15} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
             </SiteButton>
           </motion.div>
         </div>

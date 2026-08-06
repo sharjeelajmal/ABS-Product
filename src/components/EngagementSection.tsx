@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FC } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   ClipboardList,
@@ -16,6 +17,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
@@ -48,7 +50,7 @@ const CSS = `
 
 // ─── Check item ───────────────────────────────────────────────────────────────
 
-function CheckItem({ text, featured }: { text: string; featured?: boolean }) {
+function CheckItem({ text, featured, isUrdu }: { text: string; featured?: boolean; isUrdu?: boolean }) {
   return (
     <div
       style={{
@@ -79,8 +81,8 @@ function CheckItem({ text, featured }: { text: string; featured?: boolean }) {
       </div>
       <span
         style={{
-          fontSize: "14px",
-          fontFamily: F,
+          fontSize: isUrdu ? "16px" : "14px",
+          fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: featured ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.52)",
           lineHeight: 1.5,
@@ -205,9 +207,11 @@ const MODELS = [
 function EngagementCard({
   model,
   delay,
+  isUrdu,
 }: {
-  model: (typeof MODELS)[0];
+  model: any;
   delay: number;
+  isUrdu?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
   const { featured } = model;
@@ -325,12 +329,12 @@ function EngagementCard({
             <Sparkles size={11} color={LIME} strokeWidth={2} />
             <span
               style={{
-                fontSize: "11px",
-                fontFamily: F,
+                fontSize: isUrdu ? "14px" : "11px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 700,
                 color: LIME,
                 letterSpacing: "0.04em",
-                textTransform: "uppercase",
+                textTransform: isUrdu ? "none" : "uppercase",
               }}
             >
               {model.badge}
@@ -350,8 +354,8 @@ function EngagementCard({
         {/* Model name */}
         <h3
           style={{
-            fontSize: featured ? "22px" : "20px",
-            fontFamily: F,
+            fontSize: featured ? (isUrdu ? "28px" : "22px") : (isUrdu ? "24px" : "20px"),
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 800,
             color: "#FFFFFF",
             letterSpacing: "-0.025em",
@@ -373,22 +377,22 @@ function EngagementCard({
         >
           <span
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 700,
               color: featured ? LIME : "rgba(255,255,255,0.35)",
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
+              letterSpacing: isUrdu ? "0.02em" : "0.05em",
+              textTransform: isUrdu ? "none" : "uppercase",
               flexShrink: 0,
               marginTop: "1px",
             }}
           >
-            Best for
+            {isUrdu ? "کے لیے بہترین" : "Best for"}
           </span>
           <span
             style={{
-              fontSize: "13px",
-              fontFamily: F,
+              fontSize: isUrdu ? "15px" : "13px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.52)",
               lineHeight: 1.55,
@@ -413,8 +417,8 @@ function EngagementCard({
         {/* Description */}
         <p
           style={{
-            fontSize: "14px",
-            fontFamily: F,
+            fontSize: isUrdu ? "16px" : "14px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 400,
             color: "rgba(255,255,255,0.45)",
             lineHeight: 1.75,
@@ -434,8 +438,8 @@ function EngagementCard({
             flex: 1,
           }}
         >
-          {model.features.map((f, i) => (
-            <CheckItem key={i} text={f} featured={featured} />
+          {model.features.map((f: string, i: number) => (
+            <CheckItem key={i} text={f} featured={featured} isUrdu={isUrdu} />
           ))}
         </div>
 
@@ -444,9 +448,10 @@ function EngagementCard({
           href="#contact"
           variant={featured ? "primary" : "secondary"}
           className="btn-uiverse-block flex-none"
+          style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}
         >
           {model.cta}
-          <ArrowRight size={14} strokeWidth={2.5} />
+          <ArrowRight size={14} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
         </SiteButton>
       </div>
     </motion.div>
@@ -465,6 +470,60 @@ const fadeUp = (delay: number) => ({
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function EngagementSection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
+  const displayModels = isUrdu
+    ? [
+        {
+          id: "fixed",
+          name: "فکسڈ پرائس",
+          bestFor: "واضح پروجیکٹ جس کی تکمیل کی تاریخ مقرر ہو۔",
+          desc: "جب آپ کو بالکل معلوم ہو کہ آپ کو کیا چاہیے — ہم کام شروع کرنے سے پہلے دائرہ کار، وقت اور قیمت پر اتفاق کرتے ہیں۔",
+          features: [
+            "تفصیلی پروپوزل شروع کرنے سے پہلے",
+            "مرحلہ وار ادائیگیاں",
+            "مقررہ ڈیلیوری ٹائم لائن",
+          ],
+          cta: "کوٹیشن طلب کریں",
+          featured: false,
+          PrimaryIcon: ClipboardList,
+          SecondaryIcon: CheckCircle2,
+        },
+        {
+          id: "dedicated",
+          name: "مختص ٹیم",
+          bestFor: "مسلسل پروڈکٹ کے کام کے لیے جسے مستقل توجہ درکار ہو۔",
+          desc: "ایک ٹیم جو ماہانہ بنیاد پر آپ کے لیے مخصوص ہے — جو آپ کے کاروبار کے حصے کے طور پر سافٹ ویئر بناتی اور بہتر کرتی ہے۔",
+          features: [
+            "ماہانہ بنیاد پر ڈویلپرز کی دستیابی",
+            "براہ راست روزانہ رابطہ",
+            "ٹیم کا سائز کم یا زیادہ کرنے کی سہولت",
+          ],
+          cta: "ہم سے بات کریں",
+          featured: true,
+          badge: "سب سے زیادہ منتخب کردہ",
+          PrimaryIcon: Users,
+          SecondaryIcon: Briefcase,
+        },
+        {
+          id: "hourly",
+          name: "گھنٹہ وار سپورٹ",
+          bestFor: "مینٹیننس، چھوٹی تبدیلیاں، اور مسلسل بہتری کے لیے۔",
+          desc: "صرف اس وقت کے لیے ادائیگی کریں جتنا آپ استعمال کریں۔ ان کاروباروں کے لیے مثالی جنہیں مکمل پروجیکٹ کے بغیر سپورٹ کی ضرورت ہو۔",
+          features: [
+            "صرف استعمال شدہ گھنٹوں کی ادائیگی",
+            "بگ فکسنگ میں ترجیح",
+            "ماہانہ استعمال کی رپورٹ",
+          ],
+          cta: "سپورٹ حاصل کریں",
+          featured: false,
+          PrimaryIcon: Clock,
+          SecondaryIcon: Wrench,
+        },
+      ]
+    : MODELS;
+
   return (
     <>
       <style>{CSS}</style>
@@ -597,14 +656,14 @@ export function EngagementSection() {
                 />
                 <span
                   style={{
-                    fontSize: "13px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "15px" : "13px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
                     letterSpacing: "0.02em",
                   }}
                 >
-                  Engagement Models
+                  {isUrdu ? "انگیجمنٹ ماڈلز" : "Engagement Models"}
                 </span>
               </div>
             </motion.div>
@@ -612,8 +671,8 @@ export function EngagementSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: "clamp(28px, 3.2vw, 50px)",
-                fontFamily: F,
+                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 50px)",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
                 lineHeight: 1.1,
@@ -621,7 +680,7 @@ export function EngagementSection() {
                 margin: "0 0 18px 0",
               }}
             >
-              Work With Us the Way That{" "}
+              {isUrdu ? "اپنی ضرورت کے مطابق " : "Work With Us the Way That "}
               <span
                 style={{
                   background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -630,23 +689,22 @@ export function EngagementSection() {
                   backgroundClip: "text",
                 }}
               >
-                Fits Your Business
+                {isUrdu ? "پلان منتخب کریں" : "Fits Your Business"}
               </span>
             </motion.h2>
 
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: "16px",
-                fontFamily: F,
+                fontSize: isUrdu ? "18px" : "16px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.47)",
                 lineHeight: 1.78,
                 margin: 0,
               }}
             >
-              Every engagement — for any of our products — includes a written
-              scope, clear pricing, and a single point of contact.
+              {isUrdu ? "چاہے آپ کو صرف ایک ریڈی میڈ سسٹم چاہیے یا مکمل کسٹمائزیشن کے ساتھ سورس کوڈ، ہمارے پاس آپ کے لیے شفاف آپشنز موجود ہیں۔" : "Every engagement — for any of our products — includes a written scope, clear pricing, and a single point of contact."}
             </motion.p>
           </div>
 
@@ -661,8 +719,8 @@ export function EngagementSection() {
               marginBottom: "72px",
             }}
           >
-            {MODELS.map((m, i) => (
-              <EngagementCard key={m.id} model={m} delay={0.12 + i * 0.1} />
+            {displayModels.map((m, i) => (
+              <EngagementCard key={m.id} model={m} delay={0.12 + i * 0.1} isUrdu={isUrdu ?? false} />
             ))}
           </div>
 
@@ -694,12 +752,17 @@ export function EngagementSection() {
                 justifyContent: "center",
               }}
             >
-              {[
+              {(isUrdu ? [
+                "ہر پروجیکٹ کا تحریری دائرہ کار",
+                "کوئی طویل مدتی پابندی نہیں",
+                "رابطے کے لیے ایک ہی نمائندہ",
+                "پی کے آر میں قیمتیں، کوئی چھپے چارجز نہیں",
+              ] : [
                 "Written scope on every project",
                 "No long-term lock-in",
                 "Single point of contact",
                 "PKR pricing, no surprises",
-              ].map((item, i) => (
+              ]).map((item, i) => (
                 <div
                   key={i}
                   style={{
@@ -720,8 +783,8 @@ export function EngagementSection() {
                   />
                   <span
                     style={{
-                      fontSize: "13px",
-                      fontFamily: F,
+                      fontSize: isUrdu ? "15px" : "13px",
+                      fontFamily: isUrdu ? UF : F,
                       fontWeight: 400,
                       color: "rgba(255,255,255,0.38)",
                     }}

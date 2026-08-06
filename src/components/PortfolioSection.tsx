@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, type ReactElement } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 const DIM = "rgba(255,255,255,0.40)";
 const BORDER = "rgba(255,255,255,0.08)";
 
@@ -19,7 +21,7 @@ const mG = {
   marginBottom: "14px",
 } as React.CSSProperties;
 
-function MiniHeader({ title, badge }: { title: string; badge: string }) {
+function MiniHeader({ title, badge, isUrdu }: { title: string; badge: string; isUrdu?: boolean }) {
   return (
     <div style={mG}>
       <div
@@ -34,10 +36,10 @@ function MiniHeader({ title, badge }: { title: string; badge: string }) {
       />
       <span
         style={{
-          fontSize: "10px",
-          fontFamily: F,
+          fontSize: isUrdu ? "12px" : "10px",
+          fontFamily: isUrdu ? UF : F,
           color: "rgba(255,255,255,0.38)",
-          letterSpacing: "0.07em",
+          letterSpacing: isUrdu ? "0.02em" : "0.07em",
           textTransform: "uppercase",
           fontWeight: 600,
         }}
@@ -47,12 +49,12 @@ function MiniHeader({ title, badge }: { title: string; badge: string }) {
       <div
         style={{
           marginLeft: "auto",
-          fontSize: "9px",
-          fontFamily: F,
+          fontSize: isUrdu ? "10px" : "9px",
+          fontFamily: isUrdu ? UF : F,
           color: LIME,
           background: "rgba(197,255,0,0.1)",
           border: "1px solid rgba(197,255,0,0.22)",
-          padding: "2px 8px",
+          padding: isUrdu ? "1px 8px" : "2px 8px",
           borderRadius: "20px",
           letterSpacing: "0.04em",
           whiteSpace: "nowrap",
@@ -82,7 +84,7 @@ function MiniBars({ data }: { data: number[] }) {
   );
 }
 
-function MiniStat({ v, l, lime }: { v: string; l: string; lime?: boolean }) {
+function MiniStat({ v, l, lime, isUrdu }: { v: string; l: string; lime?: boolean; isUrdu?: boolean }) {
   return (
     <div
       style={{
@@ -107,8 +109,8 @@ function MiniStat({ v, l, lime }: { v: string; l: string; lime?: boolean }) {
       </div>
       <div
         style={{
-          fontSize: "9px",
-          fontFamily: F,
+          fontSize: isUrdu ? "11px" : "9px",
+          fontFamily: isUrdu ? UF : F,
           color: "rgba(255,255,255,0.3)",
           marginTop: "3px",
         }}
@@ -119,7 +121,7 @@ function MiniStat({ v, l, lime }: { v: string; l: string; lime?: boolean }) {
   );
 }
 
-function MiniProgress({ label, value }: { label: string; value: number }) {
+function MiniProgress({ label, value, isUrdu }: { label: string; value: number; isUrdu?: boolean }) {
   return (
     <div style={{ marginBottom: "7px" }}>
       <div
@@ -129,7 +131,7 @@ function MiniProgress({ label, value }: { label: string; value: number }) {
           marginBottom: "3px",
         }}
       >
-        <span style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.38)" }}>
+        <span style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.38)" }}>
           {label}
         </span>
         <span style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.6)" }}>
@@ -158,7 +160,7 @@ function MiniProgress({ label, value }: { label: string; value: number }) {
 
 // ─── Dashboard Mockups ─────────────────────────────────────────────────────────
 
-function POSMockup() {
+function POSMockup({ isUrdu }: { isUrdu: boolean }) {
   return (
     <div
       style={{
@@ -186,7 +188,7 @@ function POSMockup() {
 
       {/* Left: KPIs */}
       <div style={{ flex: "0 0 190px" }}>
-        <MiniHeader title="POS Dashboard" badge="LIVE" />
+        <MiniHeader title={isUrdu ? "POS ڈیش بورڈ" : "POS Dashboard"} badge={isUrdu ? "لائیو" : "LIVE"} isUrdu={isUrdu} />
         <div
           style={{
             fontSize: "26px",
@@ -207,8 +209,8 @@ function POSMockup() {
             marginBottom: "16px",
           }}
         >
-          <span style={{ fontSize: "11px", fontFamily: F, color: "rgba(255,255,255,0.36)" }}>
-            Today's Revenue
+          <span style={{ fontSize: isUrdu ? "13px" : "11px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.36)" }}>
+            {isUrdu ? "آج کی آمدنی" : "Today's Revenue"}
           </span>
           <span
             style={{
@@ -229,11 +231,15 @@ function POSMockup() {
             paddingTop: "12px",
           }}
         >
-          {[
+          {(isUrdu ? [
+            { n: "گروسری اسٹور", a: "$8,240", p: "+12%" },
+            { n: "الیکٹرانکس", a: "$11,320", p: "+8%" },
+            { n: "کیفے اینڈ بیکری", a: "$5,331", p: "+24%" },
+          ] : [
             { n: "Grocery Store", a: "$8,240", p: "+12%" },
             { n: "Electronics", a: "$11,320", p: "+8%" },
             { n: "Café & Bakery", a: "$5,331", p: "+24%" },
-          ].map((row, i) => (
+          ]).map((row, i) => (
             <div
               key={i}
               style={{
@@ -243,7 +249,7 @@ function POSMockup() {
                 marginBottom: i < 2 ? "8px" : 0,
               }}
             >
-              <span style={{ fontSize: "10.5px", fontFamily: F, color: "rgba(255,255,255,0.38)" }}>
+              <span style={{ fontSize: isUrdu ? "12px" : "10.5px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.38)" }}>
                 {row.n}
               </span>
               <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
@@ -261,24 +267,24 @@ function POSMockup() {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
         <div
           style={{
-            fontSize: "9px",
-            fontFamily: F,
+            fontSize: isUrdu ? "11px" : "9px",
+            fontFamily: isUrdu ? UF : F,
             color: "rgba(255,255,255,0.2)",
             marginBottom: "6px",
           }}
         >
-          Weekly Revenue
+          {isUrdu ? "ہفتہ وار آمدنی" : "Weekly Revenue"}
         </div>
         <MiniBars data={[28, 52, 38, 68, 48, 82, 60, 100]} />
         <div style={{ display: "flex", gap: "3px", marginTop: "4px" }}>
-          {["M", "T", "W", "T", "F", "S", "S", "T"].map((d, i) => (
+          {(isUrdu ? ["پ", "م", "ب", "ج", "ج", "ہ", "ا", "آج"] : ["M", "T", "W", "T", "F", "S", "S", "T"]).map((d, i) => (
             <div
               key={i}
               style={{
                 flex: 1,
                 textAlign: "center",
-                fontSize: "8px",
-                fontFamily: F,
+                fontSize: isUrdu ? "11px" : "8px",
+                fontFamily: isUrdu ? UF : F,
                 color: "rgba(255,255,255,0.18)",
               }}
             >
@@ -287,16 +293,16 @@ function POSMockup() {
           ))}
         </div>
         <div style={{ display: "flex", gap: "6px", marginTop: "14px" }}>
-          <MiniStat v="892" l="Orders" />
-          <MiniStat v="48" l="Products" />
-          <MiniStat v="94%" l="Fulfilled" lime />
+          <MiniStat v="892" l={isUrdu ? "آرڈرز" : "Orders"} isUrdu={isUrdu} />
+          <MiniStat v="48" l={isUrdu ? "پراڈکٹس" : "Products"} isUrdu={isUrdu} />
+          <MiniStat v="94%" l={isUrdu ? "مکمل شدہ" : "Fulfilled"} lime isUrdu={isUrdu} />
         </div>
       </div>
     </div>
   );
 }
 
-function TMSMockup() {
+function TMSMockup({ isUrdu }: { isUrdu: boolean }) {
   const routes = [
     { r: "KHI → LHR", p: 72, ok: true },
     { r: "ISB → RWP", p: 45, ok: false },
@@ -328,11 +334,11 @@ function TMSMockup() {
 
       {/* Left */}
       <div style={{ flex: "0 0 175px" }}>
-        <MiniHeader title="Fleet Dashboard" badge="24 ROUTES" />
+        <MiniHeader title={isUrdu ? "فلیٹ ڈیش بورڈ" : "Fleet Dashboard"} badge={isUrdu ? "24 روٹس" : "24 ROUTES"} isUrdu={isUrdu} />
         <div style={{ display: "flex", gap: "6px", marginBottom: "14px" }}>
-          <MiniStat v="48" l="Vehicles" />
-          <MiniStat v="94%" l="On-Time" lime />
-          <MiniStat v="3" l="Alerts" />
+          <MiniStat v="48" l={isUrdu ? "گاڑیاں" : "Vehicles"} isUrdu={isUrdu} />
+          <MiniStat v="94%" l={isUrdu ? "وقت پر" : "On-Time"} lime isUrdu={isUrdu} />
+          <MiniStat v="3" l={isUrdu ? "الرٹس" : "Alerts"} isUrdu={isUrdu} />
         </div>
         <div
           style={{
@@ -397,14 +403,14 @@ function TMSMockup() {
       >
         <div
           style={{
-            fontSize: "9px",
-            fontFamily: F,
+            fontSize: isUrdu ? "12px" : "9px",
+            fontFamily: isUrdu ? UF : F,
             color: "rgba(255,255,255,0.2)",
             padding: "10px 12px 6px",
-            letterSpacing: "0.06em",
+            letterSpacing: isUrdu ? "0.02em" : "0.06em",
           }}
         >
-          ROUTE MAP
+          {isUrdu ? "روٹ میپ" : "ROUTE MAP"}
         </div>
         {/* Grid lines */}
         {[20, 40, 60, 80].map((y) => (
@@ -453,7 +459,7 @@ function TMSMockup() {
   );
 }
 
-function SMSMockup() {
+function SMSMockup({ isUrdu }: { isUrdu: boolean }) {
   return (
     <div
       style={{
@@ -479,11 +485,11 @@ function SMSMockup() {
       />
       {/* Left */}
       <div style={{ flex: "0 0 180px" }}>
-        <MiniHeader title="School Mgmt" badge="2024-25" />
+        <MiniHeader title={isUrdu ? "اسکول مینجمنٹ" : "School Mgmt"} badge="2024-25" isUrdu={isUrdu} />
         <div style={{ display: "flex", gap: "6px", marginBottom: "16px" }}>
-          <MiniStat v="1,204" l="Students" />
-          <MiniStat v="68" l="Staff" />
-          <MiniStat v="96%" l="Attend." lime />
+          <MiniStat v="1,204" l={isUrdu ? "طلبہ" : "Students"} isUrdu={isUrdu} />
+          <MiniStat v="68" l={isUrdu ? "اسٹاف" : "Staff"} isUrdu={isUrdu} />
+          <MiniStat v="96%" l={isUrdu ? "حاضری" : "Attend."} lime isUrdu={isUrdu} />
         </div>
         <div
           style={{
@@ -491,16 +497,16 @@ function SMSMockup() {
             paddingTop: "12px",
           }}
         >
-          <MiniProgress label="A Grade" value={42} />
-          <MiniProgress label="B Grade" value={31} />
-          <MiniProgress label="C Grade" value={18} />
+          <MiniProgress label={isUrdu ? "A گریڈ" : "A Grade"} value={42} isUrdu={isUrdu} />
+          <MiniProgress label={isUrdu ? "B گریڈ" : "B Grade"} value={31} isUrdu={isUrdu} />
+          <MiniProgress label={isUrdu ? "C گریڈ" : "C Grade"} value={18} isUrdu={isUrdu} />
         </div>
       </div>
 
       {/* Right: attendance heatmap + fee chart */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "10px" }}>
-        <div style={{ fontSize: "9px", fontFamily: F, color: "rgba(255,255,255,0.2)", letterSpacing: "0.06em" }}>
-          MONTHLY ATTENDANCE
+        <div style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.2)", letterSpacing: isUrdu ? "0.02em" : "0.06em" }}>
+          {isUrdu ? "ماہانہ حاضری" : "MONTHLY ATTENDANCE"}
         </div>
         {/* Heatmap grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "3px" }}>
@@ -531,8 +537,8 @@ function SMSMockup() {
             paddingTop: "10px",
           }}
         >
-          <div style={{ fontSize: "9px", fontFamily: F, color: "rgba(255,255,255,0.2)", marginBottom: "6px" }}>
-            FEE COLLECTION
+          <div style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.2)", marginBottom: "6px" }}>
+            {isUrdu ? "فیس وصولی" : "FEE COLLECTION"}
           </div>
           <div style={{ display: "flex", gap: "3px", height: "32px", alignItems: "flex-end" }}>
             {[60, 75, 55, 90, 70, 85, 100].map((h, i) => (
@@ -553,7 +559,7 @@ function SMSMockup() {
   );
 }
 
-function RestaurantMockup() {
+function RestaurantMockup({ isUrdu }: { isUrdu: boolean }) {
   const tables = [
     { id: 1, occupied: true, guests: 4 },
     { id: 2, occupied: true, guests: 2 },
@@ -594,11 +600,11 @@ function RestaurantMockup() {
 
       {/* Left: KPIs + orders */}
       <div style={{ flex: "0 0 170px" }}>
-        <MiniHeader title="Restaurant" badge="OPEN" />
+        <MiniHeader title={isUrdu ? "ریسٹورنٹ" : "Restaurant"} badge={isUrdu ? "اوپن" : "OPEN"} isUrdu={isUrdu} />
         <div style={{ display: "flex", gap: "6px", marginBottom: "14px" }}>
-          <MiniStat v="23" l="Orders" lime />
-          <MiniStat v="18/24" l="Tables" />
-          <MiniStat v="$3.4K" l="Revenue" />
+          <MiniStat v="23" l={isUrdu ? "آرڈرز" : "Orders"} lime isUrdu={isUrdu} />
+          <MiniStat v="18/24" l={isUrdu ? "ٹیبلز" : "Tables"} isUrdu={isUrdu} />
+          <MiniStat v="$3.4K" l={isUrdu ? "آمدنی" : "Revenue"} isUrdu={isUrdu} />
         </div>
         <div
           style={{
@@ -606,11 +612,15 @@ function RestaurantMockup() {
             paddingTop: "10px",
           }}
         >
-          {[
+          {(isUrdu ? [
+            { s: "کچن", c: 8, m: 12 },
+            { s: "بار", c: 4, m: 8 },
+            { s: "ڈیلیوری", c: 11, m: 15 },
+          ] : [
             { s: "Kitchen", c: 8, m: 12 },
             { s: "Bar", c: 4, m: 8 },
             { s: "Delivery", c: 11, m: 15 },
-          ].map((item, i) => (
+          ]).map((item, i) => (
             <div
               key={i}
               style={{
@@ -620,7 +630,7 @@ function RestaurantMockup() {
                 marginBottom: i < 2 ? "8px" : 0,
               }}
             >
-              <span style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.38)", width: "50px" }}>
+              <span style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.38)", width: "50px" }}>
                 {item.s}
               </span>
               <div
@@ -650,8 +660,8 @@ function RestaurantMockup() {
 
       {/* Right: table grid */}
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: "9px", fontFamily: F, color: "rgba(255,255,255,0.2)", letterSpacing: "0.06em", marginBottom: "10px" }}>
-          TABLE STATUS
+        <div style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.2)", letterSpacing: isUrdu ? "0.02em" : "0.06em", marginBottom: "10px" }}>
+          {isUrdu ? "ٹیبل کی صورتحال" : "TABLE STATUS"}
         </div>
         <div
           style={{
@@ -683,13 +693,13 @@ function RestaurantMockup() {
               </div>
               <div
                 style={{
-                  fontSize: "8px",
-                  fontFamily: F,
+                  fontSize: isUrdu && !t.occupied ? "11px" : "8px",
+                  fontFamily: isUrdu ? UF : F,
                   color: t.occupied ? "rgba(197,255,0,0.6)" : "rgba(255,255,255,0.18)",
                   marginTop: "2px",
                 }}
               >
-                {t.occupied ? `${t.guests}p` : "Free"}
+                {t.occupied ? `${t.guests}p` : (isUrdu ? "خالی" : "Free")}
               </div>
             </div>
           ))}
@@ -699,7 +709,7 @@ function RestaurantMockup() {
   );
 }
 
-function BillingMockup() {
+function BillingMockup({ isUrdu }: { isUrdu: boolean }) {
   return (
     <div
       style={{
@@ -726,7 +736,7 @@ function BillingMockup() {
 
       {/* Left */}
       <div style={{ flex: "0 0 175px" }}>
-        <MiniHeader title="Recurring Billing" badge="ACTIVE" />
+        <MiniHeader title={isUrdu ? "ریکرنگ بلنگ" : "Recurring Billing"} badge={isUrdu ? "فعال" : "ACTIVE"} isUrdu={isUrdu} />
         <div
           style={{
             fontSize: "24px",
@@ -740,18 +750,18 @@ function BillingMockup() {
         </div>
         <div
           style={{
-            fontSize: "11px",
-            fontFamily: F,
+            fontSize: isUrdu ? "13px" : "11px",
+            fontFamily: isUrdu ? UF : F,
             color: "rgba(255,255,255,0.35)",
             marginTop: "3px",
             marginBottom: "14px",
           }}
         >
-          Monthly Recurring Revenue
+          {isUrdu ? "ماہانہ ریکرنگ آمدنی" : "Monthly Recurring Revenue"}
         </div>
         <div style={{ display: "flex", gap: "6px", marginBottom: "14px" }}>
-          <MiniStat v="384" l="Active" />
-          <MiniStat v="1.2%" l="Churn" />
+          <MiniStat v="384" l={isUrdu ? "صارفین" : "Active"} isUrdu={isUrdu} />
+          <MiniStat v="1.2%" l={isUrdu ? "چرن" : "Churn"} isUrdu={isUrdu} />
         </div>
         <div
           style={{
@@ -759,11 +769,15 @@ function BillingMockup() {
             paddingTop: "10px",
           }}
         >
-          {[
+          {(isUrdu ? [
+            { n: "Suhaib's POS", a: "$4,800/ماہ", due: "3دن" },
+            { n: "Ali Transport", a: "$2,400/ماہ", due: "7دن" },
+            { n: "Bright School", a: "$1,200/ماہ", due: "12دن" },
+          ] : [
             { n: "Suhaib's POS", a: "$4,800/mo", due: "3d" },
             { n: "Ali Transport", a: "$2,400/mo", due: "7d" },
             { n: "Bright School", a: "$1,200/mo", due: "12d" },
-          ].map((inv, i) => (
+          ]).map((inv, i) => (
             <div
               key={i}
               style={{
@@ -773,7 +787,7 @@ function BillingMockup() {
                 marginBottom: i < 2 ? "7px" : 0,
               }}
             >
-              <span style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.4)" }}>
+              <span style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)" }}>
                 {inv.n}
               </span>
               <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
@@ -782,11 +796,11 @@ function BillingMockup() {
                 </span>
                 <span
                   style={{
-                    fontSize: "9px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "11px" : "9px",
+                    fontFamily: isUrdu ? UF : F,
                     color: "rgba(197,255,0,0.7)",
                     background: "rgba(197,255,0,0.08)",
-                    padding: "0 5px",
+                    padding: isUrdu ? "0px 5px" : "0 5px",
                     borderRadius: "8px",
                   }}
                 >
@@ -800,8 +814,8 @@ function BillingMockup() {
 
       {/* Right: revenue chart */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-        <div style={{ fontSize: "9px", fontFamily: F, color: "rgba(255,255,255,0.2)", letterSpacing: "0.06em", marginBottom: "8px" }}>
-          MRR GROWTH
+        <div style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.2)", letterSpacing: isUrdu ? "0.02em" : "0.06em", marginBottom: "8px" }}>
+          {isUrdu ? "MRR گروتھ" : "MRR GROWTH"}
         </div>
         <svg
           viewBox="0 0 160 90"
@@ -828,8 +842,8 @@ function BillingMockup() {
           <circle cx="160" cy="10" r="3.5" fill={LIME} />
         </svg>
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px" }}>
-          {["Jan", "Feb", "Mar", "Apr", "May", "Jun"].map((m) => (
-            <span key={m} style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.2)" }}>
+          {(isUrdu ? ["جنوری", "فروری", "مارچ", "اپریل", "مئی", "جون"] : ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]).map((m) => (
+            <span key={m} style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.2)" }}>
               {m}
             </span>
           ))}
@@ -846,11 +860,11 @@ function BillingMockup() {
             alignItems: "center",
           }}
         >
-          <span style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.5)" }}>
-            Next billing
+          <span style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.5)" }}>
+            {isUrdu ? "اگلی بلنگ" : "Next billing"}
           </span>
-          <span style={{ fontSize: "10px", fontFamily: F, color: LIME, fontWeight: 600 }}>
-            14 invoices due
+          <span style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: LIME, fontWeight: 600 }}>
+            {isUrdu ? "14 انوائسز باقی" : "14 invoices due"}
           </span>
         </div>
       </div>
@@ -862,7 +876,7 @@ function BillingMockup() {
 
 type MockupKey = "pos" | "tms" | "sms" | "restaurant" | "billing";
 
-const MOCKUPS: Record<MockupKey, () => ReactElement> = {
+const MOCKUPS: Record<MockupKey, (props: { isUrdu: boolean }) => ReactElement> = {
   pos: POSMockup,
   tms: TMSMockup,
   sms: SMSMockup,
@@ -872,10 +886,15 @@ const MOCKUPS: Record<MockupKey, () => ReactElement> = {
 
 interface Project {
   tag: string;
+  tagUr: string;
   category: string;
+  categoryUr: string;
   title: string;
+  titleUr: string;
   description: string;
+  descriptionUr: string;
   badges: string[];
+  badgesUr: string[];
   mockup: MockupKey;
   featured?: boolean;
 }
@@ -883,49 +902,74 @@ interface Project {
 const projects: Project[] = [
   {
     tag: "Retail · POS",
+    tagUr: "ریٹیل · POS · پوائنٹ آف سیل · مکمل شدہ",
     category: "Point of Sale",
+    categoryUr: "پوائنٹ آف سیل",
     title: "Multi-Branch POS for a Retail Chain",
+    titleUr: "ریٹیل چین کے لیے ملٹی برانچ POS",
     description:
       "Replaced manual billing across multiple outlets with a synced POS system — real-time stock and sales visible from one dashboard.",
+    descriptionUr: "متعدد آؤٹ لیٹس پر دستی بلنگ کی جگہ ایک سنک شدہ POS سسٹم — تمام اسٹاک اور سیلز ایک ہی ڈیش بورڈ سے ریئل ٹائم میں نظر آتے ہیں۔",
     badges: ["Multi Branch", "Cloud", "Realtime Sync", "Analytics"],
+    badgesUr: ["ملٹی برانچ", "کلاؤڈ", "ریئل ٹائم سنک", "تجزیات"],
     mockup: "pos",
     featured: true,
   },
   {
     tag: "Transport · TMS",
+    tagUr: "ٹرانسپورٹ · TMS · فلیٹ مینجمنٹ · مکمل شدہ",
     category: "Fleet Management",
+    categoryUr: "فلیٹ مینجمنٹ",
     title: "Fleet Tracking System for a Logistics Company",
+    titleUr: "لاجسٹکس کمپنی کے لیے فلیٹ ٹریکنگ سسٹم",
     description:
       "A TMS platform giving live vehicle tracking, trip logs, and driver reports across a growing delivery fleet.",
+    descriptionUr: "ایک TMS پلیٹ فارم جو بڑھتی ہوئی ڈیلیوری فلیٹ میں لائیو گاڑی ٹریکنگ، ٹرپ لاگز، اور ڈرائیور رپورٹس فراہم کرتا ہے۔",
     badges: ["Fleet Tracking", "Analytics", "Cloud", "Realtime Sync"],
+    badgesUr: ["فلیٹ ٹریکنگ", "تجزیات", "کلاؤڈ", "ریئل ٹائم سنک"],
     mockup: "tms",
   },
   {
     tag: "Education · SMS",
+    tagUr: "تعلیم · SMS · اسکول مینجمنٹ · مکمل شدہ",
     category: "School Management",
+    categoryUr: "اسکول مینجمنٹ",
     title: "School Management System for a Private School Network",
+    titleUr: "پرائیویٹ اسکول نیٹ ورک کے لیے اسکول مینجمنٹ سسٹم",
     description:
       "Digitized attendance, fee collection, and result generation for a multi-campus school network.",
+    descriptionUr: "ایک ملٹی کیمپس اسکول نیٹ ورک کے لیے حاضری، فیس وصولی، اور نتائج کی تیاری کو ڈیجیٹل بنایا گیا۔",
     badges: ["Multi Campus", "Automation", "Cloud", "Analytics"],
+    badgesUr: ["ملٹی کیمپس", "آٹومیشن", "کلاؤڈ", "تجزیات"],
     mockup: "sms",
   },
   {
     tag: "Food & Beverage · Restaurant",
+    tagUr: "فوڈ اینڈ بیوریج · ریسٹورنٹ · ریسٹورنٹ سسٹم · مکمل شدہ",
     category: "Restaurant System",
+    categoryUr: "ریسٹورنٹ سسٹم",
     title: "Order & Table Management for a Restaurant Chain",
+    titleUr: "ریسٹورنٹ چین کے لیے آرڈر اور ٹیبل مینجمنٹ",
     description:
       "A restaurant system handling dine-in, takeaway, and kitchen order printing across several branches.",
+    descriptionUr: "ایک ریسٹورنٹ سسٹم جو متعدد برانچز میں ڈائن اِن، ٹیک اوے، اور کچن آرڈر پرنٹنگ کو سنبھالتا ہے۔",
     badges: ["Multi Branch", "Cloud", "Analytics", "Restaurant"],
+    badgesUr: ["ملٹی برانچ", "کلاؤڈ", "تجزیات", "ریسٹورنٹ"],
     mockup: "restaurant",
     featured: true,
   },
   {
     tag: "Subscriptions · Billing",
+    tagUr: "سبسکرپشنز · بلنگ · ریکرنگ بلنگ · مکمل شدہ",
     category: "Recurring Billing",
+    categoryUr: "ریکرنگ بلنگ",
     title: "Automated Billing for a Subscription Business",
+    titleUr: "سبسکرپشن بزنس کے لیے خودکار بلنگ",
     description:
       "A recurring billing system that replaced manual invoicing with automated cycles and payment reminders.",
+    descriptionUr: "ایک ریکرنگ بلنگ سسٹم جس نے دستی انوائسنگ کی جگہ خودکار سائیکلز اور پیمنٹ ریمائنڈرز متعارف کروائے۔",
     badges: ["Automation", "Cloud", "Analytics", "Billing"],
+    badgesUr: ["آٹومیشن", "کلاؤڈ", "تجزیات", "بلنگ"],
     mockup: "billing",
   },
 ];
@@ -935,9 +979,11 @@ const projects: Project[] = [
 function ProjectCard({
   project,
   delay,
+  isUrdu,
 }: {
   project: Project;
   delay: number;
+  isUrdu: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
   const MockupComponent = MOCKUPS[project.mockup];
@@ -984,7 +1030,7 @@ function ProjectCard({
         }}
       >
         <div className="rs-project-mock-inner">
-          <MockupComponent />
+          <MockupComponent isUrdu={isUrdu} />
         </div>
         {/* Bottom gradient fade */}
         <div
@@ -1029,14 +1075,14 @@ function ProjectCard({
         >
           <span
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 500,
               color: "rgba(255,255,255,0.38)",
-              letterSpacing: "0.03em",
+              letterSpacing: isUrdu ? "0.02em" : "0.03em",
             }}
           >
-            {project.tag}
+            {isUrdu ? project.tagUr : project.tag}
           </span>
           <span
             style={{
@@ -1049,17 +1095,17 @@ function ProjectCard({
           />
           <span
             style={{
-              fontSize: "11px",
-              fontFamily: F,
+              fontSize: isUrdu ? "13px" : "11px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 600,
               color: "rgba(197,255,0,0.8)",
               background: "rgba(197,255,0,0.08)",
               border: "1px solid rgba(197,255,0,0.18)",
-              padding: "2px 9px",
+              padding: isUrdu ? "1px 9px" : "2px 9px",
               borderRadius: "20px",
             }}
           >
-            {project.category}
+            {isUrdu ? project.categoryUr : project.category}
           </span>
           <div
             style={{
@@ -1067,12 +1113,12 @@ function ProjectCard({
               display: "flex",
               alignItems: "center",
               gap: "5px",
-              fontSize: "10px",
-              fontFamily: F,
+              fontSize: isUrdu ? "12px" : "10px",
+              fontFamily: isUrdu ? UF : F,
               color: LIME,
               background: "rgba(197,255,0,0.08)",
               border: "1px solid rgba(197,255,0,0.18)",
-              padding: "3px 10px",
+              padding: isUrdu ? "1px 10px" : "3px 10px",
               borderRadius: "20px",
               flexShrink: 0,
             }}
@@ -1086,7 +1132,7 @@ function ProjectCard({
                 boxShadow: `0 0 6px ${LIME}`,
               }}
             />
-            Completed
+            {isUrdu ? "مکمل شدہ" : "Completed"}
           </div>
         </div>
 
@@ -1094,8 +1140,8 @@ function ProjectCard({
         <h3
           className="rs-project-title"
           style={{
-            fontSize: project.featured ? "20px" : "18px",
-            fontFamily: F,
+            fontSize: project.featured ? (isUrdu ? "22px" : "20px") : (isUrdu ? "20px" : "18px"),
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 700,
             color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.92)",
             lineHeight: 1.28,
@@ -1104,22 +1150,22 @@ function ProjectCard({
             transition: "color 0.2s ease",
           }}
         >
-          {project.title}
+          {isUrdu ? project.titleUr : project.title}
         </h3>
 
         {/* Description */}
         <p
           className="rs-project-desc"
           style={{
-            fontSize: "14px",
-            fontFamily: F,
+            fontSize: isUrdu ? "15.5px" : "14px",
+            fontFamily: isUrdu ? UF : F,
             color: hovered ? "rgba(255,255,255,0.55)" : DIM,
             lineHeight: 1.7,
             margin: "0 0 20px 0",
             transition: "color 0.2s ease",
           }}
         >
-          {project.description}
+          {isUrdu ? project.descriptionUr : project.description}
         </p>
 
         {/* Bottom: CTA + badges */}
@@ -1143,25 +1189,25 @@ function ProjectCard({
               cursor: "pointer",
             }}
           >
-            <span style={{ fontSize: "13px", fontFamily: F, fontWeight: 600 }}>
-              View Case Study
+            <span style={{ fontSize: isUrdu ? "15px" : "13px", fontFamily: isUrdu ? UF : F, fontWeight: 600 }}>
+              {isUrdu ? "کیس اسٹڈی دیکھیں" : "View Case Study"}
             </span>
-            <ArrowUpRight size={14} strokeWidth={2.2} />
+            <ArrowUpRight size={14} strokeWidth={2.2} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
           </div>
 
           {/* Tech badges */}
           <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-            {project.badges.map((b) => (
+            {(isUrdu ? project.badgesUr : project.badges).map((b) => (
               <span
                 key={b}
                 style={{
-                  fontSize: "10px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "11.5px" : "10px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: "rgba(255,255,255,0.4)",
                   background: "rgba(255,255,255,0.04)",
                   border: "1px solid rgba(255,255,255,0.07)",
-                  padding: "3px 9px",
+                  padding: isUrdu ? "1px 9px" : "3px 9px",
                   borderRadius: "20px",
                   whiteSpace: "nowrap",
                 }}
@@ -1189,6 +1235,8 @@ const fadeUp = (delay: number) => ({
 
 export function PortfolioSection() {
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);
@@ -1289,14 +1337,14 @@ export function PortfolioSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
                   letterSpacing: "0.02em",
                 }}
               >
-                Selected Work
+                {isUrdu ? "منتخب کام" : "Selected Work"}
               </span>
             </div>
           </motion.div>
@@ -1304,8 +1352,8 @@ export function PortfolioSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: "clamp(30px, 3.4vw, 50px)",
-              fontFamily: F,
+              fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(30px, 3.4vw, 50px)",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.1,
@@ -1313,7 +1361,7 @@ export function PortfolioSection() {
               margin: "0 0 18px 0",
             }}
           >
-            Real Systems We've{" "}
+            {isUrdu ? "حقیقی سسٹمز جو ہم نے " : "Real Systems We've "}
             <span
               style={{
                 background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -1322,23 +1370,22 @@ export function PortfolioSection() {
                 backgroundClip: "text",
               }}
             >
-              Built and Deployed
+              {isUrdu ? "بنائے اور نافذ کیے" : "Built and Deployed"}
             </span>
           </motion.h2>
 
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: "16px",
-              fontFamily: F,
+              fontSize: isUrdu ? "18px" : "16px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
               lineHeight: 1.78,
               margin: 0,
             }}
           >
-            A sample of the POS, TMS, SMS, Restaurant, and Recurring Billing
-            systems our team has delivered for clients.
+            {isUrdu ? "POS، TMS، SMS، ریسٹورنٹ، اور ریکرنگ بلنگ سسٹمز کا ایک نمونہ جو ہماری ٹیم نے کلائنٹس کے لیے تیار کیا ہے۔" : "A sample of the POS, TMS, SMS, Restaurant, and Recurring Billing systems our team has delivered for clients."}
           </motion.p>
         </div>
 
@@ -1346,7 +1393,7 @@ export function PortfolioSection() {
         {isMobile ? (
           <div className="rs-portfolio-stack" style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "40px" }}>
             {projects.map((p, i) => (
-              <ProjectCard key={p.mockup} project={p} delay={0.08 * i} />
+              <ProjectCard key={p.mockup} project={p} delay={0.08 * i} isUrdu={isUrdu ?? false} />
             ))}
           </div>
         ) : (
@@ -1363,7 +1410,7 @@ export function PortfolioSection() {
             {/* Left column */}
             <div className="rs-portfolio-col" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {leftProjects.map((p, i) => (
-                <ProjectCard key={p.mockup} project={p} delay={0.08 * (i * 2)} />
+                <ProjectCard key={p.mockup} project={p} delay={0.08 * (i * 2)} isUrdu={isUrdu ?? false} />
               ))}
             </div>
 
@@ -1378,7 +1425,7 @@ export function PortfolioSection() {
               }}
             >
               {rightProjects.map((p, i) => (
-                <ProjectCard key={p.mockup} project={p} delay={0.08 * (i * 2 + 1)} />
+                <ProjectCard key={p.mockup} project={p} delay={0.08 * (i * 2 + 1)} isUrdu={isUrdu ?? false} />
               ))}
             </div>
           </div>
@@ -1398,12 +1445,12 @@ export function PortfolioSection() {
 
         {/* ── CTAs ───────────────────────────────────────────────── */}
         <motion.div {...fadeUp(0.34)} className="cta-row">
-          <SiteButton href="#portfolio" variant="primary">
-            View Full Portfolio
+          <SiteButton href="#portfolio" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "مکمل پورٹ فولیو دیکھیں" : "View Full Portfolio"}
           </SiteButton>
-          <SiteButton href="#contact" variant="secondary">
-            Start Your Project
-            <ArrowRight size={15} strokeWidth={2} />
+          <SiteButton href="#contact" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "اپنا پروجیکٹ شروع کریں" : "Start Your Project"}
+            <ArrowRight size={15} strokeWidth={2} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
           </SiteButton>
         </motion.div>
       </div>

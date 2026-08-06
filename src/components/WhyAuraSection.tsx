@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Users,
@@ -17,6 +18,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
@@ -207,7 +209,7 @@ function PakistanMap() {
 
 // ─── Left illustration panel ──────────────────────────────────────────────────
 
-function IllustrationPanel() {
+function IllustrationPanel({ isUrdu }: { isUrdu?: boolean }) {
   return (
     <div
       style={{
@@ -329,8 +331,8 @@ function IllustrationPanel() {
             <span style={{ fontSize: "18px", fontFamily: F, fontWeight: 800, color: LIME, lineHeight: 1 }}>₨</span>
             <span style={{ fontSize: "10px", fontFamily: F, fontWeight: 700, color: LIME, letterSpacing: "0.04em" }}>PKR</span>
           </div>
-          <div style={{ fontSize: "11px", fontFamily: F, color: "rgba(255,255,255,0.4)" }}>Transparent</div>
-          <div style={{ fontSize: "11px", fontFamily: F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>Pricing</div>
+          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)" }}>{isUrdu ? "شفاف" : "Transparent"}</div>
+          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{isUrdu ? "قیمتیں" : "Pricing"}</div>
         </div>
 
         {/* Top-right: Cloud card */}
@@ -351,8 +353,8 @@ function IllustrationPanel() {
           }}
         >
           <Cloud size={20} color={LIME} strokeWidth={1.5} style={{ marginBottom: "6px" }} />
-          <div style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>Infrastructure</div>
-          <div style={{ fontSize: "11px", fontFamily: F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>Local Tested</div>
+          <div style={{ fontSize: isUrdu ? "13px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>{isUrdu ? "انفراسٹرکچر" : "Infrastructure"}</div>
+          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{isUrdu ? "لوکل ٹیسٹڈ" : "Local Tested"}</div>
           <div style={{ display: "flex", gap: "3px", marginTop: "8px" }}>
             {[100, 85, 92].map((h, i) => (
               <div key={i} style={{ flex: 1, height: `${h * 0.18}px`, background: i === 2 ? LIME : "rgba(255,255,255,0.1)", borderRadius: "2px" }} />
@@ -380,11 +382,11 @@ function IllustrationPanel() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px" }}>
             <div style={{ width: 5, height: 5, borderRadius: "50%", background: LIME, boxShadow: `0 0 6px ${LIME}` }} />
-            <span style={{ fontSize: "9px", fontFamily: F, color: "rgba(255,255,255,0.4)", letterSpacing: "0.06em", textTransform: "uppercase" }}>Dashboard</span>
-            <span style={{ marginLeft: "auto", fontSize: "9px", fontFamily: F, color: LIME, background: "rgba(197,255,0,0.1)", padding: "1px 6px", borderRadius: "8px" }}>LIVE</span>
+            <span style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.06em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "ڈیش بورڈ" : "Dashboard"}</span>
+            <span style={{ marginLeft: "auto", fontSize: isUrdu ? "10px" : "9px", fontFamily: isUrdu ? UF : F, color: LIME, background: "rgba(197,255,0,0.1)", padding: isUrdu ? "0 6px" : "1px 6px", borderRadius: "8px" }}>{isUrdu ? "لائیو" : "LIVE"}</span>
           </div>
           <div style={{ fontSize: "19px", fontFamily: F, fontWeight: 800, color: "#fff", lineHeight: 1, marginBottom: "4px" }}>₨ 2.4M</div>
-          <div style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.35)", marginBottom: "10px" }}>Monthly Revenue ↑ 18%</div>
+          <div style={{ fontSize: isUrdu ? "12px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.35)", marginBottom: "10px" }}>{isUrdu ? "ماہانہ آمدنی ↑ 18%" : "Monthly Revenue ↑ 18%"}</div>
           <div style={{ display: "flex", alignItems: "flex-end", gap: "3px", height: "28px" }}>
             {[40, 55, 38, 72, 50, 85, 100].map((h, i) => (
               <div key={i} style={{ flex: 1, height: `${h}%`, borderRadius: "2px 2px 0 0", background: i === 6 ? LIME : "rgba(255,255,255,0.07)" }} />
@@ -408,7 +410,7 @@ function IllustrationPanel() {
             animation: "wa-float-d 5.5s ease-in-out infinite 0.8s",
           }}
         >
-          <div style={{ fontSize: "9px", fontFamily: F, color: "rgba(255,255,255,0.3)", marginBottom: "8px", letterSpacing: "0.05em" }}>PAYMENTS</div>
+          <div style={{ fontSize: isUrdu ? "11px" : "9px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)", marginBottom: "8px", letterSpacing: isUrdu ? "0.02em" : "0.05em" }}>{isUrdu ? "ادائیگیاں" : "PAYMENTS"}</div>
           <div style={{ display: "flex", gap: "6px" }}>
             <div style={{ background: "rgba(255,106,0,0.15)", border: "1px solid rgba(255,106,0,0.3)", borderRadius: "8px", padding: "5px 8px" }}>
               <div style={{ fontSize: "9px", fontFamily: F, fontWeight: 700, color: "#FF6A00" }}>Jazz</div>
@@ -438,8 +440,8 @@ function IllustrationPanel() {
           }}
         >
           <Shield size={18} color={LIME} strokeWidth={1.5} style={{ marginBottom: "6px" }} />
-          <div style={{ fontSize: "10px", fontFamily: F, color: "rgba(255,255,255,0.38)", marginBottom: "2px" }}>Source Code</div>
-          <div style={{ fontSize: "11px", fontFamily: F, fontWeight: 700, color: "#fff" }}>You Own It</div>
+          <div style={{ fontSize: isUrdu ? "13px" : "10px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.38)", marginBottom: "2px" }}>{isUrdu ? "سورس کوڈ" : "Source Code"}</div>
+          <div style={{ fontSize: isUrdu ? "14px" : "11px", fontFamily: isUrdu ? UF : F, fontWeight: 700, color: "#fff" }}>{isUrdu ? "آپ کی ملکیت" : "You Own It"}</div>
           <div style={{ width: "100%", height: "2px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", marginTop: "8px" }}>
             <div style={{ width: "100%", height: "100%", background: LIME, borderRadius: "1px" }} />
           </div>
@@ -487,9 +489,11 @@ const FEATURES = [
 function FeatureCard({
   feat,
   delay,
+  isUrdu,
 }: {
   feat: (typeof FEATURES)[0];
   delay: number;
+  isUrdu?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -604,8 +608,8 @@ function FeatureCard({
       <div style={{ flex: 1, minWidth: 0 }}>
         <h3
           style={{
-            fontSize: "17px",
-            fontFamily: F,
+            fontSize: isUrdu ? "20px" : "17px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 700,
             color: hovered ? "#fff" : "rgba(255,255,255,0.88)",
             letterSpacing: "-0.02em",
@@ -618,8 +622,8 @@ function FeatureCard({
         </h3>
         <p
           style={{
-            fontSize: "14px",
-            fontFamily: F,
+            fontSize: isUrdu ? "16px" : "14px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 400,
             color: "rgba(255,255,255,0.42)",
             lineHeight: 1.72,
@@ -665,6 +669,42 @@ const fadeUp = (delay: number) => ({
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function WhyAuraSection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
+  const displayFeatures = isUrdu
+    ? [
+        {
+          num: "01",
+          title: "رفتار",
+          desc: "سیکنڈوں میں لوڈ ہوتا ہے۔",
+          icons: [Server, Cloud],
+          color: LIME,
+        },
+        {
+          num: "02",
+          title: "حفاظت",
+          desc: "اینڈ ٹو اینڈ انکرپشن۔",
+          icons: [Shield, Code2],
+          color: LIME,
+        },
+        {
+          num: "03",
+          title: "سپورٹ",
+          desc: "24/7 مقامی سپورٹ۔",
+          icons: [Users, MessageSquare],
+          color: LIME,
+        },
+        {
+          num: "04",
+          title: "کسٹمائزیشن",
+          desc: "آپ کے برانڈ کے مطابق۔",
+          icons: [Code2, Wallet],
+          color: LIME,
+        },
+      ]
+    : FEATURES;
+
   return (
     <>
       <style>{CSS}</style>
@@ -780,14 +820,14 @@ export function WhyAuraSection() {
                 />
                 <span
                   style={{
-                    fontSize: "13px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "15px" : "13px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
                     letterSpacing: "0.02em",
                   }}
                 >
-                  Why Aura
+                  {isUrdu ? "ہمارا فرق" : "Why Aura"}
                 </span>
               </div>
             </motion.div>
@@ -795,8 +835,8 @@ export function WhyAuraSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: "clamp(28px, 3.2vw, 50px)",
-                fontFamily: F,
+                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 50px)",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
                 lineHeight: 1.1,
@@ -804,35 +844,37 @@ export function WhyAuraSection() {
                 margin: "0 0 18px 0",
               }}
             >
-              Built for the{" "}
-              <span
-                style={{
-                  background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Pakistani Market,
-              </span>{" "}
-              <br />
-              Held to a Global Standard
+              {isUrdu ? "ہمیں کیوں چنیں؟" : (
+                <>
+                  Built for the{" "}
+                  <span
+                    style={{
+                      background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Pakistani Market,
+                  </span>{" "}
+                  <br />
+                  Held to a Global Standard
+                </>
+              )}
             </motion.h2>
 
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: "16px",
-                fontFamily: F,
+                fontSize: isUrdu ? "18px" : "16px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.47)",
                 lineHeight: 1.78,
                 margin: 0,
               }}
             >
-              Whether it's POS, TMS, SMS, Restaurant, or Recurring Billing — we
-              build every product with local businesses in mind, not as an
-              afterthought.
+              {isUrdu ? "تیز، محفوظ، اور آپ کے کاروبار کے لیے تیار کردہ۔ یہاں کچھ وجوہات ہیں کہ لوگ ہمارے سسٹمز پر کیوں بھروسہ کرتے ہیں۔" : "Whether it's POS, TMS, SMS, Restaurant, or Recurring Billing — we build every product with local businesses in mind, not as an afterthought."}
             </motion.p>
           </div>
 
@@ -855,13 +897,13 @@ export function WhyAuraSection() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
             >
-              <IllustrationPanel />
+              <IllustrationPanel isUrdu={isUrdu ?? false} />
             </motion.div>
 
             {/* Right: feature cards */}
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {FEATURES.map((f, i) => (
-                <FeatureCard key={f.num} feat={f} delay={0.18 + i * 0.1} />
+              {displayFeatures.map((f, i) => (
+                <FeatureCard key={f.num} feat={f} delay={0.18 + i * 0.1} isUrdu={isUrdu ?? false} />
               ))}
             </div>
           </div>
@@ -918,36 +960,36 @@ export function WhyAuraSection() {
             <div style={{ position: "relative" }}>
               <div
                 style={{
-                  fontSize: "clamp(17px, 1.6vw, 22px)",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "clamp(22px, 2vw, 26px)" : "clamp(17px, 1.6vw, 22px)",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 700,
                   color: "#FFFFFF",
                   letterSpacing: "-0.02em",
                   marginBottom: "6px",
                 }}
               >
-                Ready to get started with Aura?
+                {isUrdu ? "کیا آپ شروع کرنے کے لیے تیار ہیں؟" : "Ready to get started with Aura?"}
               </div>
               <div
                 style={{
-                  fontSize: "14px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "16px" : "14px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 400,
                   color: "rgba(255,255,255,0.42)",
                 }}
               >
-                See every product live or book a call with our team.
+                {isUrdu ? "تمام پروڈکٹس لائیو دیکھیں یا ہماری ٹیم کے ساتھ کال بک کریں۔" : "See every product live or book a call with our team."}
               </div>
             </div>
 
             <div className="cta-row" style={{ flexShrink: 0, width: "auto", position: "relative" }}>
-              <SiteButton href="#products" variant="primary">
-                See All Products
-                <ArrowRight size={14} strokeWidth={2.5} />
+              <SiteButton href="#products" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+                {isUrdu ? "تمام پروڈکٹس دیکھیں" : "See All Products"}
+                <ArrowRight size={14} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
               </SiteButton>
-              <SiteButton href="tel:+923706277633" variant="secondary">
-                <Phone size={13} strokeWidth={2} />
-                Talk to Our Team
+              <SiteButton href="tel:+923706277633" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+                <Phone size={13} strokeWidth={2} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
+                {isUrdu ? "ہماری ٹیم سے بات کریں" : "Talk to Our Team"}
               </SiteButton>
             </div>
           </motion.div>

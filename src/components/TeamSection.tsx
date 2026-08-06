@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 40 },
@@ -16,25 +18,34 @@ const fadeUp = (delay: number) => ({
 const TEAM_MEMBERS = [
   {
     name: "Moeed Azam",
+    nameUr: "معید اعظم",
     role: "CEO & Founder",
+    roleUr: "سی ای او اور بانی",
     description: "With 5+ years of experience in technology leadership, Moeed leads our vision for continuous innovation.",
+    descriptionUr: "ٹیکنالوجی کی قیادت میں 5 سال سے زیادہ کے تجربے کے ساتھ، معید مسلسل جدت طرازی کے لیے ہمارے وژن کی قیادت کرتے ہیں۔",
     image: "/danny.png"
   },
   {
     name: "Muhammad Haris",
+    nameUr: "محمد حارث",
     role: "HR Manager",
+    roleUr: "ایچ آر مینیجر",
     description: "A dynamic executive excelling in client acquisition, relationship building, and driving revenue growth.",
+    descriptionUr: "ایک متحرک ایگزیکٹو جو کلائنٹس کے حصول، تعلقات استوار کرنے اور آمدنی میں اضافے کے حوالے سے بہترین صلاحیتیں رکھتے ہیں۔",
     image: "/Micheal.png"
   },
   {
     name: "Sharry Yar",
+    nameUr: "شہریار",
     role: "Development Manager",
+    roleUr: "ڈویلپمنٹ مینیجر",
     description: "An innovative Website Developer specializing in full-stack architecture and AI-integrated solutions.",
+    descriptionUr: "ایک جدید ویب سائٹ ڈیولپر جو فل اسٹیک آرکیٹیکچر اور اے آئی سے لیس سسٹمز میں مہارت رکھتے ہیں۔",
     image: "/Harry.png"
   }
 ];
 
-function TeamCard({ member, delay }: { member: any; delay: number }) {
+function TeamCard({ member, delay, isUrdu }: { member: any; delay: number; isUrdu?: boolean }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -134,12 +145,12 @@ function TeamCard({ member, delay }: { member: any; delay: number }) {
         >
           <div
             style={{
-              fontSize: "12px",
-              fontFamily: F,
+              fontSize: isUrdu ? "14px" : "12px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 700,
               color: LIME,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
+              letterSpacing: isUrdu ? "0.02em" : "0.1em",
+              textTransform: isUrdu ? "none" : "uppercase",
               marginBottom: "12px",
               display: "flex",
               alignItems: "center",
@@ -156,13 +167,13 @@ function TeamCard({ member, delay }: { member: any; delay: number }) {
                 transition: "box-shadow 0.4s ease"
               }} 
             />
-            {member.role}
+            {isUrdu ? member.roleUr : member.role}
           </div>
           
           <h3
             style={{
-              fontSize: "32px",
-              fontFamily: F,
+              fontSize: isUrdu ? "36px" : "32px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               letterSpacing: "-0.03em",
@@ -171,13 +182,13 @@ function TeamCard({ member, delay }: { member: any; delay: number }) {
               textShadow: "0 4px 12px rgba(0,0,0,0.5)"
             }}
           >
-            {member.name}
+            {isUrdu ? member.nameUr : member.name}
           </h3>
 
           <p
             style={{
-              fontSize: "15px",
-              fontFamily: F,
+              fontSize: isUrdu ? "17px" : "15px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.7)",
               lineHeight: 1.6,
@@ -186,7 +197,7 @@ function TeamCard({ member, delay }: { member: any; delay: number }) {
               transition: "all 0.6s ease",
             }}
           >
-            {member.description}
+            {isUrdu ? member.descriptionUr : member.description}
           </p>
         </motion.div>
       </div>
@@ -212,6 +223,9 @@ function TeamCard({ member, delay }: { member: any; delay: number }) {
 }
 
 export function TeamSection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
   return (
     <section
       id="team"
@@ -271,14 +285,14 @@ export function TeamSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
                   letterSpacing: "0.02em",
                 }}
               >
-                Our Leadership
+                {isUrdu ? "ہماری قیادت" : "Our Leadership"}
               </span>
             </div>
           </motion.div>
@@ -286,8 +300,8 @@ export function TeamSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: "clamp(28px, 3.2vw, 48px)",
-              fontFamily: F,
+              fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.1,
@@ -295,7 +309,7 @@ export function TeamSection() {
               margin: "0 0 18px 0",
             }}
           >
-            Meet Our{" "}
+            {isUrdu ? "وہ ٹیم جو آپ کے " : "Meet Our "}
             <span
               style={{
                 background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -305,14 +319,14 @@ export function TeamSection() {
                 color: "transparent",
               }}
             >
-              Team
+              {isUrdu ? "ویژن کو بناتی ہے" : "Team"}
             </span>
           </motion.h2>
           <motion.p
             {...fadeUp(0.15)}
             style={{
-              fontSize: "16px",
-              fontFamily: F,
+              fontSize: isUrdu ? "18px" : "16px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.47)",
               lineHeight: 1.78,
@@ -320,7 +334,7 @@ export function TeamSection() {
               maxWidth: "540px",
             }}
           >
-            The visionary minds behind our innovative solutions, driving growth and creating premium digital experiences.
+            {isUrdu ? "مقامی ٹیلنٹ، عالمی معیار۔ ہماری قیادت اس بات کو یقینی بناتی ہے کہ ہر پروڈکٹ آپ کے کاروبار کے لیے بہترین ہو۔" : "The visionary minds behind our innovative solutions, driving growth and creating premium digital experiences."}
           </motion.p>
         </div>
 
@@ -334,7 +348,7 @@ export function TeamSection() {
           }}
         >
           {TEAM_MEMBERS.map((member, i) => (
-            <TeamCard key={member.name} member={member} delay={0.2 + i * 0.15} />
+            <TeamCard key={member.name} member={member} delay={0.2 + i * 0.15} isUrdu={isUrdu ?? false} />
           ))}
         </div>
       </div>

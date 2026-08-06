@@ -2,11 +2,13 @@
 
 import { PhoneIcon, ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { DashboardIllustration } from "./DashboardIllustration";
 import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 28 },
@@ -15,14 +17,17 @@ const fadeUp = (delay: number) => ({
 });
 
 const products = [
-  { code: "POS", name: "All Business Types" },
-  { code: "TMS", name: "Transport Management" },
-  { code: "SMS", name: "School Management" },
-  { code: "RMS", name: "Restaurant System" },
-  { code: "BMS", name: "Recurring Billing System" },
+  { code: "POS", name: "All Business Types", nameUr: "تمام کاروباروں کے لیے" },
+  { code: "TMS", name: "Transport Management", nameUr: "ٹرانسپورٹ مینجمنٹ" },
+  { code: "SMS", name: "School Management", nameUr: "اسکول مینجمنٹ" },
+  { code: "RMS", name: "Restaurant System", nameUr: "ریسٹورنٹ سسٹم" },
+  { code: "BMS", name: "Recurring Billing System", nameUr: "ریکرنگ بلنگ سسٹم" },
 ];
 
 export function HeroSection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
   return (
     <section
       id="hero"
@@ -75,15 +80,15 @@ export function HeroSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "16px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
                   letterSpacing: "0.02em",
                   whiteSpace: "nowrap",
                 }}
               >
-                Software for Every Kind of Business
+                {isUrdu ? "ہر قسم کے کاروبار کے لیے سافٹ ویئر" : "Software for Every Kind of Business"}
               </span>
             </div>
           </motion.div>
@@ -92,8 +97,8 @@ export function HeroSection() {
           <motion.h1
             {...fadeUp(0.1)}
             style={{
-              fontSize: "clamp(38px, 4.2vw, 60px)",
-              fontFamily: F,
+              fontSize: isUrdu ? "clamp(42px, 5vw, 68px)" : "clamp(38px, 4.2vw, 60px)",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.06,
@@ -102,7 +107,7 @@ export function HeroSection() {
               margin: "0 0 22px 0",
             }}
           >
-            One Team.{" "}
+            {isUrdu ? "ایک ٹیم۔ " : "One Team. "}
             <span
               style={{
                 background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -111,18 +116,18 @@ export function HeroSection() {
                 backgroundClip: "text",
               }}
             >
-              (Five Smart
+              {isUrdu ? "(پانچ اسمارٹ" : "(Five Smart"}
             </span>{" "}
             <br />
-            Software Solutions).
+            {isUrdu ? "سافٹ ویئر حل۔)" : "Software Solutions)."}
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
             {...fadeUp(0.18)}
             style={{
-              fontSize: "16px",
-              fontFamily: F,
+              fontSize: isUrdu ? "18px" : "16px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.52)",
               lineHeight: 1.78,
@@ -131,9 +136,7 @@ export function HeroSection() {
               margin: "0 0 36px 0",
             }}
           >
-            From retail counters to restaurants, transport, schools, and
-            subscriptions — we build the software that runs your operations,
-            every single day.
+            {isUrdu ? "ریٹیل کاؤنٹرز سے لے کر ریسٹورنٹس، ٹرانسپورٹ، اسکولز اور سبسکرپشنز تک — ہم وہ سافٹ ویئر بناتے ہیں جو آپ کے کاروبار کو روزانہ چلاتا ہے۔" : "From retail counters to restaurants, transport, schools, and subscriptions — we build the software that runs your operations, every single day."}
           </motion.p>
 
           {/* Product chips */}
@@ -185,18 +188,18 @@ export function HeroSection() {
                 />
                 <span
                   style={{
-                    fontSize: "12px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "14px" : "12px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: "rgba(255,255,255,0.65)",
                     whiteSpace: "nowrap",
                   }}
                 >
-                  <span style={{ color: "rgba(255,255,255,0.88)", fontWeight: 600 }}>
+                  <span style={{ color: "rgba(255,255,255,0.88)", fontWeight: 600, fontFamily: F }}>
                     {p.code}
                   </span>
                   {" — "}
-                  {p.name}
+                  {isUrdu ? p.nameUr : p.name}
                 </span>
               </motion.div>
             ))}
@@ -251,32 +254,40 @@ export function HeroSection() {
               <div>
                 <div
                   style={{
-                    fontSize: "11px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "14px" : "11px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 700,
                     color: LIME,
-                    letterSpacing: "0.08em",
+                    letterSpacing: isUrdu ? "0" : "0.08em",
                     textTransform: "uppercase",
                     marginBottom: "6px",
                   }}
                 >
-                  Flexible Tiers
+                  {isUrdu ? "لچکدار پلانز" : "Flexible Tiers"}
                 </div>
                 <p
                   style={{
-                    fontSize: "14px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "16px" : "14px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.62)",
                     lineHeight: 1.65,
                     margin: 0,
                   }}
                 >
-                  Every product comes in two versions:{" "}
-                  <span style={{ color: "#FFFFFF", fontWeight: 500 }}>Basic</span>{" "}
-                  for getting started, and{" "}
-                  <span style={{ color: LIME, fontWeight: 600 }}>Pro</span> for
-                  full-scale operations.
+                  {isUrdu ? (
+                    <>
+                      ہر پراڈکٹ دو ورژنز میں دستیاب ہے: شروعات کے لیے <span style={{ color: "#FFFFFF", fontWeight: 500, fontFamily: F }}>Basic</span>، اور مکمل آپریشنز کے لیے <span style={{ color: LIME, fontWeight: 600, fontFamily: F }}>Pro</span>۔
+                    </>
+                  ) : (
+                    <>
+                      Every product comes in two versions:{" "}
+                      <span style={{ color: "#FFFFFF", fontWeight: 500 }}>Basic</span>{" "}
+                      for getting started, and{" "}
+                      <span style={{ color: LIME, fontWeight: 600 }}>Pro</span> for
+                      full-scale operations.
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -287,13 +298,13 @@ export function HeroSection() {
             {...fadeUp(0.42)}
             className="cta-row cta-row-left"
           >
-            <SiteButton href="#products" variant="primary">
-              Explore Our Software
-              <ArrowRight size={15} strokeWidth={2.5} />
+            <SiteButton href="#products" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+              {isUrdu ? "ہمارے سافٹ ویئر دیکھیں" : "Explore Our Software"}
+              <ArrowRight size={15} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
             </SiteButton>
-            <SiteButton href="tel:+923706277633" variant="secondary">
+            <SiteButton href="tel:+923706277633" variant="secondary" style={{ fontFamily: F, direction: isUrdu ? "ltr" : undefined }}>
               <PhoneIcon size={14} strokeWidth={2} />
-              +92 370 6277633
+              <span>+92 370 6277633</span>
             </SiteButton>
           </motion.div>
 
@@ -308,9 +319,9 @@ export function HeroSection() {
             }}
           >
             {[
-              { v: "500+", l: "Businesses Served" },
-              { v: "5", l: "Integrated Products" },
-              { v: "99.9%", l: "Uptime SLA" },
+              { v: "500+", l: "Businesses Served", lUr: "کاروبار جن کو ہم نے خدمات فراہم کیں" },
+              { v: "5", l: "Integrated Products", lUr: "مربوط پراڈکٹس" },
+              { v: "99.9%", l: "Uptime SLA", lUr: "اپ ٹائم (SLA)" },
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -342,13 +353,13 @@ export function HeroSection() {
                   </div>
                   <div
                     style={{
-                      fontSize: "11px",
-                      fontFamily: F,
+                      fontSize: isUrdu ? "13px" : "11px",
+                      fontFamily: isUrdu ? UF : F,
                       color: "rgba(255,255,255,0.38)",
                       marginTop: "3px",
                     }}
                   >
-                    {stat.l}
+                    {isUrdu ? stat.lUr : stat.l}
                   </div>
                 </div>
               </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState, useEffect, type ReactElement } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   MessageCircle,
@@ -18,58 +19,71 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 const DIM = "rgba(255,255,255,0.42)";
 const BORDER_DIM = "rgba(255,255,255,0.07)";
 
 interface Step {
   num: string;
   title: string;
+  titleUr: string;
   icons: ReactElement[];
   desc: string;
+  descUr: string;
 }
 
 const steps: Step[] = [
   {
     num: "01",
     title: "Consult",
+    titleUr: "مشاورت",
     icons: [
       <MessageCircle key="a" size={15} strokeWidth={1.6} />,
       <User key="b" size={15} strokeWidth={1.6} />,
     ],
     desc: "We understand your business type and recommend the right product, and the right plan — Basic or Pro.",
+    descUr: "ہم آپ کے کاروبار کی نوعیت سمجھتے ہیں اور صحیح پراڈکٹ کے ساتھ ساتھ صحیح پلان — Basic یا Pro — تجویز کرتے ہیں۔",
   },
   {
     num: "02",
     title: "Setup",
+    titleUr: "سیٹ اپ",
     icons: [
       <Settings2 key="a" size={15} strokeWidth={1.6} />,
       <Monitor key="b" size={15} strokeWidth={1.6} />,
     ],
     desc: "Your chosen system is installed and configured for your exact operations, from a single outlet to multiple branches.",
+    descUr: "آپ کا منتخب کردہ سسٹم آپ کے عین آپریشنز کے مطابق انسٹال اور کنفیگر کیا جاتا ہے — ایک آؤٹ لیٹ سے لے کر متعدد برانچز تک۔",
   },
   {
     num: "03",
     title: "Train",
+    titleUr: "تربیت",
     icons: [
       <Users key="a" size={15} strokeWidth={1.6} />,
       <GraduationCap key="b" size={15} strokeWidth={1.6} />,
     ],
     desc: "Hands-on training for your staff, so your team is confident using the system from day one.",
+    descUr: "آپ کی ٹیم کے لیے عملی تربیت، تاکہ آپ کا اسٹاف پہلے دن سے ہی سسٹم استعمال کرنے میں اعتماد رکھے۔",
   },
   {
     num: "04",
     title: "Launch",
+    titleUr: "لانچ",
     icons: [<Rocket key="a" size={15} strokeWidth={1.6} />],
     desc: "Your software goes live, with your data, users, and settings fully in place.",
+    descUr: "آپ کا سافٹ ویئر مکمل ڈیٹا، یوزرز اور سیٹنگز کے ساتھ لائیو ہو جاتا ہے۔",
   },
   {
     num: "05",
     title: "Support",
+    titleUr: "سپورٹ",
     icons: [
       <Headphones key="a" size={15} strokeWidth={1.6} />,
       <ShieldCheck key="b" size={15} strokeWidth={1.6} />,
     ],
     desc: "Ongoing local support for updates, troubleshooting, and upgrading from Basic to Pro whenever you're ready.",
+    descUr: "اپ ڈیٹس، خرابیوں کے حل، اور Basic سے Pro میں اپ گریڈ کے لیے مسلسل مقامی سپورٹ، جب بھی آپ کو ضرورت ہو۔",
   },
 ];
 
@@ -81,10 +95,12 @@ function StepCard({
   step,
   isTop,
   index,
+  isUrdu,
 }: {
   step: Step;
   isTop: boolean;
   index: number;
+  isUrdu: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -190,8 +206,8 @@ function StepCard({
       {/* Title */}
       <h3
         style={{
-          fontSize: "15px",
-          fontFamily: F,
+          fontSize: isUrdu ? "18px" : "15px",
+          fontFamily: isUrdu ? UF : F,
           fontWeight: 700,
           color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.9)",
           margin: "0 0 8px 0",
@@ -200,14 +216,14 @@ function StepCard({
           transition: "color 0.3s ease",
         }}
       >
-        {step.title}
+        {isUrdu ? step.titleUr : step.title}
       </h3>
 
       {/* Description */}
       <p
         style={{
-          fontSize: "12.5px",
-          fontFamily: F,
+          fontSize: isUrdu ? "14.5px" : "12.5px",
+          fontFamily: isUrdu ? UF : F,
           fontWeight: 400,
           color: hovered ? "rgba(255,255,255,0.52)" : DIM,
           lineHeight: 1.72,
@@ -215,7 +231,7 @@ function StepCard({
           transition: "color 0.3s ease",
         }}
       >
-        {step.desc}
+        {isUrdu ? step.descUr : step.desc}
       </p>
     </motion.div>
   );
@@ -223,7 +239,7 @@ function StepCard({
 
 // ─── Horizontal Timeline (Desktop) ───────────────────────────────────────────
 
-function HorizontalTimeline() {
+function HorizontalTimeline({ isUrdu }: { isUrdu: boolean }) {
   return (
     <div
       style={{
@@ -347,7 +363,7 @@ function HorizontalTimeline() {
                   : { top: "calc(50% + 31px)" }),
               }}
             >
-              <StepCard step={step} isTop={isTop} index={i} />
+              <StepCard step={step} isTop={isTop} index={i} isUrdu={isUrdu} />
             </div>
           </Fragment>
         );
@@ -358,7 +374,7 @@ function HorizontalTimeline() {
 
 // ─── Vertical Timeline (Mobile) ──────────────────────────────────────────────
 
-function VerticalTimeline() {
+function VerticalTimeline({ isUrdu }: { isUrdu: boolean }) {
   return (
     <div
       style={{
@@ -420,8 +436,8 @@ function VerticalTimeline() {
             />
           </div>
 
-          <StepCard step={step} isTop={false} index={i} />
-        </div>
+            <StepCard step={step} isTop={false} index={i} isUrdu={isUrdu} />
+          </div>
       ))}
     </div>
   );
@@ -438,6 +454,8 @@ const fadeUp = (delay: number) => ({
 
 export function ProcessSection() {
   const [isDesktop, setIsDesktop] = useState(true);
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
@@ -511,14 +529,14 @@ export function ProcessSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
                   letterSpacing: "0.02em",
                 }}
               >
-                How We Work
+                {isUrdu ? "ہم کیسے کام کرتے ہیں" : "How We Work"}
               </span>
             </div>
           </motion.div>
@@ -527,8 +545,8 @@ export function ProcessSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: "clamp(30px, 3.4vw, 50px)",
-              fontFamily: F,
+              fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(30px, 3.4vw, 50px)",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.1,
@@ -536,7 +554,8 @@ export function ProcessSection() {
               margin: "0 0 20px 0",
             }}
           >
-            From First Call to Full Support —{" "}
+            {isUrdu ? "پہلی کال سے مکمل سپورٹ تک — " : "From First Call to Full Support — "}
+            <br className="hidden md:block" />
             <span
               style={{
                 background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -545,7 +564,7 @@ export function ProcessSection() {
                 backgroundClip: "text",
               }}
             >
-              A Clear, Five-Step Process
+              {isUrdu ? "پانچ واضح مراحل کا عمل" : "A Clear, Five-Step Process"}
             </span>
           </motion.h2>
 
@@ -553,22 +572,20 @@ export function ProcessSection() {
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: "16px",
-              fontFamily: F,
+              fontSize: isUrdu ? "18px" : "16px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
               lineHeight: 1.78,
               margin: 0,
             }}
           >
-            Every product — POS, TMS, SMS, Restaurant, or Recurring Billing —
-            goes through the same reliable process, whether you choose Basic or
-            Pro.
+            {isUrdu ? "ہر پراڈکٹ — POS، TMS، SMS، ریسٹورنٹ، یا ریکرنگ بلنگ — اسی قابلِ اعتماد عمل سے گزرتا ہے، چاہے آپ Basic منتخب کریں یا Pro۔" : "Every product — POS, TMS, SMS, Restaurant, or Recurring Billing — goes through the same reliable process, whether you choose Basic or Pro."}
           </motion.p>
         </div>
 
         {/* ── Timeline ───────────────────────────────────────────── */}
-        {isDesktop ? <HorizontalTimeline /> : <VerticalTimeline />}
+        {isDesktop ? <HorizontalTimeline isUrdu={isUrdu ?? false} /> : <VerticalTimeline isUrdu={isUrdu ?? false} />}
 
         {/* ── Divider ────────────────────────────────────────────── */}
         <motion.div
@@ -584,12 +601,12 @@ export function ProcessSection() {
 
         {/* ── CTAs ───────────────────────────────────────────────── */}
         <motion.div {...fadeUp(0.34)} className="cta-row">
-          <SiteButton href="tel:+923706277633" variant="primary">
-          Free Consultation
-            <ArrowRight size={15} strokeWidth={2.5} />
+          <SiteButton href="tel:+923706277633" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "مفت مشاورت" : "Free Consultation"}
+            <ArrowRight size={15} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
           </SiteButton>
-          <SiteButton href="#products" variant="secondary">
-            See Pricing Plans
+          <SiteButton href="#products" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "پرائسنگ پلانز دیکھیں" : "See Pricing Plans"}
           </SiteButton>
         </motion.div>
 
@@ -635,13 +652,13 @@ export function ProcessSection() {
                 />
                 <span
                   style={{
-                    fontSize: "12px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "14px" : "12px",
+                    fontFamily: isUrdu ? UF : F,
                     color: "rgba(255,255,255,0.35)",
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {step.num} {step.title}
+                  <span style={{ fontFamily: F }}>{step.num}</span> {isUrdu ? step.titleUr : step.title}
                 </span>
               </div>
 

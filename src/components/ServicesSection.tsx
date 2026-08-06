@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Monitor,
@@ -19,6 +20,7 @@ import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 const DIM = "rgba(255,255,255,0.42)";
 const BORDER = "rgba(255,255,255,0.08)";
 const BORDER_HOVER = "rgba(197,255,0,0.28)";
@@ -33,7 +35,9 @@ const fadeUp = (delay: number) => ({
 interface Service {
   icons: ReactNode[];
   title: string;
+  titleUr: string;
   description: string;
+  descriptionUr: string;
   accent?: boolean;
 }
 
@@ -41,43 +45,49 @@ const services: Service[] = [
   {
     icons: [<Settings2 size={18} strokeWidth={1.6} />, <Monitor size={18} strokeWidth={1.6} />],
     title: "Setup & Installation",
-    description:
-      "Complete hardware and software setup for your chosen system — POS, TMS, SMS, Restaurant, or Recurring Billing — configured to match your business.",
+    titleUr: "سیٹ اپ اور انسٹالیشن",
+    description: "Complete hardware and software setup for your chosen system — POS, TMS, SMS, Restaurant, or Recurring Billing — configured to match your business.",
+    descriptionUr: "آپ کے منتخب کردہ سسٹم — POS، TMS، SMS، ریسٹورنٹ، یا ریکرنگ بلنگ — کے لیے مکمل ہارڈویئر اور سافٹ ویئر سیٹ اپ، آپ کے کاروبار کے مطابق تیار۔",
   },
   {
     icons: [<Users size={18} strokeWidth={1.6} />, <GraduationCap size={18} strokeWidth={1.6} />],
     title: "Staff Training",
-    description:
-      "Hands-on training for your team so staff are confident using the system from day one, on both Basic and Pro plans.",
+    titleUr: "اسٹاف ٹریننگ",
+    description: "Hands-on training for your team so staff are confident using the system from day one, on both Basic and Pro plans.",
+    descriptionUr: "آپ کی ٹیم کے لیے عملی تربیت تاکہ اسٹاف پہلے دن سے ہی سسٹم استعمال کرنے میں مکمل اعتماد رکھے — Basic اور Pro دونوں پلانز پر۔",
   },
   {
     icons: [<Code2 size={18} strokeWidth={1.6} />],
     title: "Custom Development",
-    description:
-      "Need a feature specific to your business? We customize any of our products to match exactly how you work.",
+    titleUr: "کسٹم ڈویلپمنٹ",
+    description: "Need a feature specific to your business? We customize any of our products to match exactly how you work.",
+    descriptionUr: "آپ کے کاروبار کے لیے کوئی خاص فیچر چاہیے؟ ہم اپنے کسی بھی پراڈکٹ کو آپ کے کام کے عین مطابق کسٹمائز کرتے ہیں۔",
     accent: true,
   },
   {
     icons: [<CloudUpload size={18} strokeWidth={1.6} />, <ShieldCheck size={18} strokeWidth={1.6} />],
     title: "Cloud Backup & Sync",
-    description:
-      "Your data — sales, records, schedules, or billing — is backed up automatically and synced in real time across locations.",
+    titleUr: "کلاؤڈ بیک اپ اور سنک",
+    description: "Your data — sales, records, schedules, or billing — is backed up automatically and synced in real time across locations.",
+    descriptionUr: "آپ کا ڈیٹا — سیلز، ریکارڈز، شیڈولز، یا بلنگ — خودکار طریقے سے محفوظ ہوتا ہے اور تمام مقامات پر ریئل ٹائم میں سنک ہوتا ہے۔",
   },
   {
     icons: [<Network size={18} strokeWidth={1.6} />, <LayoutGrid size={18} strokeWidth={1.6} />],
     title: "Multi-Branch / Multi-User Management",
-    description:
-      "Run and monitor multiple branches, vehicles, classes, or accounts from a single unified dashboard.",
+    titleUr: "ملٹی برانچ / ملٹی یوزر مینجمنٹ",
+    description: "Run and monitor multiple branches, vehicles, classes, or accounts from a single unified dashboard.",
+    descriptionUr: "ایک ہی مربوط ڈیش بورڈ سے متعدد برانچز، گاڑیاں، کلاسز، یا اکاؤنٹس کو چلائیں اور مانیٹر کریں۔",
   },
   {
     icons: [<Headphones size={18} strokeWidth={1.6} />, <ShieldCheck size={18} strokeWidth={1.6} />],
     title: "Ongoing Support & Maintenance",
-    description:
-      "Local, responsive support for updates, troubleshooting, and upgrades — from Basic to Pro, whenever you need us.",
+    titleUr: "مسلسل سپورٹ اور مینٹیننس",
+    description: "Local, responsive support for updates, troubleshooting, and upgrades — from Basic to Pro, whenever you need us.",
+    descriptionUr: "اپ ڈیٹس، خرابیوں کے حل، اور اپ گریڈز کے لیے مقامی اور فوری سپورٹ — Basic سے Pro تک، جب بھی آپ کو ضرورت ہو۔",
   },
 ];
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+function ServiceCard({ service, index, isUrdu }: { service: Service; index: number; isUrdu: boolean }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -156,8 +166,8 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       <div>
         <h3
           style={{
-            fontSize: "17px",
-            fontFamily: F,
+            fontSize: isUrdu ? "20px" : "17px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 700,
             color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.92)",
             lineHeight: 1.3,
@@ -167,14 +177,14 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             transition: "color 0.3s ease",
           }}
         >
-          {service.title}
+          {isUrdu ? service.titleUr : service.title}
         </h3>
 
         {/* Description */}
         <p
           style={{
-            fontSize: "14px",
-            fontFamily: F,
+            fontSize: isUrdu ? "16px" : "14px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 400,
             color: hovered ? "rgba(255,255,255,0.58)" : DIM,
             lineHeight: 1.72,
@@ -182,7 +192,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             transition: "color 0.3s ease",
           }}
         >
-          {service.description}
+          {isUrdu ? service.descriptionUr : service.description}
         </p>
       </div>
 
@@ -200,22 +210,25 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       >
         <span
           style={{
-            fontSize: "12px",
-            fontFamily: F,
+            fontSize: isUrdu ? "14px" : "12px",
+            fontFamily: isUrdu ? UF : F,
             fontWeight: 600,
             color: LIME,
             letterSpacing: "0.03em",
           }}
         >
-          Learn more
+          {isUrdu ? "مزید جانیں" : "Learn more"}
         </span>
-        <ArrowRight size={13} color={LIME} strokeWidth={2.5} />
+        <ArrowRight size={13} color={LIME} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
       </div>
     </motion.div>
   );
 }
 
 export function ServicesSection() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
   return (
     <section
       id="services"
@@ -281,14 +294,14 @@ export function ServicesSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 500,
                   color: LIME,
                   letterSpacing: "0.02em",
                 }}
               >
-                What We Offer
+                {isUrdu ? "ہم کیا پیش کرتے ہیں" : "What We Offer"}
               </span>
             </div>
           </motion.div>
@@ -297,8 +310,8 @@ export function ServicesSection() {
           <motion.h2
             {...fadeUp(0.08)}
             style={{
-              fontSize: "clamp(32px, 3.6vw, 52px)",
-              fontFamily: F,
+              fontSize: isUrdu ? "clamp(36px, 4vw, 58px)" : "clamp(32px, 3.6vw, 52px)",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.1,
@@ -307,7 +320,7 @@ export function ServicesSection() {
               margin: "0 0 20px 0",
             }}
           >
-            One Platform of Services,{" "}
+            {isUrdu ? "ایک پلیٹ فارم سروسز کا، " : "One Platform of Services, "}
             <br />
             <span
               style={{
@@ -317,25 +330,24 @@ export function ServicesSection() {
                 backgroundClip: "text",
               }}
             >
-              Behind Every Product
+              {isUrdu ? "ہر پراڈکٹ کے پیچھے" : "Behind Every Product"}
             </span>{" "}
-            We Build
+            {isUrdu ? "جو ہم بناتے ہیں" : "We Build"}
           </motion.h2>
 
           {/* Subheading */}
           <motion.p
             {...fadeUp(0.16)}
             style={{
-              fontSize: "16px",
-              fontFamily: F,
+              fontSize: isUrdu ? "18px" : "16px",
+              fontFamily: isUrdu ? UF : F,
               fontWeight: 400,
               color: "rgba(255,255,255,0.5)",
               lineHeight: 1.78,
               margin: "20px 0 0 0",
             }}
           >
-            Whether it's POS, TMS, SMS, Restaurant, or Recurring Billing —
-            every product comes with the same full-service support.
+            {isUrdu ? "چاہے POS ہو، TMS، SMS، ریسٹورنٹ، یا ریکرنگ بلنگ — ہر پراڈکٹ کے ساتھ وہی مکمل سروس سپورٹ شامل ہے۔" : "Whether it's POS, TMS, SMS, Restaurant, or Recurring Billing — every product comes with the same full-service support."}
           </motion.p>
         </div>
 
@@ -350,7 +362,7 @@ export function ServicesSection() {
           }}
         >
           {services.map((service, i) => (
-            <ServiceCard key={i} service={service} index={i} />
+            <ServiceCard key={i} service={service} index={i} isUrdu={isUrdu ?? false} />
           ))}
         </div>
 
@@ -368,12 +380,12 @@ export function ServicesSection() {
 
         {/* ── CTA group ───────────────────────────────────────────── */}
         <motion.div {...fadeUp(0.34)} className="cta-row">
-          <SiteButton href="#products" variant="primary">
-            Get Started
-            <ArrowRight size={15} strokeWidth={2.5} />
+          <SiteButton href="#products" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "شروع کریں" : "Get Started"}
+            <ArrowRight size={15} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
           </SiteButton>
-          <SiteButton href="#products" variant="secondary">
-            Compare Basic &amp; Pro
+          <SiteButton href="#products" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
+            {isUrdu ? "Basic اور Pro کا موازنہ کریں" : "Compare Basic & Pro"}
           </SiteButton>
         </motion.div>
 
@@ -390,9 +402,9 @@ export function ServicesSection() {
           }}
         >
           {[
-            "Available for all 5 products",
-            "Basic & Pro plans",
-            "Local & remote support",
+            { en: "Available for all 5 products", ur: "تمام 5 پراڈکٹس کے لیے دستیاب" },
+            { en: "Basic & Pro plans", ur: "Basic اور Pro پلانز" },
+            { en: "Local & remote support", ur: "مقامی اور دور دراز سپورٹ" },
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -419,12 +431,12 @@ export function ServicesSection() {
               />
               <span
                 style={{
-                  fontSize: "13px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "15px" : "13px",
+                  fontFamily: isUrdu ? UF : F,
                   color: "rgba(255,255,255,0.38)",
                 }}
               >
-                {item}
+                {isUrdu ? item.ur : item.en}
               </span>
             </motion.div>
           ))}

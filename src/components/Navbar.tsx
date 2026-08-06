@@ -1,21 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, Phone } from "lucide-react";
 import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#hero" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Products", href: "#products" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contact", href: "#contact" },
-] as const;
+  { label: "Home", labelUr: "ہوم", href: "#hero" },
+  { label: "Services", labelUr: "سروسز", href: "#services" },
+  { label: "Process", labelUr: "پراسیس", href: "#process" },
+  { label: "Products", labelUr: "پراڈکٹس", href: "#products" },
+  { label: "Portfolio", labelUr: "پورٹ فولیو", href: "#portfolio" },
+  { label: "Contact", labelUr: "رابطہ", href: "#contact" },
+];
 
 function scrollToHash(hash: string) {
   const id = hash.replace("#", "");
@@ -31,6 +33,18 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#hero");
+
+  const pathname = usePathname();
+  const router = useRouter();
+  const isUrdu = pathname?.startsWith("/ur");
+
+  const toggleLanguage = () => {
+    if (isUrdu) {
+      router.push(pathname.replace(/^\/ur/, "") || "/");
+    } else {
+      router.push(`/ur${pathname === "/" ? "" : pathname}`);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -119,6 +133,7 @@ export function Navbar() {
           {/* Brand */}
           <a
             href="#hero"
+            className="site-header-brand"
             onClick={(e) => {
               e.preventDefault();
               navigate("#hero");
@@ -129,19 +144,20 @@ export function Navbar() {
               gap: "10px",
               textDecoration: "none",
               minWidth: 0,
-              flexShrink: 0,
+              flexShrink: 1,
             }}
           >
             <img
               src="/Logo.png"
               alt="Aura Business Solution Logo"
               style={{
-                height: "36px",
+                height: "32px",
                 width: "auto",
                 objectFit: "contain",
+                flexShrink: 0
               }}
             />
-            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+            <div className="brand-text-container" style={{ display: "flex", flexDirection: "column", lineHeight: 1.1, minWidth: 0 }}>
               <span
                 style={{
                   fontFamily: F,
@@ -154,6 +170,7 @@ export function Navbar() {
                 Aura
               </span>
               <span
+                className="brand-subtitle"
                 style={{
                   fontFamily: F,
                   fontWeight: 500,
@@ -164,6 +181,8 @@ export function Navbar() {
                   backgroundClip: "text",
                   letterSpacing: "0.02em",
                   whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis"
                 }}
               >
                 Business Solution
@@ -198,8 +217,8 @@ export function Navbar() {
                     position: "relative",
                     padding: "8px 16px",
                     borderRadius: 100,
-                    fontFamily: F,
-                    fontSize: 13,
+                    fontFamily: isUrdu ? UF : F,
+                    fontSize: isUrdu ? 16 : 13,
                     fontWeight: isActive ? 700 : 500,
                     color: isActive ? "#050505" : "rgba(255,255,255,0.55)",
                     textDecoration: "none",
@@ -221,7 +240,7 @@ export function Navbar() {
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                  {link.label}
+                  {isUrdu ? link.labelUr : link.label}
                 </a>
               );
             })}
@@ -236,28 +255,65 @@ export function Navbar() {
               href="tel:+923706277633"
               variant="secondary"
               className="!flex-none !px-3.5 !py-2 !text-[12px] !rounded-full"
+              style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 15 : undefined }}
             >
               <Phone size={13} />
-              Call
+              {isUrdu ? "کال کریں" : "Call"}
             </SiteButton>
             <SiteButton
               href="#products"
               variant="primary"
               className="!flex-none !px-4 !py-2 !text-[12px] !rounded-full"
+              style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 15 : undefined }}
               onClick={(e) => {
                 e.preventDefault();
                 navigate("#products");
               }}
             >
-              Get a Quote
-              <ArrowRight size={14} strokeWidth={2.5} />
+              {isUrdu ? "کوٹیشن حاصل کریں" : "Get a Quote"}
+              <ArrowRight size={14} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
             </SiteButton>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            className="site-header-burger"
+          <div className="site-header-actions" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Language Toggle */}
+            <div
+              onClick={toggleLanguage}
+              className="language-toggle"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "2px",
+                padding: "2px",
+                borderRadius: 100,
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.04)",
+                cursor: "pointer",
+                flexShrink: 0
+              }}
+            >
+              <span className="lang-btn" style={{ 
+                padding: "4px 8px", 
+                borderRadius: 100, 
+                background: !isUrdu ? LIME : "transparent",
+                color: !isUrdu ? "#050505" : "rgba(255,255,255,0.7)",
+                fontFamily: F, fontSize: 12, fontWeight: 600,
+                transition: "all 0.2s"
+              }}>Eng</span>
+              <span className="lang-btn" style={{ 
+                padding: "4px 8px", 
+                borderRadius: 100, 
+                background: isUrdu ? LIME : "transparent",
+                color: isUrdu ? "#050505" : "rgba(255,255,255,0.7)",
+                fontFamily: F, fontSize: 12, fontWeight: 600,
+                transition: "all 0.2s"
+              }}>Ur</span>
+            </div>
+
+            {/* Mobile toggle */}
+            <button
+              type="button"
+              className="site-header-burger"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -276,6 +332,7 @@ export function Navbar() {
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
+          </div>
         </div>
       </motion.header>
 
@@ -336,34 +393,35 @@ export function Navbar() {
                       padding: "14px 16px",
                       borderRadius: 14,
                       marginBottom: 4,
-                      fontFamily: F,
-                      fontSize: 15,
+                      fontFamily: isUrdu ? UF : F,
+                      fontSize: isUrdu ? 18 : 15,
                       fontWeight: isActive ? 700 : 500,
                       color: isActive ? "#050505" : "rgba(255,255,255,0.8)",
                       background: isActive ? LIME : "transparent",
                       textDecoration: "none",
                     }}
                   >
-                    {link.label}
-                    <ArrowRight size={15} />
+                    {isUrdu ? link.labelUr : link.label}
+                    <ArrowRight size={15} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
                   </motion.a>
                 );
               })}
               <div className="cta-row" style={{ marginTop: 8, padding: 4, gap: 8 }}>
-                <SiteButton href="tel:+923706277633" variant="secondary">
+                <SiteButton href="tel:+923706277633" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 15 : undefined }}>
                   <Phone size={14} />
-                  Call
+                  {isUrdu ? "کال کریں" : "Call"}
                 </SiteButton>
                 <SiteButton
                   href="#products"
                   variant="primary"
+                  style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 15 : undefined }}
                   onClick={(e) => {
                     e.preventDefault();
                     navigate("#products");
                   }}
                 >
-                  Get a Quote
-                  <ArrowRight size={14} strokeWidth={2.5} />
+                  {isUrdu ? "کوٹیشن حاصل کریں" : "Get a Quote"}
+                  <ArrowRight size={14} strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
                 </SiteButton>
               </div>
             </motion.div>

@@ -1,11 +1,13 @@
 "use client";
 
 import { type FC, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, ArrowUpRight, ArrowRight } from "lucide-react";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 type IconProps = { size: number; strokeWidth: number };
 
@@ -231,7 +233,7 @@ const CSS = `
     color: rgba(255,255,255,0.4);
     line-height: 1.75;
     margin: 0 0 28px;
-    max-width: 300px;
+    max-width: 320px;
   }
 
   .ft-socials {
@@ -617,10 +619,13 @@ function SocialIcon({
 }
 
 export function Footer() {
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
+
   return (
     <>
       <style>{CSS}</style>
-      <footer id="footer" className="ft-shell">
+      <footer id="footer" className="ft-shell" dir={isUrdu ? "rtl" : "ltr"}>
         <div className="ft-noise" />
         <div className="ft-grid" />
         <div className="ft-mark" aria-hidden>
@@ -635,7 +640,7 @@ export function Footer() {
             <motion.div {...fadeUp(0)}>
               <div className="ft-status">
                 <span className="ft-status-dot" />
-                <span>Accepting new projects</span>
+                <span style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "14px" : "11px", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "نئے پروجیکٹس قبول کیے جا رہے ہیں" : "Accepting new projects"}</span>
               </div>
 
               <a href="#hero" className="ft-logo" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', textDecoration: 'none' }}>
@@ -674,9 +679,10 @@ export function Footer() {
                 </div>
               </a>
 
-              <p className="ft-blurb">
-                Software systems built for real operations — POS, TMS, SMS,
-                Restaurant, and Recurring Billing for businesses across Pakistan.
+              <p className="ft-blurb" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "14px" }}>
+                {isUrdu 
+                  ? "حقیقی آپریشنز کے لیے تیار کردہ سافٹ ویئر سسٹمز — POS، TMS، SMS، ریسٹورنٹ، اور ریکرنگ بلنگ، پاکستان بھر کے کاروباروں کے لیے۔"
+                  : "Software systems built for real operations — POS, TMS, SMS, Restaurant, and Recurring Billing for businesses across Pakistan."}
               </p>
 
               <div className="ft-socials">
@@ -689,43 +695,53 @@ export function Footer() {
 
             {/* Products */}
             <motion.div {...fadeUp(0.08)}>
-              <ColHeading>Products</ColHeading>
-              <NavLinks
-                links={[
-                  { label: "POS Software", href: "#products" },
-                  { label: "Transport (TMS)", href: "#products" },
-                  { label: "School (SMS)", href: "#products" },
-                  { label: "Restaurant System", href: "#products" },
-                  { label: "Recurring Billing", href: "#products" },
-                ]}
-              />
+              <ColHeading><span style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "11px", letterSpacing: isUrdu ? "0" : "0.1em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "پراڈکٹس" : "Products"}</span></ColHeading>
+              <div className="ft-links">
+                {[
+                  { label: isUrdu ? "POS سافٹ ویئر" : "POS Software", href: "#products" },
+                  { label: isUrdu ? "ٹرانسپورٹ (TMS)" : "Transport (TMS)", href: "#products" },
+                  { label: isUrdu ? "اسکول (SMS)" : "School (SMS)", href: "#products" },
+                  { label: isUrdu ? "ریسٹورنٹ سسٹم" : "Restaurant System", href: "#products" },
+                  { label: isUrdu ? "ریکرنگ بلنگ" : "Recurring Billing", href: "#products" },
+                ].map((l) => (
+                  <a key={l.label} href={l.href} className="ft-link" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "14px" }}>
+                    <ArrowRight strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
+                    {l.label}
+                  </a>
+                ))}
+              </div>
             </motion.div>
 
             {/* Company */}
             <motion.div {...fadeUp(0.14)}>
-              <ColHeading>Company</ColHeading>
-              <NavLinks
-                links={[
-                  { label: "Our Work", href: "#portfolio" },
-                  { label: "Our Process", href: "#process" },
-                  { label: "Why Aura", href: "#why-aura" },
-                  { label: "Engagement Models", href: "#engagement" },
-                  { label: "Get in Touch", href: "#contact" },
-                ]}
-              />
+              <ColHeading><span style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "11px", letterSpacing: isUrdu ? "0" : "0.1em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "کمپنی" : "Company"}</span></ColHeading>
+              <div className="ft-links">
+                {[
+                  { label: isUrdu ? "ہمارا کام" : "Our Work", href: "#portfolio" },
+                  { label: isUrdu ? "ہمارا عمل" : "Our Process", href: "#process" },
+                  { label: isUrdu ? "آرا کیوں" : "Why Aura", href: "#why-aura" },
+                  { label: isUrdu ? "انگیجمنٹ ماڈلز" : "Engagement Models", href: "#engagement" },
+                  { label: isUrdu ? "ہم سے رابطہ کریں" : "Get in Touch", href: "#contact" },
+                ].map((l) => (
+                  <a key={l.label} href={l.href} className="ft-link" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "14px" }}>
+                    <ArrowRight strokeWidth={2.5} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
+                    {l.label}
+                  </a>
+                ))}
+              </div>
             </motion.div>
 
             {/* Contact */}
             <motion.div {...fadeUp(0.2)}>
-              <ColHeading>Contact</ColHeading>
+              <ColHeading><span style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "11px", letterSpacing: isUrdu ? "0" : "0.1em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "رابطہ" : "Contact"}</span></ColHeading>
               <div className="ft-contact-card">
                 <div className="ft-contact-row" style={{ cursor: "default" }}>
                   <div className="ft-contact-icon">
                     <MapPin size={14} strokeWidth={1.9} />
                   </div>
                   <div className="ft-contact-meta">
-                    <span className="ft-contact-label">Location</span>
-                    <span className="ft-contact-value">Pakistan</span>
+                    <span className="ft-contact-label" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "12px" : "10px", letterSpacing: isUrdu ? "0" : "0.08em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "مقام" : "Location"}</span>
+                    <span className="ft-contact-value" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "16px" : "13.5px" }}>{isUrdu ? "پاکستان" : "Pakistan"}</span>
                   </div>
                 </div>
 
@@ -734,8 +750,8 @@ export function Footer() {
                     <Mail size={14} strokeWidth={1.9} />
                   </div>
                   <div className="ft-contact-meta">
-                    <span className="ft-contact-label">Email</span>
-                    <span className="ft-contact-value">info@aurabusinesssolution.com</span>
+                    <span className="ft-contact-label" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "12px" : "10px", letterSpacing: isUrdu ? "0" : "0.08em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "ای میل" : "Email"}</span>
+                    <span className="ft-contact-value" dir="ltr">info@aurabusinesssolution.com</span>
                   </div>
                 </a>
 
@@ -744,35 +760,37 @@ export function Footer() {
                     <Phone size={14} strokeWidth={1.9} />
                   </div>
                   <div className="ft-contact-meta">
-                    <span className="ft-contact-label">Phone</span>
-                    <span className="ft-contact-value">+92 370 6277633</span>
+                    <span className="ft-contact-label" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "12px" : "10px", letterSpacing: isUrdu ? "0" : "0.08em", textTransform: isUrdu ? "none" : "uppercase" }}>{isUrdu ? "فون" : "Phone"}</span>
+                    <span className="ft-contact-value" dir="ltr">+92 370 6277633</span>
                   </div>
                 </a>
 
                 <a
-                  href="https://www.aurabusinesssolution.com"
+                  href="https://pk.aurabusinesssolution.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ft-web"
                 >
-                  <span>aurabusinesssolution.com</span>
-                  <ArrowUpRight size={13} strokeWidth={2.2} />
+                  <span dir="ltr">pk.aurabusinesssolution.com</span>
+                  <ArrowUpRight size={13} strokeWidth={2.2} style={{ transform: isUrdu ? "scaleX(-1)" : "none" }} />
                 </a>
               </div>
             </motion.div>
           </div>
 
           <motion.div {...fadeUp(0.26)} className="ft-bottom">
-            <span className="ft-copy">© 2026 Aura Business Solutions. All rights reserved.</span>
+            <span className="ft-copy" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "14px" : "13px" }}>
+              {isUrdu ? "© 2026 Aura Business Solutions۔ جملہ حقوق محفوظ ہیں۔" : "© 2026 Aura Business Solutions. All rights reserved."}
+            </span>
 
             <div className="ft-legal">
-              <a href="#contact">Privacy</a>
+              <a href="#contact" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "14px" : "12.5px" }}>{isUrdu ? "پرائیویسی" : "Privacy"}</a>
               <span className="ft-legal-dot" />
-              <a href="#contact">Terms</a>
+              <a href="#contact" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "14px" : "12.5px" }}>{isUrdu ? "شرائط" : "Terms"}</a>
               <span className="ft-legal-dot" />
-              <span className="ft-origin">
-                Built in
-                <span className="ft-origin-chip">Pakistan</span>
+              <span className="ft-origin" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? "14px" : "12.5px" }}>
+                {isUrdu ? "تخلیق کردہ" : "Built in"}
+                <span className="ft-origin-chip">{isUrdu ? "پاکستان" : "Pakistan"}</span>
               </span>
             </div>
           </motion.div>

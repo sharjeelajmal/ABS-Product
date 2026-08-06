@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Play, ArrowRight, Calendar, ChevronRight } from "lucide-react";
 import { SiteButton } from "./SiteButton";
 
 const LIME = "#C5FF00";
 const F = "'Geist', system-ui, -apple-system, sans-serif";
+const UF = "'Jameel Noori Nastaleeq', 'Jameel Noori Nastaleeq Regular', 'jameel-noori-nastaleeq-regular', serif";
 
 // ─── Injected keyframe animations ────────────────────────────────────────────
 
@@ -55,26 +57,26 @@ const CSS = `
 
 // ─── Mini dashboard thumbnails ────────────────────────────────────────────────
 
-function POSThumbnail() {
+function POSThumbnail({ isUrdu }: { isUrdu?: boolean }) {
   return (
     <div style={{ padding: "10px", height: "100%", display: "flex", flexDirection: "column", gap: "6px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "2px" }}>
         <div style={{ width: 4, height: 4, borderRadius: "50%", background: LIME, boxShadow: `0 0 5px ${LIME}` }} />
-        <span style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", textTransform: "uppercase" }}>POS</span>
-        <span style={{ marginLeft: "auto", fontSize: "7px", fontFamily: F, color: LIME, background: "rgba(197,255,0,0.1)", border: `1px solid rgba(197,255,0,0.2)`, padding: "1px 5px", borderRadius: "10px" }}>LIVE</span>
+        <span style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.05em", textTransform: "uppercase" }}>POS</span>
+        <span style={{ marginLeft: "auto", fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: LIME, background: "rgba(197,255,0,0.1)", border: `1px solid rgba(197,255,0,0.2)`, padding: isUrdu ? "0 5px" : "1px 5px", borderRadius: "10px" }}>{isUrdu ? "لائیو" : "LIVE"}</span>
       </div>
       <div style={{ fontSize: "16px", fontFamily: F, fontWeight: 800, color: "#fff", lineHeight: 1 }}>$24.8K</div>
-      <div style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.35)" }}>Today's Revenue ↑14%</div>
+      <div style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.35)" }}>{isUrdu ? "آج کی آمدنی ↑14%" : "Today's Revenue ↑14%"}</div>
       <div style={{ display: "flex", alignItems: "flex-end", gap: "2px", height: "32px", marginTop: "2px" }}>
         {[30, 50, 38, 65, 45, 80, 58, 100].map((h, i) => (
           <div key={i} style={{ flex: 1, height: `${h}%`, borderRadius: "2px 2px 0 0", background: i === 7 ? LIME : "rgba(255,255,255,0.08)" }} />
         ))}
       </div>
       <div style={{ display: "flex", gap: "4px" }}>
-        {[{ v: "892", l: "Orders" }, { v: "94%", l: "Fulfill" }].map((s, i) => (
+        {[{ v: "892", l: isUrdu ? "آرڈرز" : "Orders" }, { v: "94%", l: isUrdu ? "مکمل" : "Fulfill" }].map((s, i) => (
           <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "5px", padding: "4px 5px", textAlign: "center" }}>
             <div style={{ fontSize: "10px", fontFamily: F, fontWeight: 700, color: i === 1 ? LIME : "#fff" }}>{s.v}</div>
-            <div style={{ fontSize: "7px", fontFamily: F, color: "rgba(255,255,255,0.3)" }}>{s.l}</div>
+            <div style={{ fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)" }}>{s.l}</div>
           </div>
         ))}
       </div>
@@ -82,13 +84,13 @@ function POSThumbnail() {
   );
 }
 
-function TMSThumbnail() {
+function TMSThumbnail({ isUrdu }: { isUrdu?: boolean }) {
   return (
     <div style={{ padding: "10px", height: "100%", display: "flex", flexDirection: "column", gap: "6px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
         <div style={{ width: 4, height: 4, borderRadius: "50%", background: LIME, boxShadow: `0 0 5px ${LIME}` }} />
-        <span style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Fleet</span>
-        <span style={{ marginLeft: "auto", fontSize: "7px", fontFamily: F, color: LIME }}>48 vehicles</span>
+        <span style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.05em", textTransform: "uppercase" }}>{isUrdu ? "فلیٹ" : "Fleet"}</span>
+        <span style={{ marginLeft: "auto", fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: LIME }}>{isUrdu ? "48 گاڑیاں" : "48 vehicles"}</span>
       </div>
       <div style={{ flex: 1, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "6px", position: "relative", overflow: "hidden" }}>
         <svg viewBox="0 0 120 60" style={{ width: "100%", height: "100%" }} preserveAspectRatio="none">
@@ -102,10 +104,10 @@ function TMSThumbnail() {
         </svg>
       </div>
       <div style={{ display: "flex", gap: "4px" }}>
-        {[{ v: "94%", l: "On-Time", lime: true }, { v: "24", l: "Routes" }].map((s, i) => (
+        {[{ v: "94%", l: isUrdu ? "وقت پر" : "On-Time", lime: true }, { v: "24", l: isUrdu ? "روٹس" : "Routes" }].map((s, i) => (
           <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "5px", padding: "4px", textAlign: "center" }}>
             <div style={{ fontSize: "10px", fontFamily: F, fontWeight: 700, color: s.lime ? LIME : "#fff" }}>{s.v}</div>
-            <div style={{ fontSize: "7px", fontFamily: F, color: "rgba(255,255,255,0.3)" }}>{s.l}</div>
+            <div style={{ fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)" }}>{s.l}</div>
           </div>
         ))}
       </div>
@@ -113,16 +115,16 @@ function TMSThumbnail() {
   );
 }
 
-function SMSThumbnail() {
+function SMSThumbnail({ isUrdu }: { isUrdu?: boolean }) {
   return (
     <div style={{ padding: "10px", height: "100%", display: "flex", flexDirection: "column", gap: "6px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
         <div style={{ width: 4, height: 4, borderRadius: "50%", background: LIME, boxShadow: `0 0 5px ${LIME}` }} />
-        <span style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", textTransform: "uppercase" }}>School</span>
+        <span style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.05em", textTransform: "uppercase" }}>{isUrdu ? "اسکول" : "School"}</span>
         <span style={{ marginLeft: "auto", fontSize: "7px", fontFamily: F, color: "rgba(197,255,0,0.6)" }}>2024-25</span>
       </div>
       <div style={{ fontSize: "14px", fontFamily: F, fontWeight: 800, color: "#fff", lineHeight: 1 }}>1,204</div>
-      <div style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.35)" }}>Students · 96% Attendance</div>
+      <div style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.35)" }}>{isUrdu ? "طلبہ · 96% حاضری" : "Students · 96% Attendance"}</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "2px", flex: 1 }}>
         {Array.from({ length: 21 }, (_, i) => {
           const v = [0.9, 0.7, 0.5, 0.85, 0.3, 0.95, 0.6, 0.8, 0.4, 0.9, 0.7, 0.6, 0.85, 0.5, 0.9, 0.3, 0.8, 0.7, 0.95, 0.4, 0.6][i];
@@ -133,23 +135,23 @@ function SMSThumbnail() {
   );
 }
 
-function RestaurantThumbnail() {
+function RestaurantThumbnail({ isUrdu }: { isUrdu?: boolean }) {
   const tables = [true, true, false, true, false, true, true, false, true, false, true, false];
   return (
     <div style={{ padding: "10px", height: "100%", display: "flex", flexDirection: "column", gap: "6px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
         <div style={{ width: 4, height: 4, borderRadius: "50%", background: LIME, boxShadow: `0 0 5px ${LIME}` }} />
-        <span style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Restaurant</span>
-        <span style={{ marginLeft: "auto", fontSize: "7px", fontFamily: F, color: LIME, background: "rgba(197,255,0,0.1)", padding: "1px 5px", borderRadius: "8px" }}>OPEN</span>
+        <span style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.05em", textTransform: "uppercase" }}>{isUrdu ? "ریسٹورنٹ" : "Restaurant"}</span>
+        <span style={{ marginLeft: "auto", fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: LIME, background: "rgba(197,255,0,0.1)", padding: isUrdu ? "0 5px" : "1px 5px", borderRadius: "8px" }}>{isUrdu ? "اوپن" : "OPEN"}</span>
       </div>
       <div style={{ display: "flex", gap: "4px" }}>
         <div style={{ flex: 1, background: "rgba(255,255,255,0.04)", borderRadius: "5px", padding: "4px", textAlign: "center" }}>
           <div style={{ fontSize: "12px", fontFamily: F, fontWeight: 700, color: LIME }}>23</div>
-          <div style={{ fontSize: "7px", fontFamily: F, color: "rgba(255,255,255,0.3)" }}>Orders</div>
+          <div style={{ fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)" }}>{isUrdu ? "آرڈرز" : "Orders"}</div>
         </div>
         <div style={{ flex: 1, background: "rgba(255,255,255,0.04)", borderRadius: "5px", padding: "4px", textAlign: "center" }}>
           <div style={{ fontSize: "12px", fontFamily: F, fontWeight: 700, color: "#fff" }}>18/24</div>
-          <div style={{ fontSize: "7px", fontFamily: F, color: "rgba(255,255,255,0.3)" }}>Tables</div>
+          <div style={{ fontSize: isUrdu ? "9px" : "7px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.3)" }}>{isUrdu ? "ٹیبلز" : "Tables"}</div>
         </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "3px", flex: 1 }}>
@@ -163,15 +165,15 @@ function RestaurantThumbnail() {
   );
 }
 
-function BillingThumbnail() {
+function BillingThumbnail({ isUrdu }: { isUrdu?: boolean }) {
   return (
     <div style={{ padding: "10px", height: "100%", display: "flex", flexDirection: "column", gap: "6px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
         <div style={{ width: 4, height: 4, borderRadius: "50%", background: LIME, boxShadow: `0 0 5px ${LIME}` }} />
-        <span style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Billing</span>
+        <span style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.4)", letterSpacing: isUrdu ? "0.02em" : "0.05em", textTransform: "uppercase" }}>{isUrdu ? "بلنگ" : "Billing"}</span>
       </div>
       <div style={{ fontSize: "16px", fontFamily: F, fontWeight: 800, color: LIME, lineHeight: 1 }}>$42.8K</div>
-      <div style={{ fontSize: "8px", fontFamily: F, color: "rgba(255,255,255,0.35)" }}>MRR · 384 Active</div>
+      <div style={{ fontSize: isUrdu ? "10px" : "8px", fontFamily: isUrdu ? UF : F, color: "rgba(255,255,255,0.35)" }}>{isUrdu ? "MRR · 384 فعال" : "MRR · 384 Active"}</div>
       <svg viewBox="0 0 100 40" style={{ width: "100%", flex: 1 }} preserveAspectRatio="none">
         <defs>
           <linearGradient id="vs-bill-grad" x1="0" y1="0" x2="0" y2="1">
@@ -189,7 +191,7 @@ function BillingThumbnail() {
 
 // ─── Main dashboard collage (the video thumbnail) ────────────────────────────
 
-function DashboardCollage({ hovered }: { hovered: boolean }) {
+function DashboardCollage({ hovered, isUrdu }: { hovered: boolean; isUrdu?: boolean }) {
   return (
     <div
       style={{
@@ -271,7 +273,7 @@ function DashboardCollage({ hovered }: { hovered: boolean }) {
           transition: "box-shadow 0.4s ease",
         }}
       >
-        <POSThumbnail />
+        <POSThumbnail isUrdu={isUrdu} />
       </div>
 
       {/* Top center: TMS */}
@@ -291,7 +293,7 @@ function DashboardCollage({ hovered }: { hovered: boolean }) {
           animation: "vs-float-b 5.5s ease-in-out infinite",
         }}
       >
-        <TMSThumbnail />
+        <TMSThumbnail isUrdu={isUrdu} />
       </div>
 
       {/* Bottom center: Restaurant */}
@@ -311,7 +313,7 @@ function DashboardCollage({ hovered }: { hovered: boolean }) {
           animation: "vs-float-c 6s ease-in-out infinite",
         }}
       >
-        <RestaurantThumbnail />
+        <RestaurantThumbnail isUrdu={isUrdu} />
       </div>
 
       {/* Top right: SMS */}
@@ -331,7 +333,7 @@ function DashboardCollage({ hovered }: { hovered: boolean }) {
           animation: "vs-float-b 5s ease-in-out infinite 0.8s",
         }}
       >
-        <SMSThumbnail />
+        <SMSThumbnail isUrdu={isUrdu} />
       </div>
 
       {/* Bottom right: Billing */}
@@ -351,7 +353,7 @@ function DashboardCollage({ hovered }: { hovered: boolean }) {
           animation: "vs-float-d 5.8s ease-in-out infinite 0.3s",
         }}
       >
-        <BillingThumbnail />
+        <BillingThumbnail isUrdu={isUrdu} />
       </div>
 
       {/* Floating particles */}
@@ -407,6 +409,9 @@ export function VideoSection() {
   const [hovered, setHovered] = useState(false);
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const pathname = usePathname();
+  const isUrdu = pathname?.startsWith("/ur");
 
   useEffect(() => {
     if (playing) {
@@ -518,14 +523,14 @@ export function VideoSection() {
                 />
                 <span
                   style={{
-                    fontSize: "13px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "15px" : "13px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 500,
                     color: LIME,
                     letterSpacing: "0.02em",
                   }}
                 >
-                  Product Demo
+                  {isUrdu ? "اندرونی جھلک" : "Product Demo"}
                 </span>
               </div>
             </motion.div>
@@ -533,8 +538,8 @@ export function VideoSection() {
             <motion.h2
               {...fadeUp(0.08)}
               style={{
-                fontSize: "clamp(28px, 3.2vw, 48px)",
-                fontFamily: F,
+                fontSize: isUrdu ? "clamp(34px, 3.8vw, 54px)" : "clamp(28px, 3.2vw, 48px)",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 800,
                 color: "#FFFFFF",
                 lineHeight: 1.1,
@@ -542,7 +547,7 @@ export function VideoSection() {
                 margin: "0 0 16px 0",
               }}
             >
-              Watch Our{" "}
+              {isUrdu ? "ہمارے سافٹ ویئر کو " : "Watch Our "}
               <span
                 style={{
                   background: `linear-gradient(135deg, ${LIME} 0%, #A8D800 100%)`,
@@ -551,23 +556,22 @@ export function VideoSection() {
                   backgroundClip: "text",
                 }}
               >
-                Software in Action
+                {isUrdu ? "ایکشن میں دیکھیں" : "Software in Action"}
               </span>
             </motion.h2>
 
             <motion.p
               {...fadeUp(0.15)}
               style={{
-                fontSize: "16px",
-                fontFamily: F,
+                fontSize: isUrdu ? "18px" : "16px",
+                fontFamily: isUrdu ? UF : F,
                 fontWeight: 400,
                 color: "rgba(255,255,255,0.48)",
                 lineHeight: 1.75,
                 margin: 0,
               }}
             >
-              See every system live — from POS to Fleet to School to Restaurant to
-              Recurring Billing. Real software, real workflows.
+              {isUrdu ? "چیک کریں کہ کیسے ہمارا ڈیش بورڈ، رپورٹس، اور یوزر انٹرفیس آپ کے روزمرہ کے کام کو آسان بناتا ہے۔ ایک مختصر ٹور کے لیے پلے دبائیں۔" : "See every system live — from POS to Fleet to School to Restaurant to Recurring Billing. Real software, real workflows."}
             </motion.p>
           </div>
 
@@ -618,7 +622,7 @@ export function VideoSection() {
                         transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
                       }}
                     >
-                      <DashboardCollage hovered={hovered} />
+                      <DashboardCollage hovered={hovered} isUrdu={isUrdu ?? false} />
                     </div>
 
                     {/* Cinematic overlay */}
@@ -659,15 +663,15 @@ export function VideoSection() {
                           />
                           <span
                             style={{
-                              fontSize: "14px",
-                              fontFamily: F,
+                              fontSize: isUrdu ? "16px" : "14px",
+                              fontFamily: isUrdu ? UF : F,
                               fontWeight: 600,
                               color: "rgba(255,255,255,0.7)",
-                              letterSpacing: "0.05em",
-                              textTransform: "uppercase",
+                              letterSpacing: isUrdu ? "0.02em" : "0.05em",
+                              textTransform: isUrdu ? "none" : "uppercase",
                             }}
                           >
-                            Now Playing — Product Walkthrough
+                            {isUrdu ? "اب چل رہا ہے — پروڈکٹ واک تھرو" : "Now Playing — Product Walkthrough"}
                           </span>
                         </div>
                         {/* Fake waveform */}
@@ -690,12 +694,12 @@ export function VideoSection() {
                         </div>
                         <div
                           style={{
-                            fontSize: "13px",
-                            fontFamily: F,
+                            fontSize: isUrdu ? "15px" : "13px",
+                            fontFamily: isUrdu ? UF : F,
                             color: "rgba(255,255,255,0.35)",
                           }}
                         >
-                          {Math.floor((progress / 100) * 225)}s / 3:45 — Click to pause
+                          {Math.floor((progress / 100) * 225)}s / 3:45 — {isUrdu ? "روکنے کے لیے کلک کریں" : "Click to pause"}
                         </div>
                       </div>
                     )}
@@ -729,14 +733,14 @@ export function VideoSection() {
                           <Play size={10} fill="#fff" color="#fff" />
                           <span
                             style={{
-                              fontSize: "11px",
-                              fontFamily: F,
+                              fontSize: isUrdu ? "14px" : "11px",
+                              fontFamily: isUrdu ? UF : F,
                               fontWeight: 600,
                               color: "rgba(255,255,255,0.85)",
                               letterSpacing: "0.03em",
                             }}
                           >
-                            Product Walkthrough
+                            {isUrdu ? "پروڈکٹ واک تھرو" : "Product Walkthrough"}
                           </span>
                         </div>
 
@@ -910,8 +914,8 @@ export function VideoSection() {
               />
               <p
                 style={{
-                  fontSize: "15px",
-                  fontFamily: F,
+                  fontSize: isUrdu ? "18px" : "15px",
+                  fontFamily: isUrdu ? UF : F,
                   fontWeight: 400,
                   color: "rgba(255,255,255,0.52)",
                   lineHeight: 1.7,
@@ -919,7 +923,7 @@ export function VideoSection() {
                   fontStyle: "italic",
                 }}
               >
-                From setup to daily use — see exactly what your team will experience.
+                {isUrdu ? "سیٹ اپ سے لے کر روزمرہ کے استعمال تک — دیکھیں آپ کی ٹیم کا تجربہ کیسا ہوگا۔" : "From setup to daily use — see exactly what your team will experience."}
               </p>
               <div
                 className="rs-caption-tags"
@@ -930,12 +934,12 @@ export function VideoSection() {
                   flexShrink: 0,
                 }}
               >
-                {["HD Quality", "No Sign-up"].map((tag) => (
+                {(isUrdu ? ["بہترین کوالٹی", "سائن اپ کی ضرورت نہیں"] : ["HD Quality", "No Sign-up"]).map((tag) => (
                   <span
                     key={tag}
                     style={{
-                      fontSize: "10px",
-                      fontFamily: F,
+                      fontSize: isUrdu ? "12px" : "10px",
+                      fontFamily: isUrdu ? UF : F,
                       fontWeight: 500,
                       color: "rgba(255,255,255,0.35)",
                       background: "rgba(255,255,255,0.04)",
@@ -968,7 +972,12 @@ export function VideoSection() {
               border: "1px solid rgba(255,255,255,0.07)",
             }}
           >
-            {STATS.map((s, i) => (
+            {(isUrdu ? [
+              { v: "5", l: "سافٹ ویئر پراڈکٹس" },
+              { v: "لائیو", l: "ڈیمونسٹریشن" },
+              { v: "بیسک اور پرو", l: "پلانز دستیاب" },
+              { v: "مقامی سپورٹ", l: "شامل" },
+            ] : STATS).map((s, i) => (
               <div
                 key={i}
                 className="rs-metrics-cell"
@@ -995,8 +1004,8 @@ export function VideoSection() {
                 </div>
                 <div
                   style={{
-                    fontSize: "13px",
-                    fontFamily: F,
+                    fontSize: isUrdu ? "15px" : "13px",
+                    fontFamily: isUrdu ? UF : F,
                     fontWeight: 400,
                     color: "rgba(255,255,255,0.38)",
                   }}
@@ -1020,14 +1029,14 @@ export function VideoSection() {
 
           {/* ── CTAs ───────────────────────────────────────────────────── */}
           <motion.div {...fadeUp(0.4)} className="cta-row">
-            <SiteButton href="tel:+923706277633" variant="primary">
+            <SiteButton href="tel:+923706277633" variant="primary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
               <Calendar size={15} strokeWidth={2.5} />
-              Book a Live Demo
+              {isUrdu ? "لائیو ڈیمو بک کریں" : "Book a Live Demo"}
             </SiteButton>
-            <SiteButton href="#videos" variant="secondary">
+            <SiteButton href="#videos" variant="secondary" style={{ fontFamily: isUrdu ? UF : F, fontSize: isUrdu ? 16 : undefined }}>
               <Play size={14} fill="currentColor" style={{ opacity: 0.8 }} />
-              Watch More Videos
-              <ArrowRight size={14} strokeWidth={2} style={{ opacity: 0.6 }} />
+              {isUrdu ? "مزید ویڈیوز دیکھیں" : "Watch More Videos"}
+              <ArrowRight size={14} strokeWidth={2} style={{ opacity: 0.6, transform: isUrdu ? "scaleX(-1)" : "none" }} />
             </SiteButton>
           </motion.div>
         </div>
