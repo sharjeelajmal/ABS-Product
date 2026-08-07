@@ -15,7 +15,7 @@ jobs:
       - name: ⚙️ Node.js Setup
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: 🗄️ Cache node_modules
         # (5) Caching (Optimization): Caching ~/.npm directory to speed up npm install
