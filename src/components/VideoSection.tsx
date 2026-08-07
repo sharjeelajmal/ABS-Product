@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Play, ArrowRight, Calendar, ChevronRight } from "lucide-react";
@@ -407,38 +407,12 @@ const STATS = [
 export function VideoSection() {
   const [playing, setPlaying] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const pathname = usePathname();
   const isUrdu = pathname?.startsWith("/ur");
 
-  useEffect(() => {
-    if (playing) {
-      intervalRef.current = setInterval(() => {
-        setProgress((p) => {
-          if (p >= 100) {
-            setPlaying(false);
-            return 0;
-          }
-          return p + 0.4;
-        });
-      }, 80);
-    } else {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [playing]);
-
   const handlePlay = () => {
-    if (!playing) {
-      setProgress(0);
-      setPlaying(true);
-    } else {
-      setPlaying(false);
-    }
+    setPlaying(true);
   };
 
   return (
@@ -614,16 +588,18 @@ export function VideoSection() {
                   <div style={{ position: "absolute", inset: 0 }}>
 
                     {/* Dashboard collage (thumbnail) */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        transform: hovered && !playing ? "scale(1.02)" : "scale(1)",
-                        transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
-                      }}
-                    >
-                      <DashboardCollage hovered={hovered} isUrdu={isUrdu ?? false} />
-                    </div>
+                    {!playing && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          transform: hovered ? "scale(1.02)" : "scale(1)",
+                          transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
+                        }}
+                      >
+                        <DashboardCollage hovered={hovered} isUrdu={isUrdu ?? false} />
+                      </div>
+                    )}
 
                     {/* Cinematic overlay */}
                     {!playing && (
@@ -637,70 +613,27 @@ export function VideoSection() {
                       />
                     )}
 
-                    {/* Playing state */}
+                    {/* Playing state (YouTube Video) */}
                     {playing && (
                       <div
                         style={{
                           position: "absolute",
                           inset: 0,
-                          background: "rgba(5,5,7,0.9)",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: "20px",
+                          background: "#000",
+                          zIndex: 10,
                         }}
                       >
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                          <div
-                            style={{
-                              width: 8,
-                              height: 8,
-                              borderRadius: "50%",
-                              background: LIME,
-                              boxShadow: `0 0 10px ${LIME}`,
-                            }}
-                          />
-                          <span
-                            style={{
-                              fontSize: "14px",
-                              fontFamily: isUrdu ? UF : F,
-                              fontWeight: 600,
-                              color: "rgba(255,255,255,0.7)",
-                              letterSpacing: isUrdu ? "0.02em" : "0.05em",
-                              textTransform: isUrdu ? "none" : "uppercase",
-                            }}
-                          >
-                            {isUrdu ? "اب چل رہا ہے — پروڈکٹ واک تھرو" : "Now Playing — Product Walkthrough"}
-                          </span>
-                        </div>
-                        {/* Fake waveform */}
-                        <div style={{ display: "flex", alignItems: "center", gap: "3px", height: "40px" }}>
-                          {Array.from({ length: 40 }, (_, i) => {
-                            const h = 20 + Math.sin(i * 0.7 + progress * 0.15) * 18 + Math.sin(i * 1.3) * 10;
-                            return (
-                              <div
-                                key={i}
-                                style={{
-                                  width: "3px",
-                                  height: `${Math.max(6, h)}px`,
-                                  borderRadius: "2px",
-                                  background: i / 40 < progress / 100 ? LIME : "rgba(255,255,255,0.12)",
-                                  transition: "background 0.1s",
-                                }}
-                              />
-                            );
-                          })}
-                        </div>
-                        <div
-                          style={{
-                            fontSize: "13px",
-                            fontFamily: isUrdu ? UF : F,
-                            color: "rgba(255,255,255,0.35)",
-                          }}
-                        >
-                          {Math.floor((progress / 100) * 225)}s / 3:45 — {isUrdu ? "روکنے کے لیے کلک کریں" : "Click to pause"}
-                        </div>
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src="https://www.youtube.com/embed/PfVNWMinQos?autoplay=1&rel=0&modestbranding=1"
+                          title="Product Demo"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                          style={{ border: "none" }}
+                        />
                       </div>
                     )}
 
@@ -831,29 +764,7 @@ export function VideoSection() {
                       </div>
                     )}
 
-                    {/* Progress bar */}
-                    {playing && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          height: "3px",
-                          background: "rgba(255,255,255,0.08)",
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "100%",
-                            width: `${progress}%`,
-                            background: `linear-gradient(90deg, ${LIME} 0%, #A8D800 100%)`,
-                            boxShadow: `0 0 12px ${LIME}`,
-                            transition: "width 0.08s linear",
-                          }}
-                        />
-                      </div>
-                    )}
+
 
                     {/* Glass reflection overlay at top */}
                     <div
