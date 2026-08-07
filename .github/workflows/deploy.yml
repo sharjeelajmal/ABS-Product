@@ -43,7 +43,7 @@ jobs:
           port: 21
           local-dir: ./out/
           # (2) Secure the Target Directory: absolute path on Hostinger
-          server-dir: /domains/aurabusinesssolution.com/public_html/pk/
+          server-dir: ./
           # (3) Safe Clean Slate: Retained to clear the folder before uploading
           dangerous-clean-slate: true
 
