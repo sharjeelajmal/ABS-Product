@@ -46,5 +46,3 @@ jobs:
           server-dir: ./
           # (3) Safe Clean Slate: Retained to clear the folder before uploading
           dangerous-clean-slate: true
-
-# Done
