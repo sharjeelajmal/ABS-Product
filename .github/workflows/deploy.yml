@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
     steps:
       - name: 🚚 Code Download
         uses: actions/checkout@v4
@@ -18,6 +16,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      - name: 🗄️ Cache node_modules
+        # (5) Caching (Optimization): Caching ~/.npm directory to speed up npm install
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: 📦 Packages Install
         run: npm install
@@ -28,11 +35,14 @@ jobs:
       - name: 🚀 FTP se Upload
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_HOST }}
+          # (1) Fix Variable Mismatch: strictly use FTP_SERVER secret
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
           local-dir: ./out/
-          server-dir: ./
-          dangerous-clean-slate: true # Yeh purani files ko clear kar ke nayi files rakhega
+          # (2) Secure the Target Directory: absolute path on Hostinger
+          server-dir: /domains/aurabusinesssolution.com/public_html/pk/
+          # (3) Safe Clean Slate: Retained to clear the folder before uploading
+          dangerous-clean-slate: true
