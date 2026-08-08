@@ -26,8 +26,8 @@ const TEAM_MEMBERS = [
     image: "/danny.png"
   },
   {
-    name: "Muhammad Haris",
-    nameUr: "محمد حارث",
+    name: "Haris Shah",
+    nameUr: "حارث شاہ",
     role: "HR Manager",
     roleUr: "ایچ آر مینیجر",
     description: "A dynamic executive excelling in client acquisition, relationship building, and driving revenue growth.",

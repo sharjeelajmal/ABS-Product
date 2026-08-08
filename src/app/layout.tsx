@@ -19,8 +19,8 @@ const notoNastaliq = Noto_Nastaliq_Urdu({
 });
 
 export const metadata: Metadata = {
-  title: "Modern Landing Page",
-  description: "Ultra-modern dark themed landing page",
+  title: "Aura Business Solution Products",
+  description: "Aura Business Solution Products",
 };
 
 export const viewport: Viewport = {
